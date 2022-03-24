@@ -12,9 +12,9 @@ module full_adder_gatelevel_module (a, b, cin, sum, cout);
 
 	//sum
 	//Fill this out
-	xnor_gatelevel_gate xnor_gate_inst_1 (.a(a), .b(b), .out(xnor_out_1) );
+	xnor_gate xnor_gate_inst_1 (.a(a), .b(b), .out(xnor_out_1) );
 	not_gate not_gate_inst_1(.a(xnor_out_1), .out(not_out_1) );
-	xnor_gatelevel_gate xnor_gate_inst_2(.a(not_out_1), .b(cin), .out(xnor_out_2));
+	xnor_gate xnor_gate_inst_2(.a(not_out_1), .b(cin), .out(xnor_out_2));
 	not_gate not_gate_inst_2(.a(xnor_out_2), .out(sum));
 
 	//cout

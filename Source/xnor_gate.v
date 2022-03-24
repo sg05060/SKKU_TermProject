@@ -1,4 +1,4 @@
-module xnor_gatelevel_gate (a, b, out); 
+module xnor_gate (a, b, out); 
 	
 	input a, b;
 
