@@ -27,7 +27,7 @@ module eight_bit_multipiler_module (
     eight_bit_full_adder_module eight_bit_full_adder_5(.a({cout_4,sum_4[7:1]}), .b(mask_output_6), .cin(1'b0), .sum(sum_5), .cout(cout_5));
     eight_bit_full_adder_module eight_bit_full_adder_6(.a({cout_5,sum_5[7:1]}), .b(mask_output_7), .cin(1'b0), .sum(sum_6), .cout(cout_6));
     
-    assign out = {cout_6};
+    assign out = {cout_6,sum_6,sum_5[0],sum_4[0],sum_3[0],sum_2[0],sum_1[0],sum_0[0],mask_output_0[0]};
 
 
     /*
