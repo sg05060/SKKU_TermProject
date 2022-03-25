@@ -1,6 +1,6 @@
 module half_adder_gatelevel_module (a, b, sum, cout);
 	input a, b;
-	output sum, carry;
+	output sum, cout;
 	wire xnor_out;
 	
 	// sum

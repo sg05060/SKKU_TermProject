@@ -1,5 +1,5 @@
 
-module four_bit_full_adder_modify_module (a, b, sum, cout);
+module four_bit_adder_modify_module (a, b, sum, cout);
 	input [3:0] a, b;
 	output [3:0] sum;
 	output cout;
