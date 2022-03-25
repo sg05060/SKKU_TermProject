@@ -9,6 +9,8 @@ module four_bit_full_adder_modify_module_tb;
     
     initial begin
     
+        a = 4'b0; b = 4'b0;
+    
         for (i = 0; i < 256; i = i + 1) begin
             #10 {a[3:0], b[3:0]} = i;
         end
