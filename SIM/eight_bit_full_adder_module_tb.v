@@ -13,7 +13,7 @@ module eight_bit_full_adder_module_tb;
         
         a = 8'b0; b = 8'b0; cin = 1'b0; 
         
-        for (i = 0; i < 256 * 256 * 2; i = i + 1); begin
+        for (i = 0; i < 256 * 256 * 2; i = i + 1) begin
             #10 {a[7:0], b[7:0], cin} = i;
         end
     end
