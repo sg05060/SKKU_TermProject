@@ -6,7 +6,7 @@ module three_to_one_mux_tb;
     reg s1;
     wire out;
 
-    three_to_one_mux_gatelevel_module inst_0(.a(a), .b(b), .c(c), .s0(s0), .s1(s1), .out(out));
+    three_to_one_mux_gatelevel_module inst_0(.a(a), .b(b), .c(c), .s0(s0), .s1(s1), .out(out)); //test
 
     initial begin
             
