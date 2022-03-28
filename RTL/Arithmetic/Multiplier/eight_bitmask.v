@@ -1,4 +1,4 @@
-module eight_bitmask (
+module eight_bitmask (  // sg
     input       [7:0]   a,
     input               mask,
     output wire [7:0]   out
