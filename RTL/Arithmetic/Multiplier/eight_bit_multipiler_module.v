@@ -32,13 +32,13 @@ module eight_bit_multipiler_module (
 
     /*
     wire and_out_0_0, and_out_0_1, and_out_0_2, and_out_0_3, and_out_0_4, and_out_0_5, and_out_0_6, and_out_0_7,
-         and_out_1_0, and_out_1_1, and_out_1_2, and_out_1_3, and_out_1_4, and_out_1_5, and_out_1_6, and_out_1_7,
-         and_out_2_0, and_out_2_1, and_out_2_2, and_out_2_3, and_out_2_4, and_out_2_5, and_out_2_6, and_out_2_7,
-         and_out_3_0, and_out_3_1, and_out_3_2, and_out_3_3, and_out_3_4, and_out_3_5, and_out_3_6, and_out_3_7,
-         and_out_4_0, and_out_4_1, and_out_4_2, and_out_4_3, and_out_4_4, and_out_4_5, and_out_4_6, and_out_4_7,
-         and_out_5_0, and_out_5_1, and_out_5_2, and_out_5_3, and_out_5_4, and_out_5_5, and_out_5_6, and_out_5_7,
-         and_out_6_0, and_out_6_1, and_out_6_2, and_out_6_3, and_out_6_4, and_out_6_5, and_out_6_6, and_out_6_7,
-         and_out_7_0, and_out_7_1, and_out_7_2, and_out_7_3, and_out_7_4, and_out_7_5, and_out_7_6, and_out_7_7; 
+        and_out_1_0, and_out_1_1, and_out_1_2, and_out_1_3, and_out_1_4, and_out_1_5, and_out_1_6, and_out_1_7,
+        and_out_2_0, and_out_2_1, and_out_2_2, and_out_2_3, and_out_2_4, and_out_2_5, and_out_2_6, and_out_2_7,
+        and_out_3_0, and_out_3_1, and_out_3_2, and_out_3_3, and_out_3_4, and_out_3_5, and_out_3_6, and_out_3_7,
+        and_out_4_0, and_out_4_1, and_out_4_2, and_out_4_3, and_out_4_4, and_out_4_5, and_out_4_6, and_out_4_7,
+        and_out_5_0, and_out_5_1, and_out_5_2, and_out_5_3, and_out_5_4, and_out_5_5, and_out_5_6, and_out_5_7,
+        and_out_6_0, and_out_6_1, and_out_6_2, and_out_6_3, and_out_6_4, and_out_6_5, and_out_6_6, and_out_6_7,
+        and_out_7_0, and_out_7_1, and_out_7_2, and_out_7_3, and_out_7_4, and_out_7_5, and_out_7_6, and_out_7_7; 
 
     and_gate and_gate_0_0(.a(a[0]), .b(b[0]), .out(and_out_0_0));
     and_gate and_gate_0_1(.a(a[1]), .b(b[0]), .out(and_out_0_1));
