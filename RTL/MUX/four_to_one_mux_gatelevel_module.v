@@ -6,7 +6,8 @@ module four_to_one_mux_gatelevel_module (a, b, c, d, s0, s1, out);
 	output out;
 	
 	wire not_1_output, not_2_output;
-	wire and_1_output, and_2_output, and_3_output, and_4_output, and_5_output, and_6_output, and_7_output, and_8_output;
+	wire and_1_output, and_2_output, and_3_output, and_4_output;
+	wire and_5_output, and_6_output, and_7_output, and_8_output;
 	wire or_1_output, or_2_output;
 	
 	//Fill this out
