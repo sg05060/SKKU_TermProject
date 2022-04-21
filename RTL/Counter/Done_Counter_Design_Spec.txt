@@ -1,0 +1,19 @@
+module명 : Done_Counter
+
+//Port//
+input
+- clk
+- rstn
+- en
+- [7:0] cnt_in (8bit adder 기준)
+
+output
+- [7:0] cnt_out
+- done
+
+Description
+- posedge sequential module(posedge 일 때마다 내부 cnt값이 증가)
+- enable신호가 들어오면 1 clock마다 내부의 cnt값이 1씩 증가함. cnt값이 cnt_in과 같아지면 done신호를 1thick high로 띄워줌.
+- en신호가 1인 경우에는 ring counter처럼 계속 동작. (0 -> 1 -> 2 -> ... k -> 0 -> 1 -> 2 -> ...)
+- asynchronous reset : reset이 1'b0인 경우에는 내부의 cnt값이 8'b0으로 계속 초기화
+- enable 신호가 0인 경우에는 cnt값의 증가가 멈추고 해당 값을 유지한다.
