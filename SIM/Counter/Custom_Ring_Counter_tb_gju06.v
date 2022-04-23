@@ -1,14 +1,16 @@
-module tb_custom_ring_counter;
+module Custom_Ring_Counter_gju06_tb;
     reg             clk;
     reg             rst;
     reg             en;
-    wire    [7:0]   i_num_cnt;
+    reg     [7:0]   i_num_cnt;
     wire    [7:0]   cnt_o;
     wire            done_o;
     
     // making clock signal
     initial begin
-        always #5 clk = ~clk;
+        clk = 1'b0;
+        forever
+            #5 clk = ~clk;
     end
     
     // 
@@ -19,9 +21,11 @@ module tb_custom_ring_counter;
             i_num_cnt = 8'b0;
         
         #50 rst = 0;
-        
+        #20 i_num_cnt = 8'd30;
         #10 en  = 1; 
-            i_num_cnt = 8'd30;
+            wait (done_o==1);
+            @(posedge clk);
+            en  = 0;
         #1000;
     end
     

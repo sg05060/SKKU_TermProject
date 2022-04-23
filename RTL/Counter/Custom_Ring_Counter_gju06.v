@@ -13,6 +13,7 @@ module Custom_Ring_Counter_gju06
     wire [7:0] cnt_n;           // next count that flipflop update when posedge clock
     wire [7:0] add_o;           // add output with current count and 8'b0000_0001
     wire [7:0] xnor_eight_o;    // xnor with current count
+    wire [7:0] mux_eight_o;
     wire and_bitwise_eight_o;   // bitwise eight bit and gate
     wire done;                  // done signal 1 thick when input count num equal to current count
     
