@@ -36,18 +36,48 @@ module Custom_Ring_Counter_gju06_tb;
         rst                         = 1'b0; // release the reset
     end
     
+    initial begin
+        en                          = 1'b0;
+        i_num_cnt                   = 1'b0;
+    end
+    
     // testbench
     initial begin
+        // test plan1
         wait (rst==0);      // wait for reset release
         @(posedge clk);     // wait for clock rising
         
-        #3  i_num_cnt   = TEST_CNT_VAL;
-            en          = 1;
+        i_num_cnt                   = TEST_CNT_VAL;
+        en                          = 1;
         
-        wait (done_o==1);               // wait for counter actiavation is done
-        repeat (2) @(posedge clk);      // wait for clock signal twice
-        en  = 0;                        // stop counter actiavation 
+        wait (done_o==1);                       // wait for counter actiavation is done
+        @(posedge clk);              // wait for clock signal twice
+        @(posedge clk);
+        @(posedge clk);        
+        #3
+        en                          = 0;        // stop counter actiavation 
         #(CLOCK_DELAY * 2)
+        
+        
+        // test plan2
+        rst                         = 1'b1; // reset initialize(positive reset -> initialize 1 for reset all signal)
+        #15
+        rst                         = 1'b0; // release the reset
+        
+        wait (rst==0);
+        @(posedge clk);
+        #3
+        i_num_cnt                   = TEST_CNT_VAL * 2;
+        en                          = 1;
+        
+        wait (done_o==1);
+        @(posedge clk);
+        @(posedge clk);
+        @(posedge clk);
+        #3
+        en = 0;
+        #(CLOCK_DELAY * 2)
+        
         $stop;
     end
     
