@@ -1,5 +1,3 @@
-
-
 module subtractor(X, Y, Bin, out, Bo);
 
     input X, Y;
@@ -29,6 +27,6 @@ module 8_bit_subtractor(X, Y, Bin, out, Bo);
     subtractor sub5(.X(X[5]), .Y(Y[5]), .Bin(B[4]), .out(out[5]), .Bo(B[5]));
     subtractor sub6(.X(X[6]), .Y(Y[6]), .Bin(B[5]), .out(out[6]), .Bo(B[6]));
     subtractor sub7(.X(X[7]), .Y(Y[7]), .Bin(B[6]), .out(out[7]), .Bo(Bo));
- end
+end
 
 endmodule
