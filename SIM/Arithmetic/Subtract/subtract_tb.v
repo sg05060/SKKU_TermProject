@@ -6,7 +6,7 @@ module tb;
   wire[7:0] OUT;
   wire D;
 
-  subtractor  subtract(.X(A), .Y(B), .Bin(C), .out(OUT), .Bo(D));
+  subtractor  subtract(.x(A), .y(B), .b_in(C), .out(OUT), .b_out(D));
 
 initial 
 begin

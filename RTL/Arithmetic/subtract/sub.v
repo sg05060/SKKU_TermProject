@@ -1,10 +1,10 @@
-module sub(X, Y, Bin, out, Bo);
+module sub(x, y, b_in, out, b_out);
 
-    input X, Y;
-    input Bin;
-    output out, Bo;
+    input x, y;
+    input b_in;
+    output out, b_out;
 
-assign out = (!X&!Y&Bin) || (!X&Y&!Bin) || (X&!Y&!Bin) || (X&Y&Bin);
-assign Bo = (!X&!Y&Bin) || (!X&Y&!Bin) || (!X&Y&Bin) || (X&Y&Bin);
+assign out = (!x&!y&b_in) || (!x&y&!b_in) || (x&!y&!b_in) || (x&y&b_in);
+assign b_out = (!x&!y&b_in) || (!x&y&!b_in) || (!x&y&b_in) || (x&y&b_in);
 
 endmodule
