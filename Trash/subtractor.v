@@ -1,16 +1,4 @@
-module subtractor(X, Y, Bin, out, Bo);
-
-    input X, Y;
-    input Bin;
-    output out, Bo;
-
-assign out = (!X&!Y&Bin) || (!X&B&!Bin) || (A&!B&!Bin) || (A&B&Bin);
-assign Bo = (!X&!Y&Bin) || (!X&B&!Bin) || (!A&B&Bin) || (A&B&Bin);
-
-endmodule
-
-
-module 8_bit_subtractor(X, Y, Bin, out, Bo);
+module bit_8_subtractor(X, Y, Bin, out, Bo);
 
     input[7:0] X, Y;
     input Bin;
