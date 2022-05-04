@@ -43,7 +43,8 @@ module custom_ring_couter(clk, rst, en, i_num_cnt, out,is_done_o);
         .s(is_done), 
         .out(reg_in)
     );
-    eight_bit_xnor_gate eight_bit_xnor_gate_inst(.a(reg_out), .b(num_cnt), .out(xnor_out));
+    // modify!
+    eight_bit_xnor_gate eight_bit_xnor_gate_inst(.a(reg_out), .b(num_cnt-1), .out(xnor_out));
     eight_bit_wise_and_gate eight_bit_wise_and_gate_inst(.a(xnor_out), .out(bit_wise_out));
     and_gate and_gate_inst (.a(bit_wise_out), .b(en), .out(is_done));
     eight_bit_d_flip_flop eight_bit_d_flip_flop_inst(.d(i_num_cnt), .clk(clk), .q(num_cnt), .q_bar());
