@@ -12,8 +12,6 @@ module tb_custom_ring_counter;
         #50 rst = 0;
         #10 en = 1; i_num_cnt = 8'b0000_1010;
         #1000;
-
-
     end
     custom_ring_couter custom_ring_couter_inst(
         .clk(clk), 
