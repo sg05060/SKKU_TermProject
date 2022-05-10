@@ -1,4 +1,4 @@
-module PE(a_in, b_in, y_in, en_reg_A, en_reg_B, en_reg_Add, en_Acc, clk, rst, y_out, a_out, s_mode_out);
+module PE(a_in, b_in, y_in, en_reg_A, en_reg_B, en_reg_Add, en_reg_Acc, clk, rst, y_out, a_out, s_mode_out);
 
 	input [7:0] a_in, b_in, y_in;
     input en_reg_A, en_reg_B, en_reg_Add, en_reg_Acc, clk, rst;
@@ -9,7 +9,7 @@ module PE(a_in, b_in, y_in, en_reg_A, en_reg_B, en_reg_Add, en_Acc, clk, rst, y_
 
 //Serial mode
 eight_bit_multipiler_module  eight_bit_multiplier1(.a(a_in), .b(b_in), .out(mul_out1));
-eight_bit_accumulator eight_bit_accumulator(.in(mul_out1), .clk(clk), .en(en_Acc) .rst(rst), .out(s_mode_out));
+eight_bit_accumulator eight_bit_accumulator(.in(mul_out1), .clk(clk), .en(en_reg_Acc), .rst(rst), .out(s_mode_out));
 
 //Parallel mode
 eight_bit_en_register register_A(.in(a_in), .clk(clk), .en(en_reg_A), .rst(rst), .out(load_a));
