@@ -10,23 +10,23 @@ module systolic_array(clk, rst, en_reg_A, en_reg_B, en_reg_Add, en_reg_Acc, row1
 	wire [7:0] adder_sum;
 
 	// 3x3 PE structure
-	PE pe1(.a_in(row1_in), .b_in(col1_in), .y_in(8'b0), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe1(.a_in(row1_in), .b_in(col1_in), .y_in(), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[0]), .a_out(wire_A[0]), .b_out(wire_b_out[0]), .s_mode_out());
-	PE pe2(.a_in(wire_A[0]), .b_in(col2_in), .y_in(8'b0), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe2(.a_in(wire_A[0]), .b_in(col2_in), .y_in(), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[1]), .a_out(wire_A[1]), .b_out(wire_b_out[1]), .s_mode_out());
-	PE pe3(.a_in(wire_A[1]), .b_in(col3_in), .y_in(8'b0), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe3(.a_in(wire_A[1]), .b_in(col3_in), .y_in(), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[2]), .a_out(), .b_out(wire_b_out[2]), .s_mode_out());
-	PE pe4(.a_in(row2_in), .b_in(wire_b_out[0]), .y_in(wire_B[0]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe4(.a_in(row2_in), .b_in(wire_b_out[0]), .y_in(wire_B[0]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[3]), .a_out(wire_A[2]), .b_out(wire_b_out[3]), .s_mode_out());
-	PE pe5(.a_in(wire_A[2]), .b_in(wire_b_out[1]), .y_in(wire_B[1]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe5(.a_in(wire_A[2]), .b_in(wire_b_out[1]), .y_in(wire_B[1]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[4]), .a_out(wire_A[3]), .b_out(wire_b_out[4]), .s_mode_out());
-	PE pe6(.a_in(wire_A[3]), .b_in(wire_b_out[2]), .y_in(wire_B[2]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe6(.a_in(wire_A[3]), .b_in(wire_b_out[2]), .y_in(wire_B[2]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[5]), .a_out(), .b_out(wire_b_out[5]), .s_mode_out());
-	PE pe7(.a_in(row3_in), .b_in(wire_b_out[3]), .y_in(wire_B[3]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe7(.a_in(row3_in), .b_in(wire_b_out[3]), .y_in(wire_B[3]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[6]), .a_out(wire_A[4]), .b_out(), .s_mode_out());
-	PE pe8(.a_in(wire_A[4]), .b_in(wire_b_out[4]), .y_in(wire_B[4]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe8(.a_in(wire_A[4]), .b_in(wire_b_out[4]), .y_in(wire_B[4]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[7]), .a_out(wire_A[5]), .b_out(), .s_mode_out());
-	PE pe9(.a_in(wire_A[5]), .b_in(wire_b_out[5]), .y_in(wire_B[5]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_reg_Acc(en_reg_Acc),
+	PE pe9(.a_in(wire_A[5]), .b_in(wire_b_out[5]), .y_in(wire_B[5]), .en_reg_A(en_reg_A), .en_reg_B(en_reg_B), .en_reg_Add(en_reg_Add), .en_Acc(en_reg_Acc),
 		   .clk(clk), .rst(rst), .y_out(wire_B[8]), .a_out(), .b_out(), .s_mode_out());	
 
 

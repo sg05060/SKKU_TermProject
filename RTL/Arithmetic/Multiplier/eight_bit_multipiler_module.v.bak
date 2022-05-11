@@ -1,7 +1,7 @@
 module eight_bit_multipiler_module (
     input [7:0] a,
     input [7:0] b,
-    output [7:0] out
+    output [15:0] out
 );
 
     wire [7:0]  mask_output_0, mask_output_1, mask_output_2, mask_output_3, 
