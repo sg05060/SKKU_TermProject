@@ -61,9 +61,9 @@ module tb_Top_SA_Data_Loader;
         #10 mode = 0; Weight_Preloader_en = 1;
         wait(is_WL_done_o == 1'b1);
         @(posedge clk);
-            #1 mode = 1; Weight_Preloader_en = 0; Feature_Loader_en = 1; feature_baseaddr = 0;
+            #1 mode = 1; Weight_Preloader_en = 0; Feature_Loader_en = 1; feature_baseaddr = 6'b00_1001;
         wait(is_FL_done_o == 1'b1);
         @(posedge clk);
-            #1 feature_baseaddr = 6'b00_0001;
+            #1 feature_baseaddr = 6'b00_1010;
     end
 endmodule

@@ -26,7 +26,7 @@ module Feature_Loader (
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),
-        .i_num_cnt      (8'b0001_0010), 
+        .i_num_cnt      (8'b0000_1001), 
         .out            (cnt), 
         .is_done_o      (is_done_o)
     );
@@ -75,7 +75,7 @@ module Feature_Loader (
     eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_1(
             .a(out1), 
             .b(8'b0), 
-            .s(three_bit_sel[0]), 
+            .s(three_bit_sel[2]), 
             .out(i_reg_1)
     );
     eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_2(
@@ -87,13 +87,13 @@ module Feature_Loader (
     eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_3(
             .a(out3), 
             .b(8'b0), 
-            .s(three_bit_sel[2]), 
+            .s(three_bit_sel[0]), 
             .out(i_reg_3)
     );
     eight_bit_en_register eight_bit_en_register_1(
         .in(i_reg_1), 
         .clk(clk), 
-        .en(three_bit_en[0]), 
+        .en(three_bit_en[2]), 
         .rst(rst), 
         .out(feature_1)
     );
@@ -108,7 +108,7 @@ module Feature_Loader (
    eight_bit_en_register eight_bit_en_register_3(
         .in(i_reg_3), 
         .clk(clk), 
-        .en(three_bit_en[2]), 
+        .en(three_bit_en[0]), 
         .rst(rst), 
         .out(feature_3)
     );
