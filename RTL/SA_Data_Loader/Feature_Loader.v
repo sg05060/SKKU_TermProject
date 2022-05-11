@@ -9,6 +9,8 @@ module Feature_Loader (
     output [7:0] feature_1,
     output [7:0] feature_2,
     output [7:0] feature_3,
+    output is_done_o,
+    output sa_reg_en,
     output wire sa_en
 );
     wire [7:0] cnt;
@@ -125,4 +127,10 @@ module Feature_Loader (
         .q_bar()
     );
 
+    d_flip_flop_behavioral_module d_flip_flop_2 (
+        .d(is_done_o), 
+        .clk(clk), 
+        .q(sa_reg_en), 
+        .q_bar()
+    );
 endmodule

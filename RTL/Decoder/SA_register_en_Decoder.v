@@ -1,4 +1,4 @@
-module SA_3_to_1_MUX_SEL_Decoder(
+module SA_register_en_Decoder(
     input [3:0] cnt,
     output reg en
 );
