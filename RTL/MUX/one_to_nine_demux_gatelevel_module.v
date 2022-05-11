@@ -26,8 +26,8 @@ module one_to_nine_demux_gatelevel_module (a, s, out1,out2,out3,out4,out5,out6,o
     );
     one_to_four_demux_gatelevel_module one_to_four_demux_1(
         .a(out_2), 
-        .s0(s[1]), 
-        .s1(s[0]),
+        .s0(s[0]), 
+        .s1(s[1]),
         .out1(out1),
         .out2(out2), 
         .out3(out3), 
@@ -35,8 +35,8 @@ module one_to_nine_demux_gatelevel_module (a, s, out1,out2,out3,out4,out5,out6,o
     );
     one_to_four_demux_gatelevel_module one_to_four_demux_2(
         .a(out_3), 
-        .s0(s[1]), 
-        .s1(s[0]),
+        .s0(s[0]), 
+        .s1(s[1]),
         .out1(out5),
         .out2(out6), 
         .out3(out7), 

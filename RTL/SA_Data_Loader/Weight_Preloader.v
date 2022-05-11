@@ -78,6 +78,9 @@ module Weight_Preloader(
         .out8(preload_weight_8),
         .out9(preload_weight_9)
     );
-    assign addr = cnt[5:0];
+    SA_weight_address_decoder SA_weight_address_decoder(
+        .cnt(cnt[3:0]),
+        .addr(addr)
+    );
 
 endmodule

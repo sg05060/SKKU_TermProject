@@ -22,6 +22,7 @@ module Feature_Loader (
     wire [5:0] offset_addr;
     wire [7:0] out1,out2,out3;
     wire [7:0] i_reg_1,i_reg_2,i_reg_3;
+    wire sa_reg_en_d;
     custom_ring_couter counter(
         .clk            (clk), 
         .rst            (rst), 
@@ -75,7 +76,7 @@ module Feature_Loader (
     eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_1(
             .a(out1), 
             .b(8'b0), 
-            .s(three_bit_sel[0]), 
+            .s(three_bit_sel[2]), 
             .out(i_reg_1)
     );
     eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_2(
@@ -87,13 +88,13 @@ module Feature_Loader (
     eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_3(
             .a(out3), 
             .b(8'b0), 
-            .s(three_bit_sel[2]), 
+            .s(three_bit_sel[0]), 
             .out(i_reg_3)
     );
     eight_bit_en_register eight_bit_en_register_1(
         .in(i_reg_1), 
         .clk(clk), 
-        .en(three_bit_en[0]), 
+        .en(three_bit_en[2]), 
         .rst(rst), 
         .out(feature_1)
     );
@@ -108,7 +109,7 @@ module Feature_Loader (
    eight_bit_en_register eight_bit_en_register_3(
         .in(i_reg_3), 
         .clk(clk), 
-        .en(three_bit_en[2]), 
+        .en(three_bit_en[0]), 
         .rst(rst), 
         .out(feature_3)
     );
@@ -129,6 +130,12 @@ module Feature_Loader (
 
     d_flip_flop_behavioral_module d_flip_flop_2 (
         .d(is_done_o), 
+        .clk(clk), 
+        .q(sa_reg_en_d), 
+        .q_bar()
+    );
+    d_flip_flop_behavioral_module d_flip_flop_3(
+        .d(sa_reg_en_d), 
         .clk(clk), 
         .q(sa_reg_en), 
         .q_bar()
