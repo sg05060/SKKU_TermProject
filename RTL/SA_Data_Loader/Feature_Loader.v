@@ -27,7 +27,7 @@ module Feature_Loader (
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),
-        .i_num_cnt      (8'b0001_0010), 
+        .i_num_cnt      (8'b0000_1001), 
         .out            (cnt), 
         .is_done_o      (is_done_o)
     );
