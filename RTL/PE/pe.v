@@ -1,4 +1,4 @@
-module PE(a_in, b_in, y_in, en_reg_A, en_reg_B, en_reg_Add, en_reg_Acc, clk, rst, y_out, a_out, s_mode_out);
+module PE(a_in, b_in, y_in, en_reg_A, en_reg_B, en_reg_Add, en_reg_Acc, clk, rst, y_out, a_out, b_out, s_mode_out);
 
 
 	input [7:0] a_in, b_in, y_in, b_out; // b_out is used only for simaulation systolic array
