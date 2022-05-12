@@ -27,7 +27,7 @@ module top_serial_mode (
         .f_out(f_out),
         .acc_en(acc_en)
     );
-
+    /*
     acc_test acc_test(
         .clk(clk),
         .w_out(w_out),
@@ -36,6 +36,22 @@ module top_serial_mode (
         .en(acc_en),
         .out(out)
     );
+    */
+    PE PE(
+        .a_in(f_out),
+        .b_in(w_out), 
+        .y_in(),
+        .en_reg_A(),
+        .en_reg_B(), 
+        .en_reg_Add(), 
+        .en_Acc(acc_en), 
+        .clk(clk), 
+        .rst(rst), 
+        .y_out(), 
+        .a_out(), 
+        .s_mode_out()
+        );
+
 
     single_port_ram ram(
 	.data(),
