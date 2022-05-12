@@ -22,7 +22,8 @@ module Feature_Loader (
     wire [5:0] offset_addr;
     wire [7:0] out1,out2,out3;
     wire [7:0] i_reg_1,i_reg_2,i_reg_3;
-    wire sa_reg_en_d;
+    wire sa_reg_en_1_d;
+    wire sa_reg_en_2_d;
     custom_ring_couter counter(
         .clk            (clk), 
         .rst            (rst), 
@@ -131,11 +132,17 @@ module Feature_Loader (
     d_flip_flop_behavioral_module d_flip_flop_2 (
         .d(is_done_o), 
         .clk(clk), 
-        .q(sa_reg_en_d), 
+        .q(sa_reg_en_1_d), 
         .q_bar()
     );
-    d_flip_flop_behavioral_module d_flip_flop_3(
-        .d(sa_reg_en_d), 
+    d_flip_flop_behavioral_module d_flip_flop_3 (
+        .d(sa_reg_en_1_d), 
+        .clk(clk), 
+        .q(sa_reg_en_2_d), 
+        .q_bar()
+    );
+    d_flip_flop_behavioral_module d_flip_flop_4(
+        .d(sa_reg_en_2_d), 
         .clk(clk), 
         .q(sa_reg_en), 
         .q_bar()
