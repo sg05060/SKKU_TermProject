@@ -1,19 +1,20 @@
-module top_serial_mode (
+module Serial_mode (
     input clk,
     input rst,
     input en,
     input [7:0] feature_baseaddr,
+    input [7:0] q,
 
+    output [5:0] addr,
+    output we,
     output is_done_o,
     output [7:0] out
 );
 
-    wire we;
     wire [7:0] w_out;
     wire [7:0] f_out;
     wire       acc_en;
-    wire    [7:0]   q;
-    wire [5:0] addr;
+
     Serial_Data_loader Serial_Data_loader(
         .clk(clk),
         .rst(rst),
@@ -27,16 +28,6 @@ module top_serial_mode (
         .f_out(f_out),
         .acc_en(acc_en)
     );
-    /*
-    acc_test acc_test(
-        .clk(clk),
-        .w_out(w_out),
-        .f_out(f_out),
-        .rst(rst),
-        .en(acc_en),
-        .out(out)
-    );
-    */
     PE PE(
         .a_in(f_out),
         .b_in(w_out), 
@@ -50,14 +41,5 @@ module top_serial_mode (
         .y_out(), 
         .a_out(), 
         .s_mode_out()
-        );
-
-
-    single_port_ram ram(
-	.data(),
-	.addr(addr),
-	.we(we), 
-    .clk(clk),
-	.q(q)
     );
 endmodule
