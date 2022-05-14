@@ -14,6 +14,7 @@ module Controller(
     output reg [5:0] addr_0,
     output reg we_0,
 
+    output reg mem_sel, 
     output reg [7:0] serial_mode_feature_baseaddr,
     output reg [7:0] systolic_mode_feature_baseaddr,
     output reg serial_mode_en,
@@ -74,10 +75,11 @@ module Controller(
     parameter S_SYSTOLIC_MODE_STRIDE_4 = 7'b010_0100;
     parameter S_SYSTOLIC_MODE_WAIT_1   = 7'b010_0101;
     parameter S_SYSTOLIC_MODE_WAIT_2   = 7'b010_0110;
-    parameter S_SYSTOLIC_MODE_DONE     = 7'b010_0111;
+    parameter S_SYSTOLIC_MODE_WAIT_3   = 7'b010_0111;
+    parameter S_SYSTOLIC_MODE_DONE     = 7'b010_1000;
 
-    parameter S_DISPLAY_MODE_EN = 7'b010_1000;
-    parameter S_DISPLAY_MODE_DONE = 7'b010_1001;
+    parameter S_DISPLAY_MODE_EN = 7'b010_1001;
+    parameter S_DISPLAY_MODE_DONE = 7'b010_1010;
 
 
     reg [6:0] next_state;
@@ -195,6 +197,8 @@ module Controller(
             S_SYSTOLIC_MODE_WAIT_1            : 
                                                 next_state = S_SYSTOLIC_MODE_WAIT_2;
             S_SYSTOLIC_MODE_WAIT_2            : 
+                                                next_state = S_SYSTOLIC_MODE_WAIT_3;
+            S_SYSTOLIC_MODE_WAIT_3            : 
                                                 next_state = S_SYSTOLIC_MODE_DONE;
             S_SYSTOLIC_MODE_DONE              : 
                                                 next_state = S_DISPLAY_MODE_EN;
@@ -202,6 +206,8 @@ module Controller(
 
             S_DISPLAY_MODE_EN                 : if(display_done)
                                                     next_state = S_DISPLAY_MODE_DONE;
+                                                    else
+                                                    next_state = S_DISPLAY_MODE_EN;
             S_DISPLAY_MODE_DONE               : 
                                                     next_state = S_RESET;
         endcase
@@ -214,7 +220,7 @@ module Controller(
                                     rst_display_module              = 1'b1;
                                     addr_0                          = 6'b0;
                                     we_0                            = 1'b0;
-
+                                    mem_sel = 0;
                                     serial_mode_feature_baseaddr    = 8'b0;
                                     systolic_mode_feature_baseaddr  = 8'b0;
                                     serial_mode_en                  = 1'b0;
@@ -350,63 +356,76 @@ module Controller(
                                     addr_0  = 6'b01_1000;
                                     data    = a44;
                                     we_0    = 1'b1;
+                                    rst_computation_module = 1'b0;
                                 end
 
             S_SERIAL_MODE_STRIDE_1  :   begin
-                                            
-                                        
+                                            mem_sel = 1'b1;
+                                            serial_mode_en = 1'b1;
+                                            serial_mode_feature_baseaddr = 6'b00_1001;
+                                            computation_mode_sel = 1'b0;
                                         end
-            S_SERIAL_MODE_STRIDE_2  :   if(serial_mode_done)
-                                            next_state = S_SERIAL_MODE_STRIDE_3;
-                                        else
-                                            next_state = S_SERIAL_MODE_STRIDE_2;
-            S_SERIAL_MODE_STRIDE_3  :   if(serial_mode_done)
-                                            next_state = S_SERIAL_MODE_STRIDE_4;
-                                        else
-                                            next_state = S_SERIAL_MODE_STRIDE_3;   
-            S_SERIAL_MODE_STRIDE_4  :   if(serial_mode_done)
-                                            next_state = S_SERIAL_MODE_WAIT;
-                                        else
-                                            next_state = S_SERIAL_MODE_STRIDE_4;
-            S_SERIAL_MODE_WAIT      :  
-                                            next_state = S_SERIAL_MODE_DONE;
-            S_SERIAL_MODE_DONE      :  
-                                            next_state = S_SYSTOLIC_MODE_WEIGHT_PRELOAD;
+            S_SERIAL_MODE_STRIDE_2  :   begin
+                                            serial_mode_feature_baseaddr = 6'b00_1010;
+                                        end
+                                            
+            S_SERIAL_MODE_STRIDE_3  :   begin
+                                            serial_mode_feature_baseaddr = 6'b00_1101;
+                                        end
+                                        
+            S_SERIAL_MODE_STRIDE_4  :   begin
+                                            serial_mode_feature_baseaddr = 6'b00_1110;
+                                        end  
+            S_SERIAL_MODE_WAIT      :   begin
+                                            serial_mode_en = 1'b0;
+                                        end
+            S_SERIAL_MODE_DONE      :   begin end
+                                    
 
-
-
-            S_SYSTOLIC_MODE_WEIGHT_PRELOAD  : if(weight_Preloader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_1;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_WEIGHT_PRELOAD;
-            S_SYSTOLIC_MODE_STRIDE_1          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_2;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_1;
-            S_SYSTOLIC_MODE_STRIDE_2          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_3;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_2;
-            S_SYSTOLIC_MODE_STRIDE_3          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_4;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_3;
-            S_SYSTOLIC_MODE_STRIDE_4          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_WAIT_1;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_4;
-            S_SYSTOLIC_MODE_WAIT_1            : 
-                                                next_state = S_SYSTOLIC_MODE_WAIT_2;
-            S_SYSTOLIC_MODE_WAIT_2            : 
-                                                next_state = S_SYSTOLIC_MODE_DONE;
-            S_SYSTOLIC_MODE_DONE              : 
-                                                next_state = S_DISPLAY_MODE_EN;
+            S_SYSTOLIC_MODE_WEIGHT_PRELOAD  :   begin
+                                                    computation_mode_sel = 1'b1;
+                                                    Weight_Preloader_en = 1'b1;
+                                                    systolic_mode = 1'b0;
+                                                end 
+            S_SYSTOLIC_MODE_STRIDE_1          : begin
+                                                    Weight_Preloader_en = 1'b0;
+                                                    Feature_Loader_en = 1'b1;
+                                                    systolic_mode = 1'b1;
+                                                    systolic_mode_feature_baseaddr = 6'b00_1001;
+                                                    c_reg_sel = 2'b00;
+                                                end
+            S_SYSTOLIC_MODE_STRIDE_2          : begin
+                                                    systolic_mode_feature_baseaddr = 6'b00_1010;
+                                                    c_reg_sel = 2'b01;
+                                                end
+                                                
+            S_SYSTOLIC_MODE_STRIDE_3          : begin
+                                                    systolic_mode_feature_baseaddr = 6'b00_1101;
+                                                    c_reg_sel = 2'b10;
+                                                end
+            S_SYSTOLIC_MODE_STRIDE_4          : begin
+                                                    systolic_mode_feature_baseaddr = 6'b00_1110;
+                                                    c_reg_sel = 2'b11;
+                                                end
+            S_SYSTOLIC_MODE_WAIT_1            : begin
+                                                    Feature_Loader_en = 1'b0;
+                                                end
+                                                
+            S_SYSTOLIC_MODE_WAIT_2            : begin end
+                                                
+            S_SYSTOLIC_MODE_DONE              : begin
+                                                    rst_computation_module = 1'b1;
+                                                    rst_display_module = 1'b0;
+                                                end
+                                                
             
 
-            S_DISPLAY_MODE_EN                 : if(display_done)
-                                                    next_state = S_DISPLAY_MODE_DONE;
-            S_DISPLAY_MODE_DONE               : 
-                                                    next_state = S_RESET;
+            S_DISPLAY_MODE_EN                 : begin 
+                                                    display_mode_en = 1'b1;
+                                                end
+            S_DISPLAY_MODE_DONE               : begin
+                                                    rst_display_module = 1'b1;
+                                                end
         endcase
     end
 

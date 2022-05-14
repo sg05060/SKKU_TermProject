@@ -28,13 +28,15 @@ module Seven_segment_LED_Display_Controller(
         if(reset==1)
             one_second_counter <= 0;
         else begin
-            if(one_second_counter>=99999999) 
+            if(one_second_counter>=99999999)
+            //if(one_second_counter>=10)  
                 one_second_counter <= 0;
             else
                 one_second_counter <= one_second_counter + 1;
         end
     end 
     assign one_second_enable = (one_second_counter==99999999)?1:0;
+    //assign one_second_enable = (one_second_counter==10)?1:0;
     always @(posedge clock_100Mhz or posedge reset)
     begin
         if(reset==1) begin
@@ -55,7 +57,7 @@ module Seven_segment_LED_Display_Controller(
     begin
         if(reset==1)
             sel <= 2'b0;
-        else if(one_second_enable==1)
+        else if(one_second_enable==1 && en == 1'b1)
             sel <= sel + 1;
     end
     assign is_done_o = (sel == 2'b11) && en;
@@ -68,6 +70,7 @@ module Seven_segment_LED_Display_Controller(
             refresh_counter <= refresh_counter + 1;
     end 
     assign LED_activating_counter = refresh_counter[19:18];
+    //assign LED_activating_counter = refresh_counter[1:0];
     // anode activating signals for 4 LEDs, digit period of 2.6ms
     // decoder to generate anode signals 
     always @(*)

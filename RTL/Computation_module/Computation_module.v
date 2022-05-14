@@ -9,7 +9,7 @@ module Computation_module(
     input systolic_mode, // weight perload or feature load
     input [1:0] c_reg_sel, // select c11 or c12 or c21 or c22 to store result
     input computation_mode_sel,
-
+    input [7:0] q,
     output serial_mode_done,
     output weight_Preloader_done,
     output feature_Loader_done,
@@ -23,13 +23,15 @@ module Computation_module(
 
     wire [5:0] addr_0, addr_1;
     wire we_0, we_1;
+    wire [7:0] q_0;
+    wire [7:0] q_1;
 
     Serial_mode Serial_mode(
         .clk(clk),
         .rst(rst),
         .en(serial_mode_en),
         .feature_baseaddr(serial_mode_feature_baseaddr),
-        .q(),
+        .q(q_0),
 
         .addr(addr_0),
         .we(we_0),
@@ -46,7 +48,7 @@ module Computation_module(
         .feature_baseaddr(systolic_mode_feature_baseaddr),
         .mode(systolic_mode),
         .c_sel(c_reg_sel),
-        .q(),
+        .q(q_1),
 
         .addr(addr_1),
         .we(we_1),
@@ -71,5 +73,13 @@ module Computation_module(
 	    .s(computation_mode_sel),	
 	    .out(we)
     );
+
+    eight_bit_one_to_two_mux_gatelevel_module eight_bit_one_to_two_mux(
+        .a(q),
+        .s(computation_mode_sel),
+        .out1(q_0),
+        .out2(q_1)
+    );
+    
 
 endmodule

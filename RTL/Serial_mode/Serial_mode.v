@@ -35,7 +35,7 @@ module Serial_mode (
         .en_reg_A(),
         .en_reg_B(), 
         //.en_reg_Add(), 
-        .en_Acc(acc_en), 
+        .en_reg_Acc(acc_en), 
         .clk(clk), 
         .rst(rst), 
         .y_out(), 
