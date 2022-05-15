@@ -1,9 +1,8 @@
 module top_module(
     input clk,
-    input rst,
-    input start,
-    output [3:0] Anode_Activate,
-    output [6:0] LED_out
+    input [1:0] sw,
+    output [3:0] an,
+    output [6:0] seg
 );  
     wire serial_mode_en;
     wire Weight_Preloader_en;
@@ -14,7 +13,7 @@ module top_module(
     wire display_done;
     wire rst_computation_module;
     wire rst_display_module;
-    wire [5:0] serial_mode_feature_baseaddr;
+    wire [7:0] serial_mode_feature_baseaddr;
     wire [5:0] systolic_mode_feature_baseaddr;
     wire [7:0] data;
     wire [7:0] data_o;
@@ -38,8 +37,8 @@ module top_module(
 
     Controller Controller(
             .clk(clk),
-            .rst(rst),
-            .start(start),
+            .rst(sw[0]),
+            .start(sw[1]),
             .serial_mode_done(serial_mode_done),
             .weight_Preloader_done(weight_Preloader_done),
             .feature_Loader_done(feature_Loader_done),
@@ -65,7 +64,7 @@ module top_module(
         );
     Computation_module Computation_module(
         .clk(clk),
-        .rst(rst),
+        .rst(rst_computation_module),
         .serial_mode_feature_baseaddr(serial_mode_feature_baseaddr),
         .systolic_mode_feature_baseaddr(systolic_mode_feature_baseaddr),
         .serial_mode_en(serial_mode_en),
@@ -118,7 +117,7 @@ module top_module(
         .c22(c22),
 
         .is_done_o(display_done),
-        .Anode_Activate(Anode_Activate),
-        .LED_out(LED_out)
+        .Anode_Activate(an),
+        .LED_out(seg)
     );
 endmodule

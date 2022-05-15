@@ -2,7 +2,7 @@ module Computation_module(
     input clk,
     input rst,
     input [7:0] serial_mode_feature_baseaddr,
-    input [7:0] systolic_mode_feature_baseaddr,
+    input [5:0] systolic_mode_feature_baseaddr,
     input serial_mode_en,
     input Weight_Preloader_en,
     input Feature_Loader_en,

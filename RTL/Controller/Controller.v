@@ -16,7 +16,7 @@ module Controller(
 
     output reg mem_sel, 
     output reg [7:0] serial_mode_feature_baseaddr,
-    output reg [7:0] systolic_mode_feature_baseaddr,
+    output reg [5:0] systolic_mode_feature_baseaddr,
     output reg serial_mode_en,
     output reg Weight_Preloader_en,
     output reg Feature_Loader_en,
@@ -86,7 +86,7 @@ module Controller(
     reg [6:0] current_state;
 
     always @(posedge clk) begin
-        if(rst == 1) begin
+        if(rst == 0) begin
             current_state <= S_RESET;
         end else begin
             current_state <= next_state;
@@ -222,7 +222,7 @@ module Controller(
                                     we_0                            = 1'b0;
                                     mem_sel = 0;
                                     serial_mode_feature_baseaddr    = 8'b0;
-                                    systolic_mode_feature_baseaddr  = 8'b0;
+                                    systolic_mode_feature_baseaddr  = 6'b0;
                                     serial_mode_en                  = 1'b0;
                                     Weight_Preloader_en             = 1'b0;
                                     Feature_Loader_en               = 1'b0;
@@ -412,16 +412,18 @@ module Controller(
                                                 end
                                                 
             S_SYSTOLIC_MODE_WAIT_2            : begin end
+            S_SYSTOLIC_MODE_WAIT_3            : begin end
                                                 
             S_SYSTOLIC_MODE_DONE              : begin
                                                     rst_computation_module = 1'b1;
                                                     rst_display_module = 1'b0;
+                                                    display_mode_en = 1'b1;
                                                 end
                                                 
             
 
             S_DISPLAY_MODE_EN                 : begin 
-                                                    display_mode_en = 1'b1;
+                                                        display_mode_en = 1'b0;
                                                 end
             S_DISPLAY_MODE_DONE               : begin
                                                     rst_display_module = 1'b1;
