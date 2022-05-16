@@ -6,7 +6,7 @@ module Systolic_mode(
     input Feature_Loader_en,
     input [5:0] feature_baseaddr,
     input mode,
-    input [2:0] c_sel,
+    input [1:0] c_sel,
     input [7:0] q,
 
     output [5:0] addr,
@@ -98,21 +98,21 @@ module Systolic_mode(
         .q_bar()
     );
 
-    three_bit_d_flip_flop three_bit_d_flip_flop_1(
+    two_bit_d_flip_flop two_bit_d_flip_flop_1(
         .d(c_sel), 
         .clk(clk), 
         .q(c_sel_1_d), 
         .q_bar()
     );
 
-    three_bit_d_flip_flop three_bit_d_flip_flop_2(
+    two_bit_d_flip_flop two_bit_d_flip_flop_2(
         .d(c_sel_1_d), 
         .clk(clk), 
         .q(c_sel_2_d), 
         .q_bar()
     );
 
-    three_bit_d_flip_flop three_bit_d_flip_flop_3(
+    two_bit_d_flip_flop two_bit_d_flip_flop_3(
         .d(c_sel_2_d),
         .clk(clk), 
         .q(c_sel_d), 
