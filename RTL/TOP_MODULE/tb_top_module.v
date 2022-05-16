@@ -11,8 +11,8 @@ module tb_top_module;
     );
     always #5 clk = ~clk;
     initial begin
-        clk = 0; sw[0] = 1; sw[1] = 0;
-        #30 sw[0] = 0;
+        clk = 0; sw[0] = 0; sw[1] = 0;
+        #30 sw[0] = 1;
         #10 sw[1] = 1'b1;
     end
 
