@@ -1,0 +1,25 @@
+mem = b11 -> w1                                                                 weight_buff_en = 4'b1000
+mem = b21 -> w2                                                                 weight_buff_en = 4'b0100
+mem = b31 -> w3                                                                 weight_buff_en = 4'b0010
+mem = b12 -> w4                                                                 weight_buff_en = 4'b0001
+                                mem = a11 -> f1                                                             feature_buff_en = 4'b1000
+                                mem = a12 -> f1, f2                                                         feature_buff_en = 4'b1100
+                                mem = a13 -> f2, f3                                                         feature_buff_en = 4'b0110
+                                mem = a14 -> f3                                                             feature_buff_en = 4'b0010
+                                mem = a21 -> f1, f4                                                         feature_buff_en = 4'b1001
+                                mem = a22 -> f1, f2, f4 (w1 free, double)                                   feature_buff_en = 4'b1101
+mem = b22 -> w1 (double) - f1                                                   weight_buff_en = 4'b1000
+                                mem = a23 -> f2, f3, f1 (w2 free, double)                                   feature_buff_en = 4'b1110
+mem = b32 -> w2 (double) - f2                                                   weight_buff_en = 4'b0100
+                                mem = a24 -> f3, f2 (w3 free)                                               feature_buff_en = 4'b0110
+mem = b13 -> w3                                                                 weight_buff_en = 4'b0010
+                                mem = a31 -> f4, f3                                                         feature_buff_en = 4'b0011
+                                mem = a32 -> f4, f1, f3 (w4 free, double)                                   feature_buff_en = 4'b1011
+mem = b23 -> w4 (double) - f4                                                   weight_buff_en = 4'b0001
+                                mem = a33 -> f1, f2, f4 (w1 free, double)                                   feature_buff_en = 4'b1101
+mem = b33 -> w1 (double) - f1                                                   weight_buff_en = 4'b1000
+                                mem = a34 -> f2, f1                                                         feature_buff_en = 4'b1100
+                                mem = a41 -> f3                                                             feature_buff_en = 4'b0010
+                                mem = a42 -> f3, f4                                                         feature_buff_en = 4'b0011
+                                mem = a43 -> f4, f1                                                         feature_buff_en = 4'b1001
+                                mem = a44 -> f1                                                             feature_buff_en = 4'b1000
