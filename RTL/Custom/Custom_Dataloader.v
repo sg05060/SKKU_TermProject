@@ -4,7 +4,7 @@ module Custom_Data_Loader(
     input           rst,
     input           en,
     
-    input   [7:0]   mem_data_i
+    input   [7:0]   mem_data_i,
     
     output          is_done_o,
     
