@@ -15,8 +15,8 @@ module Custom_Data_Loader(
     output  [3:0]   weight_en_o,
     output  [3:0]   feature_en_o,
     
-    output  [7:0]   mem_data_o
-    
+    output  [7:0]   mem_data_o,
+    output  [3:0]   buff_use_o
 );
 
     wire    [7:0]   cnt;
@@ -47,7 +47,7 @@ module Custom_Data_Loader(
         .acc_en                 (acc_en)      
     );
     
-    module Custom_Buff_use_Decoder(
+    Custom_Buff_use_Decoder Custom_Buff_use_dec_inst(
         .cnt                    (cnt),
         .buff_use               (buff_use)
     );
@@ -109,6 +109,13 @@ module Custom_Data_Loader(
     .clk                        (clk),
     .d                          (weight_en),
     .q                          (weight_en_o),
+    .q_bar                      ()
+    );
+    
+    four_bit_d_flip_flop buff_use_buff(
+    .clk                        (clk),
+    .d                          (buff_use),
+    .q                          (buff_use_o),
     .q_bar                      ()
     );
     

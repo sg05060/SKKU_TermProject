@@ -22,6 +22,7 @@ module Custom_mode(
     wire    [3:0]   feature_en;
     
     wire    [7:0]   mem_data;
+    wire    [3:0]   buff_use;
 
     Custom_Data_Loader Custom_Data_Loader_inst(
     
@@ -40,8 +41,8 @@ module Custom_mode(
     .weight_en_o    (weight_en),
     .feature_en_o   (feature_en),
     
-    .mem_data_o     (mem_data)
-    
+    .mem_data_o     (mem_data),
+    .buff_use_o     (buff_use)
     );
 
     Custom_TOP Custom_Top_inst(
@@ -55,6 +56,7 @@ module Custom_mode(
     .acc_en         (acc_en),
     .weight_en      (weight_en),
     .feature_en     (feature_en),
+    .buff_mux_sel   (buff_use),
 
     // mem data
     .data_in        (mem_data),

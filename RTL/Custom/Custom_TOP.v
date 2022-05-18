@@ -9,6 +9,7 @@ module Custom_TOP(
     input   [3:0]   acc_en,
     input   [3:0]   weight_en,
     input   [3:0]   feature_en,
+    input   [3:0]   buff_mux_sel,
 
     // mem data
     input   [7:0]   data_in,
@@ -23,6 +24,7 @@ module Custom_TOP(
 
     // buff out to mux port
     wire    [7:0]   alu_out_1, alu_out_2, alu_out_3, alu_out_4;
+    wire    [7:0]   mux_out_1, mux_out_2, mux_out_3, mux_out_4;
     
     // demux to acc port
     wire    [7:0]   buff1_1, buff1_2, buff1_3, buff1_4;
@@ -71,9 +73,16 @@ module Custom_TOP(
     .mul_out        (alu_out_4)
     );
     
+    // inst mux
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_2to1_mux_1(.a(8'b0), .b(alu_out_1), .s(buff_mux_sel[3]), .out(mux_out_1));
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_2to1_mux_2(.a(8'b0), .b(alu_out_2), .s(buff_mux_sel[2]), .out(mux_out_2));
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_2to1_mux_3(.a(8'b0), .b(alu_out_3), .s(buff_mux_sel[1]), .out(mux_out_3));
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_2to1_mux_4(.a(8'b0), .b(alu_out_4), .s(buff_mux_sel[0]), .out(mux_out_4));
+    
+    
     // inst demux
     eight_bit_one_to_four_demux_gatelevel_module eight_bit_demux_inst1(
-        .a      (alu_out_1), 
+        .a      (mux_out_1), 
         .s      (sel_demux[7:6]), 
         .out1   (buff1_1), 
         .out2   (buff1_2), 
@@ -82,7 +91,7 @@ module Custom_TOP(
     );
     
     eight_bit_one_to_four_demux_gatelevel_module eight_bit_demux_inst2(
-        .a      (alu_out_2), 
+        .a      (mux_out_2), 
         .s      (sel_demux[5:4]), 
         .out1   (buff2_1), 
         .out2   (buff2_2), 
@@ -91,7 +100,7 @@ module Custom_TOP(
     );
     
     eight_bit_one_to_four_demux_gatelevel_module eight_bit_demux_inst3(
-        .a      (alu_out_3), 
+        .a      (mux_out_3), 
         .s      (sel_demux[3:2]), 
         .out1   (buff3_1), 
         .out2   (buff3_2), 
@@ -100,7 +109,7 @@ module Custom_TOP(
     );
     
     eight_bit_one_to_four_demux_gatelevel_module eight_bit_demux_inst4(
-        .a      (alu_out_4), 
+        .a      (mux_out_4), 
         .s      (sel_demux[1:0]), 
         .out1   (buff4_1), 
         .out2   (buff4_2), 
