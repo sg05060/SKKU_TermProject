@@ -24,7 +24,7 @@ module Custom_mode_conntect_Memory(
         
         .data_i     (data),     // from memory
         
-        .addr_o     (addr);     // to memory
+        .addr_o     (addr),     // to memory
         
         .c11        (c11),
         .c12        (c12),

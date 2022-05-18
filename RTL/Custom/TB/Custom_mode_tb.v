@@ -1,15 +1,15 @@
 module Custom_tb;
-    reg             clk,
-    reg             rst,
-    reg             en,
-    reg             we,
-    reg     [7:0]   data_write,
+    reg             clk;
+    reg             rst;
+    reg             en;
+    reg             we;
+    reg     [7:0]   data_write;
     
-    wire            is_done_o,
-    wire    [7:0]   c11,
-    wire    [7:0]   c12,
-    wire    [7:0]   c21,
-    wire    [7:0]   c22,
+    wire            is_done_o;
+    wire    [7:0]   c11;
+    wire    [7:0]   c12;
+    wire    [7:0]   c21;
+    wire    [7:0]   c22;
     
 
     localparam CLOCK_DELAY  = 10;

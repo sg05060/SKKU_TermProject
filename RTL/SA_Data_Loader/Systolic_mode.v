@@ -24,9 +24,9 @@ module Systolic_mode(
     wire [7:0] weight_q;
     wire [7:0] feature_q;
     wire mode_d;
-    wire [2:0] c_sel_1_d;
-    wire [2:0] c_sel_2_d;
-    wire [2:0] c_sel_d;
+    wire [1:0] c_sel_1_d;
+    wire [1:0] c_sel_2_d;
+    wire [1:0] c_sel_d;
     wire [7:0] feature_1;
     wire [7:0] feature_2;
     wire [7:0] feature_3;
