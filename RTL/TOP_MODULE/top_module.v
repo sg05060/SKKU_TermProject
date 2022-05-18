@@ -30,10 +30,15 @@ module top_module(
     wire [1:0] c_reg_sel;
     wire computation_mode_sel;
     wire display_mode_en;
-    wire [7:0] c11;
-    wire [7:0] c12;
-    wire [7:0] c21;
-    wire [7:0] c22;
+    wire sel_display;
+    wire [7:0] c11_sa;
+    wire [7:0] c12_sa;
+    wire [7:0] c21_sa;
+    wire [7:0] c22_sa;
+    wire [7:0] c11_custom;
+    wire [7:0] c12_custom;
+    wire [7:0] c21_custom;
+    wire [7:0] c22_custom;
 
     Controller Controller(
             .clk(clk),
@@ -43,7 +48,7 @@ module top_module(
             .serial_mode_done(serial_mode_done),
             .weight_Preloader_done(weight_Preloader_done),
             .feature_Loader_done(feature_Loader_done),
-
+            
             .display_done(display_done),
 
             .rst_computation_module(rst_computation_module),
@@ -71,6 +76,7 @@ module top_module(
         .serial_mode_en(serial_mode_en),
         .Weight_Preloader_en(Weight_Preloader_en),
         .Feature_Loader_en(Feature_Loader_en),
+        .custom_mode_en(custom_mode_en),
         .systolic_mode(systolic_mode), // weight perload or feature load
         .c_reg_sel(c_reg_sel), // select c11 or c12 or c21 or c22 to store result
         .computation_mode_sel(computation_mode_sel),
@@ -78,12 +84,17 @@ module top_module(
         .serial_mode_done(serial_mode_done),
         .weight_Preloader_done(weight_Preloader_done),
         .feature_Loader_done(feature_Loader_done),
+        .custom_mode_done(custom_mode_done),
         .addr(addr_1),
         .we(we_1),
-        .c11(c11),
-        .c12(c12),
-        .c21(c21),
-        .c22(c22)
+        .c11_sa(c11_sa),
+        .c12_sa(c12_sa),
+        .c21_sa(c21_sa),
+        .c22_sa(c22_sa),
+        .c11_custom(c11_custom),
+        .c12_custom(c12_custom),
+        .c21_custom(c21_custom),
+        .c22_custom(c22_custom)
     );
     single_port_ram ram (
         .data(data_o),
@@ -112,10 +123,15 @@ module top_module(
         .clk(clk),
         .rst(rst_display_module),
         .reg_en(display_mode_en),
-        .c11(c11),
-        .c12(c12),
-        .c21(c21),
-        .c22(c22),
+        .sel(sel_display),
+        .c11_sa(c11_sa),
+        .c12_sa(c12_sa),
+        .c21_sa(c21_sa),
+        .c22_sa(c22_sa),
+        .c11_custom(c11_custom),
+        .c12_custom(c12_custom),
+        .c21_custom(c21_custom),
+        .c22_custom(c22_custom),
 
         .is_done_o(display_done),
         .Anode_Activate(an),

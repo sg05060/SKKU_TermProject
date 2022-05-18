@@ -6,6 +6,7 @@ module Controller(
     input   serial_mode_done,
     input   weight_Preloader_done,
     input   feature_Loader_done,
+    input   custom_mode_done,
     input   display_done,
 
     output reg rst_computation_module,
@@ -20,10 +21,12 @@ module Controller(
     output reg serial_mode_en,
     output reg Weight_Preloader_en,
     output reg Feature_Loader_en,
+    output reg custom_mode_en,
     output reg systolic_mode, // weight perload or feature load
     output reg [1:0] c_reg_sel, // select c11 or c12 or c21 or c22 to store result
     output reg [1:0] computation_mode_sel,
-    output reg display_mode_en
+    output reg display_mode_en,
+    output reg sel_display
 
 );
     parameter a11 = 8'b0000_0001, a12 = 8'b0000_0010, a13 = 8'b0000_0011, a14 = 8'b0000_0100,
@@ -80,6 +83,13 @@ module Controller(
 
     parameter S_DISPLAY_MODE_EN                 = 7'b010_1001;
     parameter S_DISPLAY_MODE_DONE               = 7'b010_1010;
+
+    parameter S_CUSTOM_MODE_EN                  = 7'b010_1011;
+    parameter S_CUSTOM_MODE_DONE                = 7'b010_1100;
+
+    parameter S_DISPLAY_MODE_EN_L               = 7'b010_1101;
+    parameter S_DISPLAY_MODE_DONE_L             = 7'b010_1110;
+
 
 
 
@@ -209,8 +219,22 @@ module Controller(
                                                     next_state = S_DISPLAY_MODE_DONE;
                                                     else
                                                     next_state = S_DISPLAY_MODE_EN;
-            S_DISPLAY_MODE_DONE               : 
-                                                    next_state = S_RESET;
+            S_DISPLAY_MODE_DONE               : if(start_CUSTOM)
+                                                    next_state = S_CUSTOM_MODE_EN;
+                                                else
+                                                    next_state = S_DISPLAY_MODE_DONE;
+            S_CUSTOM_MODE_EN                  : if(custom_mode_done)
+                                                    next_state = S_CUSTOM_MODE_DONE;
+                                                else
+                                                    next_state = S_CUSTOM_MODE_DONE;
+            S_CUSTOM_MODE_DONE                :
+                                                    next_state = S_DISPLAY_MODE_EN_L;
+            S_DISPLAY_MODE_EN_L               : if(display_done)
+                                                    next_state = S_DISPLAY_MODE_DONE_L;
+                                                else
+                                                    next_state = S_DISPLAY_MODE_EN_L;
+            S_DISPLAY_MODE_DONE_L             : next_state = S_RESET;
+                                                      
         endcase
     end
 
@@ -229,6 +253,8 @@ module Controller(
         c_reg_sel                       = 2'b00;
         computation_mode_sel            = 2'b00;
         display_mode_en                 = 1'b0;
+        custom_mode_en                  = 1'b0;
+        sel_display                     = 1'b0;
         case(current_state)
             S_RESET         :   begin
                                     rst_computation_module          = 1'b1;
@@ -245,6 +271,7 @@ module Controller(
                                     c_reg_sel                       = 2'b00;
                                     computation_mode_sel            = 2'b00;
                                     display_mode_en                 = 1'b0;
+                                    custom_mode_en                  = 1'b0;
                                 end
 
             S_MEM_INIT_0    :   begin
@@ -497,14 +524,43 @@ module Controller(
                                                     rst_computation_module = 1'b1;
                                                     rst_display_module = 1'b0;
                                                     display_mode_en = 1'b1;
+                                                    sel_display = 1'b0;
                                                 end
                                                 
             S_DISPLAY_MODE_EN                 : begin 
                                                     rst_computation_module = 1'b1;
                                                     rst_display_module = 1'b0;
                                                     display_mode_en = 1'b0;
+                                                    sel_display = 1'b0;
                                                 end
             S_DISPLAY_MODE_DONE               : begin
+                                                    rst_display_module = 1'b1;
+                                                    display_mode_en = 1'b0;
+                                                end
+            S_CUSTOM_MODE_EN                  : begin
+                                                    mem_sel = 1'b1;
+                                                    rst_computation_module  = 1'b0;
+                                                    computation_mode_sel    = 2'b10;
+                                                    custom_mode_en          = 1'b1;
+                                                end
+            S_CUSTOM_MODE_DONE                : begin
+                                                    mem_sel = 1'b1;
+                                                    rst_computation_module  = 1'b1;
+                                                    computation_mode_sel    = 2'b10;
+                                                    custom_mode_en          = 1'b0;
+                                                    rst_display_module = 1'b0;
+                                                    display_mode_en = 1'b1;
+                                                    sel_display = 1'b1;
+                                                end
+            S_DISPLAY_MODE_EN_L               : begin
+                                                    mem_sel = 1'b1;
+                                                    rst_computation_module  = 1'b1;
+                                                    computation_mode_sel    = 2'b10;
+                                                    rst_display_module = 1'b0;
+                                                    display_mode_en = 1'b0;
+                                                    sel_display = 1'b1;
+                                                end
+            S_DISPLAY_MODE_DONE_L               : begin
                                                     rst_display_module = 1'b1;
                                                     display_mode_en = 1'b0;
                                                 end

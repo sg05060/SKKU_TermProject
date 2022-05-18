@@ -17,7 +17,7 @@ module Custom_TOP(
     output  [7:0]   c11,
     output  [7:0]   c12,
     output  [7:0]   c21,
-    output  [7:0]   c22,
+    output  [7:0]   c22
     
 );
 

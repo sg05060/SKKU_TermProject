@@ -1,6 +1,6 @@
 module tb_top_module;
     reg clk;
-    reg [1:0] sw;
+    reg [2:0] sw;
     wire [3:0] an;
     wire [6:0] seg;
     top_module top_module(
@@ -13,7 +13,7 @@ module tb_top_module;
     initial begin
         clk = 0; sw[0] = 0; sw[1] = 0;
         #30 sw[0] = 1;
-        #10 sw[1] = 1'b1;
+        #10 sw[1] = 1'b1; sw[2] = 1'b1;
     end
 
 endmodule  
