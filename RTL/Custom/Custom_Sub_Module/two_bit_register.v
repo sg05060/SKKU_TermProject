@@ -6,8 +6,8 @@ module two_bit_register_module(
     output  [1:0]   out
 );
 
-    one_bit_register_behavioral_module one_bit_register_inst(in[0], clk, rst, out[0]);
-    one_bit_register_behavioral_module one_bit_register_inst(in[1], clk, rst, out[1]);
+    one_bit_register_behavioral_module one_bit_register_inst_0(in[0], clk, rst, out[0]);
+    one_bit_register_behavioral_module one_bit_register_inst_1(in[1], clk, rst, out[1]);
 
 endmodule
 
