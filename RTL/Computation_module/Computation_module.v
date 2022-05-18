@@ -103,13 +103,14 @@ module Computation_module(
 	    .a(we_0), 
         .b(we_1),
         .c(we_2),
-	    .s(computation_mode_sel),	
+	    .s0(computation_mode_sel[0]),
+        .s1(computation_mode_sel[1]),
 	    .out(we)
     );
 
     eight_bit_one_to_three_demux_gatelevel_module eight_bit_one_to_three_demux(
         .a(q),
-        .s(computation_mode_sel),
+        .sel(computation_mode_sel),
         .out1(q_0),
         .out2(q_1),
         .out3(q_2)

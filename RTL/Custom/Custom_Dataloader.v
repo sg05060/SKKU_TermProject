@@ -64,7 +64,7 @@ module Custom_Data_Loader(
     
     four_bit_one_to_two_demux_module four_bit_one_to_two_demux_inst(
     .a                          (buff_en),
-    .s                          (feature_weight_en_sel),
+    .s                          (feature_weight_sel),
     .out1                       (feature_en),
     .out2                       (weight_en)
     );

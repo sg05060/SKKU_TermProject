@@ -226,7 +226,7 @@ module Controller(
             S_CUSTOM_MODE_EN                  : if(custom_mode_done)
                                                     next_state = S_CUSTOM_MODE_DONE;
                                                 else
-                                                    next_state = S_CUSTOM_MODE_DONE;
+                                                    next_state = S_CUSTOM_MODE_EN;
             S_CUSTOM_MODE_DONE                :
                                                     next_state = S_DISPLAY_MODE_EN_L;
             S_DISPLAY_MODE_EN_L               : if(display_done)

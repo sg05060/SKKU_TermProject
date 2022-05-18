@@ -7,9 +7,11 @@ module top_module(
     wire serial_mode_en;
     wire Weight_Preloader_en;
     wire Feature_Loader_en;
+    wire custom_mode_en;
     wire serial_mode_done;
     wire weight_Preloader_done;
     wire feature_Loader_done;
+    wire custom_mode_done;
     wire display_done;
     wire rst_computation_module;
     wire rst_display_module;
@@ -28,7 +30,7 @@ module top_module(
     wire mem_sel;
     wire systolic_mode;
     wire [1:0] c_reg_sel;
-    wire computation_mode_sel;
+    wire [1:0] computation_mode_sel;
     wire display_mode_en;
     wire sel_display;
     wire [7:0] c11_sa;
@@ -48,7 +50,7 @@ module top_module(
             .serial_mode_done(serial_mode_done),
             .weight_Preloader_done(weight_Preloader_done),
             .feature_Loader_done(feature_Loader_done),
-            
+            .custom_mode_done(custom_mode_done),
             .display_done(display_done),
 
             .rst_computation_module(rst_computation_module),
@@ -63,10 +65,12 @@ module top_module(
             .serial_mode_en(serial_mode_en),
             .Weight_Preloader_en(Weight_Preloader_en),
             .Feature_Loader_en(Feature_Loader_en),
+            .custom_mode_en(custom_mode_en),
             .systolic_mode(systolic_mode),
             .c_reg_sel(c_reg_sel), 
             .computation_mode_sel(computation_mode_sel),
-            .display_mode_en(display_mode_en)
+            .display_mode_en(display_mode_en),
+            .sel_display(sel_display)
         );
     Computation_module Computation_module(
         .clk(clk),
