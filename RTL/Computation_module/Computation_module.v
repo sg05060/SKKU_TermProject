@@ -102,7 +102,7 @@ module Computation_module(
     three_to_one_mux_gatelevel_module three_to_one_mux(
 	    .a(we_0), 
         .b(we_1),
-        .c(we_2),
+        .c(1'b0),
 	    .s0(computation_mode_sel[0]),
         .s1(computation_mode_sel[1]),
 	    .out(we)
