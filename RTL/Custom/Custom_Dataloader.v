@@ -25,7 +25,6 @@ module Custom_Data_Loader(
     wire    [3:0]   acc_en;
     wire    [3:0]   feature_en;
     wire    [3:0]   weight_en;
-    wire    [7:0]   mem_data_o;
     wire    [7:0]   demux_sel;
     
     wire            feature_weight_sel;

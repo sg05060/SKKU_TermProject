@@ -107,7 +107,7 @@ module Computation_module(
 	    .out(we)
     );
 
-    eight_bit_one_to_three_mux_gatelevel_module eight_bit_one_to_three_mux(
+    eight_bit_one_to_three_demux_gatelevel_module eight_bit_one_to_three_demux(
         .a(q),
         .s(computation_mode_sel),
         .out1(q_0),
