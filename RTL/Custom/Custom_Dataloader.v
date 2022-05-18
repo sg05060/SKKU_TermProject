@@ -23,9 +23,11 @@ module Custom_Data_Loader(
     
     wire    [3:0]   buff_en;
     wire    [3:0]   acc_en;
+    wire    [3:0]   buff_use;
     wire    [3:0]   feature_en;
     wire    [3:0]   weight_en;
     wire    [7:0]   demux_sel;
+    
     
     wire            feature_weight_sel;
 
@@ -35,7 +37,7 @@ module Custom_Data_Loader(
         .clk                    (clk), 
         .rst                    (rst), 
         .en                     (en),
-        .i_num_cnt              (8'b0001_1011),     // stage 27 
+        .i_num_cnt              (8'b0001_1100),     // stage 28 
         .out                    (cnt), 
         .is_done_o              (is_done_o)
     );
@@ -45,10 +47,15 @@ module Custom_Data_Loader(
         .acc_en                 (acc_en)      
     );
     
+    module Custom_Buff_use_Decoder(
+        .cnt                    (cnt),
+        .buff_use               (buff_use)
+    );
+    
     Demux_SEL Custom_Demux_sel_inst(
         .clk                    (clk),
         .rst                    (rst),
-        .acc_en                 (acc_en),
+        .buff_use               (buff_use),
         .custom_demux_sel       (demux_sel)
     );
     
@@ -65,8 +72,8 @@ module Custom_Data_Loader(
     four_bit_one_to_two_demux_module four_bit_one_to_two_demux_inst(
     .a                          (buff_en),
     .s                          (feature_weight_sel),
-    .out1                       (feature_en),
-    .out2                       (weight_en)
+    .out1                       (weight_en),
+    .out2                       (feature_en)
     );
     
     Custom_Addr_Decoder Custom_Addr_dec_inst(
