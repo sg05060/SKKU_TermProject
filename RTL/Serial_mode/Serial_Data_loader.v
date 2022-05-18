@@ -12,7 +12,8 @@ module Serial_Data_loader (
 
     output  [7:0]   w_out,
     output  [7:0]   f_out,
-    output  wire    acc_en
+    output  wire    acc_en,
+    output  wire    rst_pe
 );
 
     wire    [7:0]   cnt;
@@ -26,6 +27,8 @@ module Serial_Data_loader (
     wire    [7:0]   a_addr;
     wire            sel_q;
     wire     [7:0]   r_w_out;
+    wire    is_done_o_d_1;
+    wire    is_done_o_d_2;
 
     assign sel_offset_0 = cnt[7:1] - 7'b0000_011;
     assign sel_offset_1 = cnt[7:1] - 7'b0000_110;
@@ -115,4 +118,24 @@ module Serial_Data_loader (
     assign we   = 1'b0;
     assign acc_en = sel_q;
 
+    d_flip_flop_behavioral_module d_flip_flop_3(
+        .d(is_done_o), 
+        .clk(clk), 
+        .q(is_done_o_d_1), 
+        .q_bar()
+    );
+    d_flip_flop_behavioral_module d_flip_flop_4(
+        .d(is_done_o_d_1), 
+        .clk(clk), 
+        .q(is_done_o_d_2), 
+        .q_bar()
+    );
+
+    two_to_one_mux_gatelevel_module two_to_one_mux_gatelevel_module(
+        .a(is_done_o_d_2),
+        .b(rst), 
+        .s(rst), 
+        .out(rst_pe)
+    );
+	
 endmodule

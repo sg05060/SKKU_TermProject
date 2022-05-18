@@ -110,7 +110,7 @@ module top_module(
     Display_module display_module(
         .clk(clk),
         .rst(rst_display_module),
-        .en(display_mode_en),
+        .reg_en(display_mode_en),
         .c11(c11),
         .c12(c12),
         .c21(c21),

@@ -21,10 +21,12 @@ module Computation_module(
     output [7:0] c22
 );
 
-    wire [5:0] addr_0, addr_1;
-    wire we_0, we_1;
+    wire [5:0] addr_0, addr_1,addr_2;
+    wire we_0, we_1,we_2;
     wire [7:0] q_0;
     wire [7:0] q_1;
+    wire [7:0] q_2;
+    
 
     Serial_mode Serial_mode(
         .clk(clk),
