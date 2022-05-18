@@ -1,7 +1,7 @@
 module Display_module(
     input clk,
     input rst,
-    input en,
+    input reg_en,
     input [7:0] c11,
     input [7:0] c12,
     input [7:0] c21,
@@ -14,7 +14,7 @@ module Display_module(
     Seven_segment_LED_Display_Controller Seven_segment_LED_Display_Controller(
     .clock_100Mhz(clk), // 100 Mhz clock source on Basys 3 FPGA
     .reset(rst), // .
-    .en(en),
+    .reg_en(reg_en),
     .c11(c11),
     .c12(c12),
     .c21(c21),

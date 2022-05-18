@@ -14,6 +14,7 @@ module Serial_mode (
     wire [7:0] w_out;
     wire [7:0] f_out;
     wire       acc_en;
+    wire        rst_pe;
 
     Serial_Data_loader Serial_Data_loader(
         .clk(clk),
@@ -26,7 +27,8 @@ module Serial_mode (
         .addr(addr),        
         .w_out(w_out),
         .f_out(f_out),
-        .acc_en(acc_en)
+        .acc_en(acc_en),
+        .rst_pe(rst_pe)
     );
     PE PE(
         .a_in(f_out),
@@ -37,7 +39,7 @@ module Serial_mode (
         //.en_reg_Add(), 
         .en_reg_Acc(acc_en), 
         .clk(clk), 
-        .rst(rst), 
+        .rst(rst_pe), 
         .y_out(), 
         .a_out(), 
         .s_mode_out()

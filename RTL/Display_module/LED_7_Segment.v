@@ -2,7 +2,7 @@ module Seven_segment_LED_Display_Controller(
     input clock_100Mhz, // 100 Mhz clock source on Basys 3 FPGA
     input reset, // reset
 
-    input en,
+    input reg_en,
     input [7:0] c11,
     input [7:0] c12,
     input [7:0] c21,
@@ -45,7 +45,7 @@ module Seven_segment_LED_Display_Controller(
             displayed_number[2] <= 16'b0;
             displayed_number[3] <= 16'b0;
         end
-        else if(en == 1'b1) begin
+        else if(reg_en == 1'b1) begin
             displayed_number[0] <= {8'b0,c11};
             displayed_number[1] <= {8'b0,c12};
             displayed_number[2] <= {8'b0,c21};
