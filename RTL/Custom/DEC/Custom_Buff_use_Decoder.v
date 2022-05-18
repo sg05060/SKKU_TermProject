@@ -20,7 +20,7 @@ module Custom_Buff_use_Decoder(
             5'b0_1100 : buff_use = 4'b1110;
             5'b0_1101 : buff_use = 4'b0100;
             5'b0_1110 : buff_use = 4'b0110;
-            5'b0_1111 : buff_use = 4'b0010;
+            5'b0_1111 : buff_use = 4'b0000;
             5'b1_0000 : buff_use = 4'b0011;
             5'b1_0001 : buff_use = 4'b1011;
             5'b1_0010 : buff_use = 4'b0001;
