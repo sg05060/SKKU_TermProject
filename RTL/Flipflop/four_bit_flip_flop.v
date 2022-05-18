@@ -1,4 +1,4 @@
-module four_bit_d_flip_flop(d,clk,q,q_bar);
+module four_bit_flip_flop(d,clk,q,q_bar);
     input [3:0] d;
     input clk;
     output [3:0] q;
