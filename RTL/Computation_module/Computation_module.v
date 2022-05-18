@@ -6,6 +6,10 @@ module Computation_module(
     input serial_mode_en,
     input Weight_Preloader_en,
     input Feature_Loader_en,
+
+    input custom_mode_en,
+
+
     input systolic_mode, // weight perload or feature load
     input [1:0] c_reg_sel, // select c11 or c12 or c21 or c22 to store result
     input [1:0] computation_mode_sel,
@@ -13,12 +17,20 @@ module Computation_module(
     output serial_mode_done,
     output weight_Preloader_done,
     output feature_Loader_done,
+
+    output custom_mode_done,
+
     output [5:0] addr,
     output we,
-    output [7:0] c11,
-    output [7:0] c12,
-    output [7:0] c21,
-    output [7:0] c22
+    output [7:0] c11_sa,
+    output [7:0] c12_sa,
+    output [7:0] c21_sa,
+    output [7:0] c22_sa,
+
+    output [7:0] c11_custom,
+    output [7:0] c12_custom,
+    output [7:0] c21_custom,
+    output [7:0] c22_custom
 );
 // test
     wire [5:0] addr_0, addr_1,addr_2;
@@ -56,12 +68,29 @@ module Computation_module(
         .we(we_1),
         .is_FL_done_o(feature_Loader_done),
         .is_WL_done_o(weight_Preloader_done),
-        .c11(c11),
-        .c12(c12),
-        .c21(c21),
-        .c22(c22)
+        .c11(c11_sa),
+        .c12(c12_sa),
+        .c21(c21_sa),
+        .c22(c22_sa)
     );  
 
+    Custom_mode Custom_mode(
+
+        .clk(clk),                  // from fsm
+        .rst(rst),                  // from fsm
+        .en(custom_mode_en),                   // from fsm
+        
+        .data_i(q_2),     // from memory
+        
+        .addr_o(addr_2),     // to memory
+        
+        .c11(c11_custom),
+        .c12(c12_custom),
+        .c21(c21_custom),
+        .c22(c22_custom),
+
+        .is_done_o(custom_mode_done)   // to fsm
+    );
     six_bit_three_to_one_mux_gatelevel_module six_bit_three_to_one_mux(
         .a(addr_0),
         .b(addr_1),

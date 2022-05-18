@@ -6,7 +6,7 @@ module Custom_mode(
     
     input   [7:0]   data_i,     // from memory
     
-    output  [7:0]   addr_o;     // to memory
+    output  [5:0]   addr_o,     // to memory
     
     output  [7:0]   c11,
     output  [7:0]   c12,
@@ -63,7 +63,7 @@ module Custom_mode(
     .c11            (c11),
     .c12            (c12),
     .c21            (c21),
-    .c22            (c22),
+    .c22            (c22)
     
 );
 
