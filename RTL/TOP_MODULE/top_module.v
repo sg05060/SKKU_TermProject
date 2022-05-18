@@ -1,6 +1,6 @@
 module top_module(
     input clk,
-    input [1:0] sw,
+    input [2:0] sw,
     output [3:0] an,
     output [6:0] seg
 );  
@@ -38,7 +38,8 @@ module top_module(
     Controller Controller(
             .clk(clk),
             .rst(sw[0]),
-            .start(sw[1]),
+            .start_SA(sw[1]),
+            .start_CUSTOM(sw[2]),
             .serial_mode_done(serial_mode_done),
             .weight_Preloader_done(weight_Preloader_done),
             .feature_Loader_done(feature_Loader_done),

@@ -1,12 +1,12 @@
 module Controller(
-    input clk,
-    input rst,
-    input start,
-    input serial_mode_done,
-    input weight_Preloader_done,
-    input feature_Loader_done,
-
-    input display_done,
+    input   clk,
+    input   rst,
+    input   start_SA,
+    input   start_CUSTOM,
+    input   serial_mode_done,
+    input   weight_Preloader_done,
+    input   feature_Loader_done,
+    input   display_done,
 
     output reg rst_computation_module,
     output reg rst_display_module,
@@ -22,7 +22,7 @@ module Controller(
     output reg Feature_Loader_en,
     output reg systolic_mode, // weight perload or feature load
     output reg [1:0] c_reg_sel, // select c11 or c12 or c21 or c22 to store result
-    output reg computation_mode_sel,
+    output reg [1:0] computation_mode_sel,
     output reg display_mode_en
 
 );
@@ -34,52 +34,53 @@ module Controller(
               b21 = 8'b0000_0001, b22 = 8'b0000_0010, b23 = 8'b0000_0011,
               b31 = 8'b0000_0001, b32 = 8'b0000_0010, b33 = 8'b0000_0011;
 
-    parameter S_RESET           = 7'b000_0000;
-    parameter S_MEM_INIT_0      = 7'b000_0001;
-    parameter S_MEM_INIT_1      = 7'b000_0010;
-    parameter S_MEM_INIT_2      = 7'b000_0011;
-    parameter S_MEM_INIT_3      = 7'b000_0100;
-    parameter S_MEM_INIT_4      = 7'b000_0101;
-    parameter S_MEM_INIT_5      = 7'b000_0110;
-    parameter S_MEM_INIT_6      = 7'b000_0111;
-    parameter S_MEM_INIT_7      = 7'b000_1000;
-    parameter S_MEM_INIT_8      = 7'b000_1001;
-    parameter S_MEM_INIT_9      = 7'b000_1010;
-    parameter S_MEM_INIT_10     = 7'b000_1011;
-    parameter S_MEM_INIT_11     = 7'b000_1100;
-    parameter S_MEM_INIT_12     = 7'b000_1101;
-    parameter S_MEM_INIT_13     = 7'b000_1110;
-    parameter S_MEM_INIT_14     = 7'b000_1111;
-    parameter S_MEM_INIT_15     = 7'b001_0000;
-    parameter S_MEM_INIT_16     = 7'b001_0001;
-    parameter S_MEM_INIT_17     = 7'b001_0010;
-    parameter S_MEM_INIT_18     = 7'b001_0011;
-    parameter S_MEM_INIT_19     = 7'b001_0100;
-    parameter S_MEM_INIT_20     = 7'b001_0101;
-    parameter S_MEM_INIT_21     = 7'b001_0110;
-    parameter S_MEM_INIT_22     = 7'b001_0111;
-    parameter S_MEM_INIT_23     = 7'b001_1000;
-    parameter S_MEM_INIT_24     = 7'b001_1001;
+    parameter S_RESET                           = 7'b000_0000;
+    parameter S_MEM_INIT_0                      = 7'b000_0001;
+    parameter S_MEM_INIT_1                      = 7'b000_0010;
+    parameter S_MEM_INIT_2                      = 7'b000_0011;
+    parameter S_MEM_INIT_3                      = 7'b000_0100;
+    parameter S_MEM_INIT_4                      = 7'b000_0101;
+    parameter S_MEM_INIT_5                      = 7'b000_0110;
+    parameter S_MEM_INIT_6                      = 7'b000_0111;
+    parameter S_MEM_INIT_7                      = 7'b000_1000;
+    parameter S_MEM_INIT_8                      = 7'b000_1001;
+    parameter S_MEM_INIT_9                      = 7'b000_1010;
+    parameter S_MEM_INIT_10                     = 7'b000_1011;
+    parameter S_MEM_INIT_11                     = 7'b000_1100;
+    parameter S_MEM_INIT_12                     = 7'b000_1101;
+    parameter S_MEM_INIT_13                     = 7'b000_1110;
+    parameter S_MEM_INIT_14                     = 7'b000_1111;
+    parameter S_MEM_INIT_15                     = 7'b001_0000;
+    parameter S_MEM_INIT_16                     = 7'b001_0001;
+    parameter S_MEM_INIT_17                     = 7'b001_0010;
+    parameter S_MEM_INIT_18                     = 7'b001_0011;
+    parameter S_MEM_INIT_19                     = 7'b001_0100;
+    parameter S_MEM_INIT_20                     = 7'b001_0101;
+    parameter S_MEM_INIT_21                     = 7'b001_0110;
+    parameter S_MEM_INIT_22                     = 7'b001_0111;
+    parameter S_MEM_INIT_23                     = 7'b001_1000;
+    parameter S_MEM_INIT_24                     = 7'b001_1001;
 
-    parameter S_SERIAL_MODE_STRIDE_1 = 7'b001_1010;
-    parameter S_SERIAL_MODE_STRIDE_2 = 7'b001_1011;
-    parameter S_SERIAL_MODE_STRIDE_3 = 7'b001_1100;
-    parameter S_SERIAL_MODE_STRIDE_4 = 7'b001_1101;
-    parameter S_SERIAL_MODE_WAIT     = 7'b001_1110;
-    parameter S_SERIAL_MODE_DONE     = 7'b001_1111;
+    parameter S_SERIAL_MODE_STRIDE_1            = 7'b001_1010;
+    parameter S_SERIAL_MODE_STRIDE_2            = 7'b001_1011;
+    parameter S_SERIAL_MODE_STRIDE_3            = 7'b001_1100;
+    parameter S_SERIAL_MODE_STRIDE_4            = 7'b001_1101;
+    parameter S_SERIAL_MODE_WAIT                = 7'b001_1110;
+    parameter S_SERIAL_MODE_DONE                = 7'b001_1111;
 
-    parameter S_SYSTOLIC_MODE_WEIGHT_PRELOAD = 7'b010_0000;
-    parameter S_SYSTOLIC_MODE_STRIDE_1 = 7'b010_0001;
-    parameter S_SYSTOLIC_MODE_STRIDE_2 = 7'b010_0010;
-    parameter S_SYSTOLIC_MODE_STRIDE_3 = 7'b010_0011;
-    parameter S_SYSTOLIC_MODE_STRIDE_4 = 7'b010_0100;
-    parameter S_SYSTOLIC_MODE_WAIT_1   = 7'b010_0101;
-    parameter S_SYSTOLIC_MODE_WAIT_2   = 7'b010_0110;
-    parameter S_SYSTOLIC_MODE_WAIT_3   = 7'b010_0111;
-    parameter S_SYSTOLIC_MODE_DONE     = 7'b010_1000;
+    parameter S_SYSTOLIC_MODE_WEIGHT_PRELOAD    = 7'b010_0000;
+    parameter S_SYSTOLIC_MODE_STRIDE_1          = 7'b010_0001;
+    parameter S_SYSTOLIC_MODE_STRIDE_2          = 7'b010_0010;
+    parameter S_SYSTOLIC_MODE_STRIDE_3          = 7'b010_0011;
+    parameter S_SYSTOLIC_MODE_STRIDE_4          = 7'b010_0100;
+    parameter S_SYSTOLIC_MODE_WAIT_1            = 7'b010_0101;
+    parameter S_SYSTOLIC_MODE_WAIT_2            = 7'b010_0110;
+    parameter S_SYSTOLIC_MODE_WAIT_3            = 7'b010_0111;
+    parameter S_SYSTOLIC_MODE_DONE              = 7'b010_1000;
 
-    parameter S_DISPLAY_MODE_EN = 7'b010_1001;
-    parameter S_DISPLAY_MODE_DONE = 7'b010_1010;
+    parameter S_DISPLAY_MODE_EN                 = 7'b010_1001;
+    parameter S_DISPLAY_MODE_DONE               = 7'b010_1010;
+
 
 
     reg [6:0] next_state;
@@ -96,7 +97,7 @@ module Controller(
     always @(*) begin
         next_state = S_RESET;
         case(current_state)
-            S_RESET         :   if(start)
+            S_RESET         :   if(start_SA)
                                     next_state = S_MEM_INIT_0;
                                 else
                                     next_state = S_RESET;
@@ -226,7 +227,7 @@ module Controller(
         Feature_Loader_en               = 1'b0;
         systolic_mode                   = 1'b0;
         c_reg_sel                       = 2'b00;
-        computation_mode_sel            = 1'b0;
+        computation_mode_sel            = 2'b00;
         display_mode_en                 = 1'b0;
         case(current_state)
             S_RESET         :   begin
@@ -242,7 +243,7 @@ module Controller(
                                     Feature_Loader_en               = 1'b0;
                                     systolic_mode                   = 1'b0;
                                     c_reg_sel                       = 2'b00;
-                                    computation_mode_sel            = 1'b0;
+                                    computation_mode_sel            = 2'b00;
                                     display_mode_en                 = 1'b0;
                                 end
 
@@ -377,14 +378,14 @@ module Controller(
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
                                             serial_mode_en = 1'b1;
-                                            computation_mode_sel = 1'b0;
+                                            computation_mode_sel = 2'b00;
                                             serial_mode_feature_baseaddr = 6'b00_1001;
                                         end
             S_SERIAL_MODE_STRIDE_2  :   begin
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
                                             serial_mode_en = 1'b1;
-                                            computation_mode_sel = 1'b0;
+                                            computation_mode_sel = 2'b00;
                                             serial_mode_feature_baseaddr = 6'b00_1010;
                                         end
                                             
@@ -392,7 +393,7 @@ module Controller(
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
                                             serial_mode_en = 1'b1;
-                                            computation_mode_sel = 1'b0;
+                                            computation_mode_sel = 2'b00;
                                             serial_mode_feature_baseaddr = 6'b00_1101;
                                         end
                                         
@@ -400,34 +401,34 @@ module Controller(
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
                                             serial_mode_en = 1'b1;
-                                            computation_mode_sel = 1'b0;
+                                            computation_mode_sel = 2'b00;
                                             serial_mode_feature_baseaddr = 6'b00_1110;
                                         end  
             S_SERIAL_MODE_WAIT      :   begin
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
                                             serial_mode_en = 1'b0;
-                                            computation_mode_sel = 1'b0;
+                                            computation_mode_sel = 2'b00;
                                         end
             S_SERIAL_MODE_DONE      :   begin
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
                                             serial_mode_en = 1'b0;
-                                            computation_mode_sel = 1'b0;
+                                            computation_mode_sel = 2'b00;
                                         end
                                     
 
             S_SYSTOLIC_MODE_WEIGHT_PRELOAD  :   begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b1;
                                                     systolic_mode = 1'b0;
                                                 end 
             S_SYSTOLIC_MODE_STRIDE_1          : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b1;
                                                     systolic_mode = 1'b1;
@@ -437,7 +438,7 @@ module Controller(
             S_SYSTOLIC_MODE_STRIDE_2          : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b1;
                                                     systolic_mode = 1'b1;
@@ -448,7 +449,7 @@ module Controller(
             S_SYSTOLIC_MODE_STRIDE_3          : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b1;
                                                     systolic_mode = 1'b1;
@@ -458,7 +459,7 @@ module Controller(
             S_SYSTOLIC_MODE_STRIDE_4          : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b1;
                                                     systolic_mode = 1'b1;
@@ -468,7 +469,7 @@ module Controller(
             S_SYSTOLIC_MODE_WAIT_1            : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b0;
                                                     systolic_mode = 1'b1;
@@ -477,7 +478,7 @@ module Controller(
             S_SYSTOLIC_MODE_WAIT_2            : begin 
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b0;
                                                     systolic_mode = 1'b1;
@@ -485,7 +486,7 @@ module Controller(
             S_SYSTOLIC_MODE_WAIT_3            : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
-                                                    computation_mode_sel = 1'b1;
+                                                    computation_mode_sel = 2'b01;
                                                     Weight_Preloader_en = 1'b0;
                                                     Feature_Loader_en = 1'b0;
                                                     systolic_mode = 1'b1;
