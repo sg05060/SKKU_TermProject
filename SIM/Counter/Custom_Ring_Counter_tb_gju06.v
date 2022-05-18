@@ -14,7 +14,7 @@ module Custom_Ring_Counter_gju06_tb;
     // instanciate device under test
     Custom_Ring_Counter_gju06 custom_ring_couter_inst(
         .clk        (clk), 
-        .rst        (rst), 
+        .rst        (rst),  
         .en         (en),
         .i_num_cnt  (i_num_cnt),
         .cnt_o      (cnt_o),
