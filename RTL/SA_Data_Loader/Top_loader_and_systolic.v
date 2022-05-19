@@ -7,7 +7,6 @@ module Top_SA_Data_Loader(
     input mode,
 
     //added
-    input 
     output is_FL_done_o,
     output is_WL_done_o,
     output [7:0] c11,
