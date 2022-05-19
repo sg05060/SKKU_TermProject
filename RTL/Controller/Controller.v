@@ -506,12 +506,14 @@ module Controller(
                                                 end
                                                 
             S_DISPLAY_MODE_EN                 : begin 
+                                                    mem_sel = 1'b1;
                                                     rst_computation_module = 1'b1;
                                                     rst_display_module = 1'b0;
                                                     display_mode_en = 1'b0;
                                                     sel_display = 1'b0;
                                                 end
             S_DISPLAY_MODE_DONE               : begin
+                                                    mem_sel = 1'b1;
                                                     rst_display_module = 1'b1;
                                                     display_mode_en = 1'b0;
                                                 end
@@ -539,6 +541,7 @@ module Controller(
                                                     sel_display = 1'b1;
                                                 end
             S_DISPLAY_MODE_DONE_L               : begin
+                                                    mem_sel = 1'b1;
                                                     rst_display_module = 1'b1;
                                                     display_mode_en = 1'b0;
                                                 end
