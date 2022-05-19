@@ -8,6 +8,7 @@ module custom_ring_couter(clk, rst, en, i_num_cnt, out,is_done_o);
     output is_done_o; 
 
     wire [7:0] num_cnt;
+    wire [7:0] num_cnt_subtract_1;//added
     wire [7:0] reg_out;
     wire [7:0] reg_in;
     wire [7:0] add_out;
@@ -44,7 +45,12 @@ module custom_ring_couter(clk, rst, en, i_num_cnt, out,is_done_o);
         .out(reg_in)
     );
     // modify!
-    eight_bit_xnor_gate eight_bit_xnor_gate_inst(.a(reg_out), .b(num_cnt-1), .out(xnor_out));
+    eigth_bit_signed_subtractor eigth_bit_signed_subtractor_1(
+        .a(num_cnt),
+        .b(8'b0000_0001),
+        .out(num_cnt_subtract_1)
+    );
+    eight_bit_xnor_gate eight_bit_xnor_gate_inst(.a(reg_out), .b(num_cnt_subtract_1), .out(xnor_out));
     eight_bit_wise_and_gate eight_bit_wise_and_gate_inst(.a(xnor_out), .out(bit_wise_out));
     and_gate and_gate_inst (.a(bit_wise_out), .b(en), .out(is_done));
     eight_bit_d_flip_flop eight_bit_d_flip_flop_inst(.d(i_num_cnt), .clk(clk), .q(num_cnt), .q_bar());

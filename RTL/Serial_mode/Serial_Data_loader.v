@@ -30,8 +30,22 @@ module Serial_Data_loader (
     wire    is_done_o_d_1;
     wire    is_done_o_d_2;
 
+    /*
     assign sel_offset_0 = cnt[7:1] - 7'b0000_011;
     assign sel_offset_1 = cnt[7:1] - 7'b0000_110;
+    */
+    
+    eigth_bit_signed_subtractor eigth_bit_signed_subtractor_1(
+        .a({1'b0,cnt[7:1]}),
+        .b(8'b0000_0011),
+        .out(sel_offset_0)
+    );
+    eigth_bit_signed_subtractor eigth_bit_signed_subtractor_2(
+        .a({1'b0,cnt[7:1]}),
+        .b(8'b0000_0110),
+        .out(sel_offset_1)
+    );
+
     custom_ring_couter counter(
         .clk            (clk), 
         .rst            (rst), 
