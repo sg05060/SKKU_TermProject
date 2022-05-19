@@ -22,8 +22,6 @@ module top_module(
     wire [5:0] addr_0;
     wire [5:0] addr_1;
     wire [5:0] addr;
-    wire we_1;
-    wire we_0;
     wire we;
     wire [7:0] q_o;
     wire [7:0] q;
@@ -57,7 +55,7 @@ module top_module(
             .rst_display_module(rst_display_module),
             .data(data),
             .addr_0(addr_0),
-            .we_0(we_0),
+            //.we_0(we_0),
 
             .mem_sel(mem_sel), 
             .serial_mode_feature_baseaddr(serial_mode_feature_baseaddr),
@@ -90,7 +88,7 @@ module top_module(
         .feature_Loader_done(feature_Loader_done),
         .custom_mode_done(custom_mode_done),
         .addr(addr_1),
-        .we(we_1),
+        //.we(we_1),
         .c11_sa(c11_sa),
         .c12_sa(c12_sa),
         .c21_sa(c21_sa),
@@ -110,8 +108,8 @@ module top_module(
 
     memory_interface memory_interface(
         .data_i(data),
-        .we_0(we_0),
-        .we_1(we_1),
+        //.we_0(we_0),
+        //.we_1(we_1),
         .sel(mem_sel),
         .addr_0(addr_0),
         .addr_1(addr_1),

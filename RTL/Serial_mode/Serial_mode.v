@@ -6,7 +6,7 @@ module Serial_mode (
     input [7:0] q,
 
     output [5:0] addr,
-    output we,
+    //output we,
     output is_done_o,
     output [7:0] out
 );
@@ -23,7 +23,7 @@ module Serial_mode (
         .feature_baseaddr(feature_baseaddr),     
         .q(q),
         .is_done_o(is_done_o),
-        .we(we),
+        //.we(we),
         .addr(addr),        
         .w_out(w_out),
         .f_out(f_out),

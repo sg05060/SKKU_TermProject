@@ -10,7 +10,7 @@ module Systolic_mode(
     input [7:0] q,
 
     output [5:0] addr,
-    output we,
+    //output we,
     output is_FL_done_o,
     output is_WL_done_o,
     output [7:0] c11,
@@ -146,6 +146,6 @@ module Systolic_mode(
         .c21(c21), 
         .c22(c22)
     );
-    assign we = 1'b0;
+    //assign we = 1'b0;
 
 endmodule

@@ -1,7 +1,7 @@
 module memory_interface(
     input [7:0] data_i,
-    input we_0,
-    input we_1,
+    //input we_0,
+    //input we_1,
     input sel,
     input [5:0] addr_0,
     input [5:0] addr_1,
@@ -20,8 +20,8 @@ module memory_interface(
     );
 
     two_to_one_mux_gatelevel_module two_to_one_mux(
-	    .a(we_0), 
-        .b(we_1),
+	    .a(1'b1), 
+        .b(1'b0),
 	    .s(sel),	
 	    .out(we_o)
     );

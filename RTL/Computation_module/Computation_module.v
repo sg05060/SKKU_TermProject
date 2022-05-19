@@ -21,7 +21,7 @@ module Computation_module(
     output custom_mode_done,
 
     output [5:0] addr,
-    output we,
+    //output we,
     output [7:0] c11_sa,
     output [7:0] c12_sa,
     output [7:0] c21_sa,
@@ -34,7 +34,7 @@ module Computation_module(
 );
 // test
     wire [5:0] addr_0, addr_1,addr_2;
-    wire we_0, we_1,we_2;
+    //wire we_0, we_1,we_2;
     wire [7:0] q_0;
     wire [7:0] q_1;
     wire [7:0] q_2;
@@ -48,7 +48,7 @@ module Computation_module(
         .q(q_0),
 
         .addr(addr_0),
-        .we(we_0),
+        //.we(we_0),
         .is_done_o(serial_mode_done),
         .out()
     );
@@ -65,7 +65,7 @@ module Computation_module(
         .q(q_1),
 
         .addr(addr_1),
-        .we(we_1),
+        //.we(we_1),
         .is_FL_done_o(feature_Loader_done),
         .is_WL_done_o(weight_Preloader_done),
         .c11(c11_sa),
@@ -98,7 +98,7 @@ module Computation_module(
         .s(computation_mode_sel),
         .out(addr)
     );
-
+    /*
     three_to_one_mux_gatelevel_module three_to_one_mux(
 	    .a(we_0), 
         .b(we_1),
@@ -107,6 +107,7 @@ module Computation_module(
         .s1(computation_mode_sel[1]),
 	    .out(we)
     );
+    */
 
     eight_bit_one_to_three_demux_gatelevel_module eight_bit_one_to_three_demux(
         .a(q),

@@ -13,7 +13,7 @@ module Controller(
     output reg rst_display_module,
     output reg [7:0] data,
     output reg [5:0] addr_0,
-    output reg we_0,
+    //output reg we_0,
 
     output reg mem_sel, 
     output reg [7:0] serial_mode_feature_baseaddr,
@@ -242,7 +242,6 @@ module Controller(
         rst_computation_module          = 1'b1;
         rst_display_module              = 1'b1;
         addr_0                          = 6'b0;
-        we_0                            = 1'b0;
         mem_sel                         = 0;
         serial_mode_feature_baseaddr    = 8'b0;
         systolic_mode_feature_baseaddr  = 6'b0;
@@ -260,7 +259,6 @@ module Controller(
                                     rst_computation_module          = 1'b1;
                                     rst_display_module              = 1'b1;
                                     addr_0                          = 6'b0;
-                                    we_0                            = 1'b0;
                                     mem_sel                         = 0;
                                     serial_mode_feature_baseaddr    = 8'b0;
                                     systolic_mode_feature_baseaddr  = 6'b0;
@@ -277,127 +275,107 @@ module Controller(
             S_MEM_INIT_0    :   begin
                                     addr_0  = 6'b00_0000;
                                     data    = b11;
-                                    we_0    = 1'b1;
+
                                 end
             S_MEM_INIT_1    :   begin
                                     addr_0  = 6'b00_0001;
                                     data    = b21;
-                                    we_0    = 1'b1;
+                            
                                 end
             S_MEM_INIT_2    :   begin
                                     addr_0  = 6'b00_0010;
                                     data    = b31;
-                                    we_0    = 1'b1;
+                
                                 end
             S_MEM_INIT_3    :   begin
                                     addr_0  = 6'b00_0011;
                                     data    = b12;
-                                    we_0    = 1'b1;
+
                                 end
             S_MEM_INIT_4    :   begin
                                     addr_0  = 6'b00_0100;
                                     data    = b22;
-                                    we_0    = 1'b1;
+
                                 end
             S_MEM_INIT_5    :   begin
                                     addr_0  = 6'b00_0101;
                                     data    = b32;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_6    :   begin
                                     addr_0  = 6'b00_0110;
                                     data    = b13;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_7    :   begin
                                     addr_0  = 6'b00_0111;
                                     data    = b23;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_8    :   begin
                                     addr_0  = 6'b00_1000;
                                     data    = b33;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_9    :   begin
                                     addr_0  = 6'b00_1001;
                                     data    = a11;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_10    :   begin
                                     addr_0  = 6'b00_1010;
                                     data    = a12;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_11    :   begin
                                     addr_0  = 6'b00_1011;
                                     data    = a13;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_12    :   begin
                                     addr_0  = 6'b00_1100;
                                     data    = a14;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_13    :   begin
                                     addr_0  = 6'b00_1101;
                                     data    = a21;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_14    :   begin
                                     addr_0  = 6'b00_1110;
                                     data    = a22;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_15    :   begin
                                     addr_0  = 6'b00_1111;
                                     data    = a23;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_16    :   begin
                                     addr_0  = 6'b01_0000;
                                     data    = a24;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_17    :   begin
                                     addr_0  = 6'b01_0001;
                                     data    = a31;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_18    :   begin
                                     addr_0  = 6'b01_0010;
                                     data    = a32;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_19    :   begin
                                     addr_0  = 6'b01_0011;
                                     data    = a33;
-                                    we_0    = 1'b1;
                                 end   
             S_MEM_INIT_20    :   begin
                                     addr_0  = 6'b01_0100;
                                     data    = a34;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_21    :   begin
                                     addr_0  = 6'b01_0101;
                                     data    = a41;
-                                    we_0    = 1'b1;
                                 end            
             S_MEM_INIT_22    :   begin
                                     addr_0  = 6'b01_0110;
                                     data    = a42;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_23    :   begin
                                     addr_0  = 6'b01_0111;
                                     data    = a43;
-                                    we_0    = 1'b1;
                                 end
             S_MEM_INIT_24    :   begin
                                     addr_0  = 6'b01_1000;
                                     data    = a44;
-                                    we_0    = 1'b1;
                                     rst_computation_module = 1'b0;
                                 end
 

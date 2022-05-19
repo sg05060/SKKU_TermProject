@@ -7,7 +7,7 @@ module Serial_Data_loader (
     input   [7:0]   q,
 
     output          is_done_o,
-    output          we,
+    //output          we,
     output  [5:0]   addr,
 
     output  [7:0]   w_out,
@@ -115,7 +115,7 @@ module Serial_Data_loader (
     );
 
     assign addr = wire_addr[5:0];
-    assign we   = 1'b0;
+    //assign we   = 1'b0;
     assign acc_en = sel_q;
 
     d_flip_flop_behavioral_module d_flip_flop_3(
