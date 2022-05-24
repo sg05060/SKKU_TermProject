@@ -1,6 +1,6 @@
 module four_bit_and_gate (
     input [3:0] a,
-    output out
+    output wire out
 );  
     wire out1,out2;
     and_gate and_gate_1(.a(a[3]), .b(a[2]), .out(out1));
