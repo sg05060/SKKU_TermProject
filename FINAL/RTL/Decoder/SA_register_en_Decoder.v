@@ -2,21 +2,17 @@ module SA_register_en_Decoder(
     input [3:0] cnt,
     output wire en
 );  
-    /*
-    always @(*) begin
-        case(cnt)
-            4'b0000 : en = 1'b1;
-            4'b0001 : en = 1'b0;
-            4'b0010 : en = 1'b1;
-            4'b0011 : en = 1'b0;
-            4'b0100 : en = 1'b0;
-            4'b0101 : en = 1'b1;
-            4'b0110 : en = 1'b0;
-            4'b0111 : en = 1'b1;
-            4'b1000 : en = 1'b1;
-        endcase
-    end
-    */
+    
+    //  4'b0000 : en = 1'b1;
+    //  4'b0001 : en = 1'b0;
+    //  4'b0010 : en = 1'b1;
+    //  4'b0011 : en = 1'b0;
+    //  4'b0100 : en = 1'b0;
+    //  4'b0101 : en = 1'b1;
+    //  4'b0110 : en = 1'b0;
+    //  4'b0111 : en = 1'b1;
+    //  4'b1000 : en = 1'b1;
+    
     wire not_0,not_1,not_2,not_3;
     wire out_1,out_2,out_3, out_4,out_5,out_6, out_7,out_8;
     wire or_out_1,or_out_2;

@@ -34,55 +34,55 @@ module Controller(
               b21 = 8'b0000_0001, b22 = 8'b0000_0010, b23 = 8'b0000_0011,
               b31 = 8'b0000_0001, b32 = 8'b0000_0010, b33 = 8'b0000_0011;
 
-    parameter S_RESET                           = 7'b000_0000;
-    parameter S_MEM_INIT_0                      = 7'b000_0001;
-    parameter S_MEM_INIT_1                      = 7'b000_0010;
-    parameter S_MEM_INIT_2                      = 7'b000_0011;
-    parameter S_MEM_INIT_3                      = 7'b000_0100;
-    parameter S_MEM_INIT_4                      = 7'b000_0101;
-    parameter S_MEM_INIT_5                      = 7'b000_0110;
-    parameter S_MEM_INIT_6                      = 7'b000_0111;
-    parameter S_MEM_INIT_7                      = 7'b000_1000;
-    parameter S_MEM_INIT_8                      = 7'b000_1001;
-    parameter S_MEM_INIT_9                      = 7'b000_1010;
-    parameter S_MEM_INIT_10                     = 7'b000_1011;
-    parameter S_MEM_INIT_11                     = 7'b000_1100;
-    parameter S_MEM_INIT_12                     = 7'b000_1101;
-    parameter S_MEM_INIT_13                     = 7'b000_1110;
-    parameter S_MEM_INIT_14                     = 7'b000_1111;
-    parameter S_MEM_INIT_15                     = 7'b001_0000;
-    parameter S_MEM_INIT_16                     = 7'b001_0001;
-    parameter S_MEM_INIT_17                     = 7'b001_0010;
-    parameter S_MEM_INIT_18                     = 7'b001_0011;
-    parameter S_MEM_INIT_19                     = 7'b001_0100;
-    parameter S_MEM_INIT_20                     = 7'b001_0101;
-    parameter S_MEM_INIT_21                     = 7'b001_0110;
-    parameter S_MEM_INIT_22                     = 7'b001_0111;
-    parameter S_MEM_INIT_23                     = 7'b001_1000;
-    parameter S_MEM_INIT_24                     = 7'b001_1001;
+    parameter S_RESET                           = 6'b00_0000;
+    parameter S_MEM_INIT_0                      = 6'b00_0001;
+    parameter S_MEM_INIT_1                      = 6'b00_0010;
+    parameter S_MEM_INIT_2                      = 6'b00_0011;
+    parameter S_MEM_INIT_3                      = 6'b00_0100;
+    parameter S_MEM_INIT_4                      = 6'b00_0101;
+    parameter S_MEM_INIT_5                      = 6'b00_0110;
+    parameter S_MEM_INIT_6                      = 6'b00_0111;
+    parameter S_MEM_INIT_7                      = 6'b00_1000;
+    parameter S_MEM_INIT_8                      = 6'b00_1001;
+    parameter S_MEM_INIT_9                      = 6'b00_1010;
+    parameter S_MEM_INIT_10                     = 6'b00_1011;
+    parameter S_MEM_INIT_11                     = 6'b00_1100;
+    parameter S_MEM_INIT_12                     = 6'b00_1101;
+    parameter S_MEM_INIT_13                     = 6'b00_1110;
+    parameter S_MEM_INIT_14                     = 6'b00_1111;
+    parameter S_MEM_INIT_15                     = 6'b01_0000;
+    parameter S_MEM_INIT_16                     = 6'b01_0001;
+    parameter S_MEM_INIT_17                     = 6'b01_0010;
+    parameter S_MEM_INIT_18                     = 6'b01_0011;
+    parameter S_MEM_INIT_19                     = 6'b01_0100;
+    parameter S_MEM_INIT_20                     = 6'b01_0101;
+    parameter S_MEM_INIT_21                     = 6'b01_0110;
+    parameter S_MEM_INIT_22                     = 6'b01_0111;
+    parameter S_MEM_INIT_23                     = 6'b01_1000;
+    parameter S_MEM_INIT_24                     = 6'b01_1001;
 
-    parameter S_SERIAL_MODE_STRIDE_1            = 7'b001_1010;
-    parameter S_SERIAL_MODE_STRIDE_2            = 7'b001_1011;
-    parameter S_SERIAL_MODE_STRIDE_3            = 7'b001_1100;
-    parameter S_SERIAL_MODE_STRIDE_4            = 7'b001_1101;
-    parameter S_SERIAL_MODE_WAIT                = 7'b001_1110;
-    parameter S_SERIAL_MODE_DONE                = 7'b001_1111;
+    parameter S_SERIAL_MODE_STRIDE_1            = 6'b01_1010;
+    parameter S_SERIAL_MODE_STRIDE_2            = 6'b01_1011;
+    parameter S_SERIAL_MODE_STRIDE_3            = 6'b01_1100;
+    parameter S_SERIAL_MODE_STRIDE_4            = 6'b01_1101;
+    parameter S_SERIAL_MODE_WAIT                = 6'b01_1110;
+    parameter S_SERIAL_MODE_DONE                = 6'b01_1111;
 
-    parameter S_SYSTOLIC_MODE_WEIGHT_PRELOAD    = 7'b010_0000;
-    parameter S_SYSTOLIC_MODE_STRIDE_1          = 7'b010_0001;
-    parameter S_SYSTOLIC_MODE_STRIDE_2          = 7'b010_0010;
-    parameter S_SYSTOLIC_MODE_STRIDE_3          = 7'b010_0011;
-    parameter S_SYSTOLIC_MODE_STRIDE_4          = 7'b010_0100;
-    parameter S_SYSTOLIC_MODE_WAIT_1            = 7'b010_0101;
-    parameter S_SYSTOLIC_MODE_WAIT_2            = 7'b010_0110;
-    parameter S_SYSTOLIC_MODE_WAIT_3            = 7'b010_0111;
-    parameter S_SYSTOLIC_MODE_DONE              = 7'b010_1000;
+    parameter S_SYSTOLIC_MODE_WEIGHT_PRELOAD    = 6'b10_0000;
+    parameter S_SYSTOLIC_MODE_STRIDE_1          = 6'b10_0001;
+    parameter S_SYSTOLIC_MODE_STRIDE_2          = 6'b10_0010;
+    parameter S_SYSTOLIC_MODE_STRIDE_3          = 6'b10_0011;
+    parameter S_SYSTOLIC_MODE_STRIDE_4          = 6'b10_0100;
+    parameter S_SYSTOLIC_MODE_WAIT_1            = 6'b10_0101;
+    parameter S_SYSTOLIC_MODE_WAIT_2            = 6'b10_0110;
+    parameter S_SYSTOLIC_MODE_WAIT_3            = 6'b10_0111;
+    parameter S_SYSTOLIC_MODE_DONE              = 6'b10_1000;
 
-    parameter S_CUSTOM_MODE_EN                  = 7'b010_1001;
-    parameter S_CUSTOM_MODE_DONE                = 7'b010_1010;
+    parameter S_CUSTOM_MODE_EN                  = 6'b10_1001;
+    parameter S_CUSTOM_MODE_DONE                = 6'b10_1010;
 
-    parameter S_DISPLAY_MODE_EN                 = 7'b010_1011;
-    parameter S_DISPLAY_MODE_DONE               = 7'b010_1100;
+    parameter S_DISPLAY_MODE_EN                 = 6'b10_1011;
+    parameter S_DISPLAY_MODE_DONE               = 6'b10_1100;
 
 
 

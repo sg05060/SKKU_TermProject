@@ -2,21 +2,16 @@ module SA_feature_address_decoder(
     input [3:0] cnt,
     output wire [5:0] addr
 );
-    /*
-    always @(*) begin
-        case(cnt)
-            4'b0000 : addr = 6'b00_1000; //8
-            4'b0001 : addr = 6'b00_0100; //4
-            4'b0010 : addr = 6'b00_1001; //9
-            4'b0011 : addr = 6'b00_0000; //0
-            4'b0100 : addr = 6'b00_0101; //5
-            4'b0101 : addr = 6'b00_1010; //10
-            4'b0110 : addr = 6'b00_0001; //1
-            4'b0111 : addr = 6'b00_0110; //6
-            4'b1000 : addr = 6'b00_0010; //2
-        endcase
-    end
-    */
+    
+    //  4'b0000 : addr = 6'b00_1000; //8
+    //  4'b0001 : addr = 6'b00_0100; //4
+    //  4'b0010 : addr = 6'b00_1001; //9
+    //  4'b0011 : addr = 6'b00_0000; //0
+    //  4'b0100 : addr = 6'b00_0101; //5
+    //  4'b0101 : addr = 6'b00_1010; //10
+    //  4'b0110 : addr = 6'b00_0001; //1
+    //  4'b0111 : addr = 6'b00_0110; //6
+    //  4'b1000 : addr = 6'b00_0010; //2
 
     wire not_0,not_1,not_2,not_3;
     wire out_1,out_2,out_3, out_4,out_5,out_6, out_7,out_8,out_9,out_10;
@@ -31,7 +26,7 @@ module SA_feature_address_decoder(
     assign addr[5:4] = 2'b00;
 
     // a3 = 00-0 + 0101;
-    three_bit_and_gate three_bit_and_gate_1(.a({not_3,not_2,not_1}), .out(out_1));
+    three_bit_and_gate three_bit_and_gate_1(.a({not_3,not_2,not_0}), .out(out_1));
     four_bit_and_gate four_bit_and_gate_1(.a({not_3,cnt[2],not_1,cnt[0]}), .out(out_2));
     or_gate or_gate_2(.a(out_1),.b(out_2),.out(addr[3]));
 

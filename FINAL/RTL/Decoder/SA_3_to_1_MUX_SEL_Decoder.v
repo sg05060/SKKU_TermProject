@@ -2,23 +2,18 @@ module SA_3_to_1_MUX_SEL_Decoder(
     input [3:0] cnt,
     output wire [1:0] sel
 );
-    /*
-    always @(*) begin
-        case(cnt)
-            4'b0000 : sel = 2'b00;
-            4'b0001 : sel = 2'b00;
-            4'b0010 : sel = 2'b01;
-            4'b0011 : sel = 2'b00;
-            4'b0100 : sel = 2'b01;
-            4'b0101 : sel = 2'b10;
-            4'b0110 : sel = 2'b01;
-            4'b0111 : sel = 2'b10;
-            4'b1000 : sel = 2'b10;
-        endcase
-    end
-    */
+    //  4'b0000 : sel = 2'b00;
+    //  4'b0001 : sel = 2'b00;
+    //  4'b0010 : sel = 2'b01;
+    //  4'b0011 : sel = 2'b00;
+    //  4'b0100 : sel = 2'b01;
+    //  4'b0101 : sel = 2'b10;
+    //  4'b0110 : sel = 2'b01;
+    //  4'b0111 : sel = 2'b10;
+    //  4'b1000 : sel = 2'b10;
+    
     wire not_0,not_1,not_2,not_3;
-    wire out_1,out_2,out_3, out_4,out_5,out_6, out_7,out_8;
+    wire out_1,out_2,out_3, out_4;
     wire or_out_1,or_out_2;
     not_gate not_gate_0(.a(cnt[0]), .out(not_0));
     not_gate not_gate_1(.a(cnt[1]), .out(not_1));
