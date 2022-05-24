@@ -70,15 +70,15 @@ module Custom_Data_Loader(
     );
     
     four_bit_one_to_two_demux_module four_bit_one_to_two_demux_inst(
-    .a                          (buff_en),
-    .s                          (feature_weight_sel),
-    .out1                       (weight_en),
-    .out2                       (feature_en)
+        .a                      (buff_en),
+        .s                      (feature_weight_sel),
+        .out1                   (weight_en),
+        .out2                   (feature_en)
     );
     
     Custom_Addr_Decoder Custom_Addr_dec_inst(
-    .cnt                        (cnt),            
-    .addr                       (addr_o) 
+        .cnt                    (cnt),            
+        .addr                   (addr_o) 
     );
 
     assign mem_data_o = mem_data_i;     // getting data from mem to one cycle delay
