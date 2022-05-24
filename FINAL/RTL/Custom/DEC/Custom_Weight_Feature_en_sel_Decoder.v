@@ -32,4 +32,14 @@ module Custom_Feature_Weight_en_SEL_Decoder(
             default   : feature_weight_en_sel = 1'b0;
         endcase
     end
+    
+    // Binary output expression
+    // -1000 1
+    // 01--1 1
+    // 10--0 1
+    // -01-- 1
+    
+    // Boolean expression
+    // en_sel = -1000 | 01--1 | 10--0 | -01--
+    
 endmodule
