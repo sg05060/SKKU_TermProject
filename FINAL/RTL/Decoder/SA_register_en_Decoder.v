@@ -15,4 +15,5 @@ module SA_register_en_Decoder(
             4'b1000 : en = 1'b1;
         endcase
     end
+    // en = -000 + 01-1 + 00-0;
 endmodule

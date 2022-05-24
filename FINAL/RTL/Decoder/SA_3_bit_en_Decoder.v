@@ -15,4 +15,7 @@ module SA_3_bit_en_Decoder(
             4'b1000 : en = 3'b111;
         endcase
     end
+    // en2 = 0110 + 00-1 + -000;
+    // en1 = 0--0 + -000;
+    // en0 = 01-1 + 000- + -000;
 endmodule

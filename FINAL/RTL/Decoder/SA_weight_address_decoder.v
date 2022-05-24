@@ -15,5 +15,11 @@ module SA_weight_address_decoder(
             4'b1000 : addr = 6'b00_1000; //8
         endcase
     end
+    // a5 = 1'b0;
+    // a4 = 1'b0;
+    // a3 = 1000;
+    // a2 = 0010 + 01-1 + 010-;
+    // a1 = 0-10 + 0-01;
+    // a0 = 0--1; 
 
 endmodule

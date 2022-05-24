@@ -15,4 +15,6 @@ module SA_3_to_1_MUX_SEL_Decoder(
             4'b1000 : sel = 2'b10;
         endcase
     end
+    // s1 = 1000 + 01-1;
+    // s0 = 0-10 + 01-0;
 endmodule

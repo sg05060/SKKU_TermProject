@@ -15,5 +15,10 @@ module SA_feature_address_decoder(
             4'b1000 : addr = 6'b00_0010; //2
         endcase
     end
-
+    // a5 = 1'b0;
+    // a4 = 1'b0;
+    // a3 = 00-0 + 0101;
+    // a2 = 0001 + 0111 + 0100;
+    // a1 = 1000 + 0111 + 0101;
+    // a0 = 0-10 + 0100
 endmodule
