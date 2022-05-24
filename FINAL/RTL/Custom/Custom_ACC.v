@@ -16,7 +16,7 @@ module custom_acc(
     wire    [7:0]   sum_stage2_out;
     
     
-    
+    // stage1
     eight_bit_full_adder_module eight_bit_full_adder_module_stage1_1(
         .a      (in_1), 
         .b      (in_2), 
@@ -31,6 +31,8 @@ module custom_acc(
         .sum    (sum_stage1_out2), 
         .cout   ()
     );
+    
+    // stage2
     eight_bit_full_adder_module eight_bit_full_adder_module_stage2(
         .a      (sum_stage1_out1), 
         .b      (sum_stage1_out2), 
@@ -38,6 +40,8 @@ module custom_acc(
         .sum    (sum_stage2_out), 
         .cout   ()
     );
+    
+    // accumulator
     eight_bit_accumulator eight_bit_accumulator_inst(
         .in     (sum_stage2_out), 
         .clk    (clk), 

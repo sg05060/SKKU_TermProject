@@ -32,7 +32,7 @@ module Custom_Data_Loader(
     wire            feature_weight_sel;
 
 
-
+    // Counter
     custom_ring_couter Counter_inst(
         .clk                    (clk), 
         .rst                    (rst), 
@@ -42,6 +42,7 @@ module Custom_Data_Loader(
         .is_done_o              (is_done_o)
     );
 
+    // Control Decoder(cnt -> control signal)
     Custom_ACC_en_Decoder Custom_ACC_en_dec_inst(
         .cnt                    (cnt),            
         .acc_en                 (acc_en)      
@@ -52,11 +53,10 @@ module Custom_Data_Loader(
         .buff_use               (buff_use)
     );
     
-    Demux_SEL Custom_Demux_sel_inst(
-        .clk                    (clk),
-        .rst                    (rst),
-        .buff_use               (buff_use),
-        .custom_demux_sel       (demux_sel)
+
+    Custom_Addr_Decoder Custom_Addr_dec_inst(
+        .cnt                    (cnt),            
+        .addr                   (addr_o) 
     );
     
     Custom_Feature_Weight_en_Decoder Custom_F_W_en_dec_inst(
@@ -69,6 +69,17 @@ module Custom_Data_Loader(
         .feature_weight_en_sel  (feature_weight_sel)
     );
     
+    
+    // Demux selection control bit generator
+    Demux_SEL Custom_Demux_sel_inst(
+        .clk                    (clk),
+        .rst                    (rst),
+        .buff_use               (buff_use),
+        .custom_demux_sel       (demux_sel)
+    );
+    
+    
+    // selecting feature or weight update signal
     four_bit_one_to_two_demux_module four_bit_one_to_two_demux_inst(
         .a                      (buff_en),
         .s                      (feature_weight_sel),
@@ -76,12 +87,9 @@ module Custom_Data_Loader(
         .out2                   (feature_en)
     );
     
-    Custom_Addr_Decoder Custom_Addr_dec_inst(
-        .cnt                    (cnt),            
-        .addr                   (addr_o) 
-    );
 
     assign mem_data_o = mem_data_i;     // getting data from mem to one cycle delay
+    
     
     // buffering control signal for mem access delay
     eight_bit_d_flip_flop demux_sel_buff(
