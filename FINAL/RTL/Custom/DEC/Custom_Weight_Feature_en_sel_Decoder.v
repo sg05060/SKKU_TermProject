@@ -1,19 +1,14 @@
 module Custom_Feature_Weight_en_SEL_Decoder(
     input [4:0] cnt,                
-    output wire feature_weight_en_sel
+    output      feature_weight_en_sel
     // output reg feature_weight_en_sel // this line is for behavioral modeling
 );
-    // Binary output expression
-    // -1000 1
-    // 01--1 1
-    // 10--0 1
-    // -01-- 1
-    
+
     // Boolean expression
     // en_sel = -1000 | 01--1 | 10--0 | -01--
     
     wire [4:0] cnt_not;
-    wire product_0, product_1, product_2, product_3
+    wire [3:0] product0;
     wire sum_0;
     
     // NOT gating
@@ -24,27 +19,14 @@ module Custom_Feature_Weight_en_SEL_Decoder(
     not_gate not_gate_4(.a(cnt[4]), .out(cnt_not[4]));
     
     // en_sel AND gating(Product)
-    four_bit_and_gate en_sel_product_0(
-        .a  ({cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}), 
-        .out(product_0)
-    );
-    three_bit_and_gate en_sel_product_1(
-        .a  ({cnt_not[4], cnt[3], cnt[0]}), 
-        .out(product_1))
-    );
-    three_bit_and_gate en_sel_product_2(
-        .a  ({cnt[4], cnt_not[3], cnt_not[0]}), 
-        .out(product_2))
-    );
-    and_gate en_sel_product_3(
-        .a  (cnt_not[3])
-        .b  (cnt[2])
-        .out(product_3)
-    );
+    four_bit_and_gate   en_sel_product0_0(.a({cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}),    .out(product0[0]));     // -1000
+    three_bit_and_gate  en_sel_product0_1(.a({cnt_not[4], cnt[3], cnt[0]}),                    .out(product0[1]));     // 01--1
+    three_bit_and_gate  en_sel_product0_2(.a({cnt[4], cnt_not[3], cnt_not[0]}),                .out(product0[2]));     // 10--0
+    and_gate            en_sel_product0_3(.a(cnt_not[3]), .b(cnt[2])                           .out(product0[3]));     // -01--
     
     // en_sel OR gating(Sum)
     four_bit_or_gate SOP_en_sel(
-        .a  ({and_0, and_1, and_2, and3}), 
+        .a  (product0), 
         .out(sum_0)
     );
     
