@@ -9,7 +9,7 @@ module Custom_Feature_Weight_en_SEL_Decoder(
     
     wire [4:0] cnt_not;
     wire [3:0] product0;
-    wire sum_0;
+    wire sum0;
     
     // NOT gating
     not_gate not_gate_0(.a(cnt[0]), .out(cnt_not[0]));
@@ -27,11 +27,12 @@ module Custom_Feature_Weight_en_SEL_Decoder(
     // en_sel OR gating(Sum)
     four_bit_or_gate SOP_en_sel(
         .a  (product0), 
-        .out(sum_0)
+        .out(sum0)
     );
     
+    
     // assign out
-    assign feature_weight_en_sel = sum_0;
+    assign feature_weight_en_sel = sum0;
     
     
     

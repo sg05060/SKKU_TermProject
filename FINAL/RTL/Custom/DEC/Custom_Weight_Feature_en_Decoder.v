@@ -4,6 +4,19 @@ module Custom_Feature_Weight_en_Decoder(
     // output reg [3:0] buff_en     // this line is for behavioral test
 );
 
+    // Porting
+    wire    [4:0]   cnt_not;
+    wire    [5:0]   product3;       // about buff_en[3]
+    wire    [5:0]   product2;       // about buff_en[2]
+    wire    [6:0]   product1;       // about buff_en[1]
+    wire    [5:0]   product0;       // about buff_en[0]
+
+    wire    [1:0]   sum3;           // about buff_en[3]
+    wire    [1:0]   sum2;           // about buff_en[2]
+    wire    [1:0]   sum1;           // about buff_en[1]
+    wire    [1:0]   sum0;           // about buff_en[0]
+
+    wire    [3:0]   sum;            // SOP value -> buff_en
     
     
     // Boolean expression
@@ -12,19 +25,7 @@ module Custom_Feature_Weight_en_Decoder(
     // buff_en[1] = 10000 | 011-1 | 10101 | 01011 | -0110 | 00-10 | 0-11- 
     // buff_en[0] = 01111 | 00011 | 10010 | 0100- | 1000- | 1011-
     
-    wire [4:0] cnt_not;
-    wire [5:0] product3;    // about buff_en[3]
-    wire [5:0] product2;    // about buff_en[2]
-    wire [6:0] product1;    // about buff_en[1]
-    wire [5:0] product0;    // about buff_en[0]
-    
-    
-    wire    [1:0]   sum3;
-    wire    [1:0]   sum2;
-    wire    [1:0]   sum1;
-    wire    [1:0]   sum0;
 
-    wire    [3:0]   sum;
     
     // NOT gating
     not_gate not_gate_0(.a(cnt[0]), .out(cnt_not[0]));
@@ -44,9 +45,9 @@ module Custom_Feature_Weight_en_Decoder(
     three_bit_and_gate  buff_en_product3_5(.a({cnt_not[4], cnt[3], cnt_not[2]}),                        .out(product3[5]));      // 010--
 
     // buff_en[3] OR gating(Sum)
-    three_bit_or_gate   buff_en_sum3_0(.a({product3[2:0]}), .out(sum3[0]));
-    three_bit_or_gate   buff_en_sum3_1(.a({product3[5:3]}), .out(sum3[1]));
-    or_gate             buff_en_sum3_2(.a(sum3[0]), .b(sum3[1]), .out(sum[3]));
+    three_bit_or_gate   buff_en_sum3_0(.a(product3[2:0]),           .out(sum3[0]));
+    three_bit_or_gate   buff_en_sum3_1(.a(product3[5:3]),           .out(sum3[1]));
+    or_gate             buff_en_sum3_2(.a(sum3[0]), .b(sum3[1]),    .out(sum[3]));      // buff_en[3]
     
     
     // buff_en[2] = 01011 | 00110 | 10100 | 10010 | 0110- | 0--01
@@ -59,9 +60,9 @@ module Custom_Feature_Weight_en_Decoder(
     three_bit_and_gate  buff_en_product2_5(.a({cnt_not[4], cnt_not[1], cnt[0]}),                        .out(product2[5]));      // 0--01
 
     // buff_en[2] OR gating(Sum)
-    three_bit_or_gate   buff_en_sum2_0(.a({product2[2:0]}), .out(sum2[0]));
-    three_bit_or_gate   buff_en_sum2_1(.a({product2[5:3]}), .out(sum2[1]));
-    or_gate             buff_en_sum2_2(.a(sum2[0]), .b(sum2[1]), .out(sum[2]));
+    three_bit_or_gate   buff_en_sum2_0(.a(product2[2:0]),           .out(sum2[0]));
+    three_bit_or_gate   buff_en_sum2_1(.a(product2[5:3]),           .out(sum2[1]));
+    or_gate             buff_en_sum2_2(.a(sum2[0]), .b(sum2[1]),    .out(sum[2]));      // buff_en[2]
     
 
     // buff_en[1] = 10000 | 011-1 | 10101 | 01011 | -0110 | 00-10 | 0-11-     
@@ -75,9 +76,9 @@ module Custom_Feature_Weight_en_Decoder(
     three_bit_and_gate  buff_en_product1_6(.a({cnt_not[4], cnt[2], cnt[1]}),                                .out(product1[6]));      // 0-11-
     
     // buff_en[1] OR gating(sum)
-    four_bit_or_gate    buff_en_sum1_0(.a(product[3:0]), .out(sum1[0]));
-    three_bit_or_gate   buff_en_sum1_1(.a(product[6:4]), .out(sum1[1]));
-    or_gate             buff_en_sum1_2(.a(sum1[0]), .b(sum1[1]), .out(sum[1]));
+    four_bit_or_gate    buff_en_sum1_0(.a(product[3:0]),            .out(sum1[0]));
+    three_bit_or_gate   buff_en_sum1_1(.a(product[6:4]),            .out(sum1[1]));
+    or_gate             buff_en_sum1_2(.a(sum1[0]), .b(sum1[1]),    .out(sum[1]));      // buff_en[1]
     
     
     // buff_en[0] = 01111 | 00011 | 10010 | 0100- | 1000- | 1011-    
@@ -90,11 +91,13 @@ module Custom_Feature_Weight_en_Decoder(
     five_bit_and_gate   buff_en_product0_5(.a({cnt[4], cnt_not[3], cnt[2], cnt[1]}),                    .out(product0[5]));      // 1011-
 
     // buff_en[0] OR gating(sum)
-    three_bit_or_gate   buff_en_sum0_0(.a({product0[2:0]}),         .out(sum0[0]));
-    three_bit_or_gate   buff_en_sum0_1(.a({product0[5:3]}),         .out(sum0[1]));
-    or_gate             buff_en_sum0_2(.a(sum0[0]), .b(sum0[1]),    .out(sum[0]));
+    three_bit_or_gate   buff_en_sum0_0(.a(product0[2:0]),           .out(sum0[0]));
+    three_bit_or_gate   buff_en_sum0_1(.a(product0[5:3]),           .out(sum0[1]));
+    or_gate             buff_en_sum0_2(.a(sum0[0]), .b(sum0[1]),    .out(sum[0]));      // buff_en[0]
     
     
+    // assign out
+    assign buff_en = sum;
     
     
     // behavioral logic(not use)
