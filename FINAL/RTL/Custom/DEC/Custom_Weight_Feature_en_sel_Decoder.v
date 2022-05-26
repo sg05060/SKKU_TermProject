@@ -19,10 +19,10 @@ module Custom_Feature_Weight_en_SEL_Decoder(
     not_gate not_gate_4(.a(cnt[4]), .out(cnt_not[4]));
     
     // en_sel AND gating(Product)
-    four_bit_and_gate   en_sel_product0_0(.a({cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}),    .out(product0[0]));     // -1000
-    three_bit_and_gate  en_sel_product0_1(.a({cnt_not[4], cnt[3], cnt[0]}),                    .out(product0[1]));     // 01--1
-    three_bit_and_gate  en_sel_product0_2(.a({cnt[4], cnt_not[3], cnt_not[0]}),                .out(product0[2]));     // 10--0
-    and_gate            en_sel_product0_3(.a(cnt_not[3]), .b(cnt[2])                           .out(product0[3]));     // -01--
+    four_bit_and_gate   en_sel_product0_0(.a({cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}),    .out(product0[0]) );     // -1000
+    three_bit_and_gate  en_sel_product0_1(.a({cnt_not[4], cnt[3], cnt[0]}),                    .out(product0[1]) );     // 01--1
+    three_bit_and_gate  en_sel_product0_2(.a({cnt[4], cnt_not[3], cnt_not[0]}),                .out(product0[2]) );     // 10--0
+    and_gate            en_sel_product0_3(.a(cnt_not[3]), .b(cnt[2]),                          .out(product0[3]) );     // -01--
     
     // en_sel OR gating(Sum)
     four_bit_or_gate SOP_en_sel(
