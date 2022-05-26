@@ -41,7 +41,7 @@ module Custom_Buff_use_Decoder(
     five_bit_and_gate   buff_use_product3_2(.a({cnt_not[4], cnt_not[3], cnt[2], cnt[1], cnt_not[0]}),   .out(product3[2]));     // 00110
     five_bit_and_gate   buff_use_product3_3(.a({cnt[4], cnt_not[3], cnt_not[2], cnt[1], cnt[0]}),       .out(product3[3]));     // 10011
     five_bit_and_gate   buff_use_product3_4(.a({cnt_not[4], cnt[3], cnt_not[2], cnt[1], cnt_not[0]}),   .out(product3[4]));     // 01010
-    fout_bit_and_gate   buff_use_product3_5(.a({cnt_not[4], cnt[3], cnt_not[2], cnt[0]}),               .out(product3[5]));     // 010-1
+    four_bit_and_gate   buff_use_product3_5(.a({cnt_not[4], cnt[3], cnt_not[2], cnt[0]}),               .out(product3[5]));     // 010-1
     four_bit_and_gate   buff_use_product3_6(.a({cnt[4], cnt_not[2], cnt_not[1], cnt[0]}),               .out(product3[6]));     // 1-001
     four_bit_and_gate   buff_use_product3_7(.a({cnt_not[3], cnt[2], cnt_not[1], cnt[0]}),               .out(product3[7]));     // -0101
     four_bit_and_gate   buff_use_product3_8(.a({cnt[4], cnt_not[3], cnt[2], cnt_not[1]}),               .out(product3[8]));     // 1010-
