@@ -10,7 +10,7 @@ module Custom_Buff_use_Decoder(
     wire    [8:0]   product3;       // about buff_use[3]
     wire    [6:0]   product2;       // about buff_use[2]
     wire    [4:0]   product1;       // about buff_use[1]
-    wire    [4:0]   prodcut0;       // about buff_use[0]
+    wire    [4:0]   product0;       // about buff_use[0]
 
     wire    [2:0]   sum3;           // about buff_use[3]    -> 3 | 3 | 3
     wire    [1:0]   sum2;           // about buff_use[2]    -> 4 | 3
