@@ -61,13 +61,13 @@ module Custom_ACC_en_Decoder(
 
     // acc_en[1] = 01010 | 01001 | 01100 | 1011- | 11000 | 1000- | 100-1
     // acc_en[1] AND gating(Product)
-    five_bit_and_gate   acc_en_product1_0(.a(), .out(product1[0]));     // 01010
-    five_bit_and_gate   acc_en_product1_1(.a(), .out(product1[1]));     // 01001
-    five_bit_and_gate   acc_en_product1_2(.a(), .out(product1[2]));     // 01100
-    four_bit_and_gate   acc_en_product1_3(.a(), .out(product1[3]));     // 1011-
-    five_bit_and_gate   acc_en_product1_4(.a(), .out(product1[4]));     // 11000
-    four_bit_and_gate   acc_en_product1_5(.a(), .out(product1[5]));     // 1000-
-    four_bit_and_gate   acc_en_product1_6(.a(), .out(product1[6]));     // 100-1
+    five_bit_and_gate   acc_en_product1_0(.a(cnt_not[4], cnt[3], cnt_not[2], cnt[1], cnt_not[0]),   .out(product1[0]));     // 01010
+    five_bit_and_gate   acc_en_product1_1(.a(cnt_not[4], cnt[3], cnt_not[2], cnt_not[1], cnt[0]),   .out(product1[1]));     // 01001
+    five_bit_and_gate   acc_en_product1_2(.a(cnt_not[4], cnt[3], cnt[2], cnt_not[1], cnt_not[0]),   .out(product1[2]));     // 01100
+    four_bit_and_gate   acc_en_product1_3(.a(cnt[4], cnt_not[3], cnt[2], cnt[1]),                   .out(product1[3]));     // 1011-
+    five_bit_and_gate   acc_en_product1_4(.a(cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]),   .out(product1[4]));     // 11000
+    four_bit_and_gate   acc_en_product1_5(.a(cnt[4], cnt_not[3], cnt_not[2], cnt_not[1]),           .out(product1[5]));     // 1000-
+    four_bit_and_gate   acc_en_product1_6(.a(cnt[4], cnt_not[3], cnt_not[2], cnt[0]),               .out(product1[6]));     // 100-1
     
     // acc_en[1] OR gating(Sum)
     four_bit_or_gate    acc_en_sum1_0(.a(product1[3:0]),        .out(sum1[0]));
@@ -77,11 +77,11 @@ module Custom_ACC_en_Decoder(
 
     // acc_en[0] = 01100 | 01-10 | 11000 | 1-001 | 10--1
     // acc_en[0] AND gating(Product)
-    five_bit_and_gate   acc_en_product0_0(.a(), .out(product0[0]));     // 01100
-    four_bit_and_gate   acc_en_product0_1(.a(), .out(product0[1]));     // 01-10
-    five_bit_and_gate   acc_en_product0_2(.a(), .out(product0[2]));     // 11000
-    four_bit_and_gate   acc_en_product0_3(.a(), .out(product0[3]));     // 1-001
-    three_bit_and_gate  acc_en_product0_4(.a(), .out(product0[4]));     // 10--1
+    five_bit_and_gate   acc_en_product0_0(.a(cnt_not[4], cnt[3], cnt[2], cnt_not[1], cnt_not[0]),   .out(product0[0]));     // 01100
+    four_bit_and_gate   acc_en_product0_1(.a(cnt_not[4], cnt[3], cnt[1], cnt_not[0]),               .out(product0[1]));     // 01-10
+    five_bit_and_gate   acc_en_product0_2(.a(cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]),   .out(product0[2]));     // 11000
+    four_bit_and_gate   acc_en_product0_3(.a(cnt[4], cnt_not[2], cnt_not[1], cnt[0]),               .out(product0[3]));     // 1-001
+    three_bit_and_gate  acc_en_product0_4(.a(cnt[4], cnt_not[3], cnt[0]),                           .out(product0[4]));     // 10--1
     
     // acc_en[0] OR gating(Sum)
     three_bit_or_gate   acc_en_sum0_0(.a(product0[2:0]),                    .out(sum0[0]));
