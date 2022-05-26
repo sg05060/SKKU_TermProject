@@ -8,7 +8,7 @@ module Custom_Addr_Decoder(
     wire    [4:0]   cnt_not;
 
     wire    [3:0]   product4;       // about addr[4]
-    wire    [6:0]   prodcut3;       // about addr[3]
+    wire    [6:0]   product3;       // about addr[3]
     wire    [4:0]   product2;       // about addr[2]
     wire    [7:0]   product1;       // about addr[1]
     wire    [6:0]   product0;       // about addr[0]
@@ -42,7 +42,7 @@ module Custom_Addr_Decoder(
 
     // addr[3] = 11000 | 10011 | 0100- | 00111 | 00101 | 001-0 | 010-1
     // addr[3] AND gating(Product)
-    five_bit_and_gate   addr_product3_0(.a({cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}), .out(prodcut3[0]));      // 11000
+    five_bit_and_gate   addr_product3_0(.a({cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}), .out(product3[0]));      // 11000
     five_bit_and_gate   addr_product3_1(.a({cnt[4], cnt_not[3], cnt_not[2], cnt[1], cnt[0]}),     .out(product3[1]));      // 10011
     four_bit_and_gate   addr_product3_2(.a({cnt_not[4], cnt[3], cnt_not[2], cnt_not[1]}),         .out(product3[2]));      // 0100-
     five_bit_and_gate   addr_product3_3(.a({cnt_not[4], cnt_not[3], cnt[2], cnt[1], cnt[0]}),     .out(product3[3]));      // 00111
