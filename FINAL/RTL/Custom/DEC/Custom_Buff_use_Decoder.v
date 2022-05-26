@@ -6,6 +6,7 @@ module Custom_Buff_use_Decoder(
 
     // Porting
     wire    [4:0]   cnt_not;
+    
     wire    [8:0]   product3;       // about buff_use[3]
     wire    [6:0]   product2;       // about buff_use[2]
     wire    [4:0]   product1;       // about buff_use[1]
@@ -84,11 +85,11 @@ module Custom_Buff_use_Decoder(
 
     // buff_use[0] = 01001 | 11000 | 10-11 | 01010 | 100--
     // buff_use[0] AND gating(Product)
-    five_bit_and_gate   buff_use_product0_0(.a(cnt_not[4], cnt[3], cnt_not[2], cnt_not[1], cnt[0]),     .out(product0[0]));       // 01001
-    five_bit_and_gate   buff_use_product0_1(.a(cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]),     .out(product0[1]));       // 11000
-    four_bit_and_gate   buff_use_product0_2(.a(cnt[4], cnt_not[3], cnt[1], cnt[0]),                     .out(product0[2]));       // 10-11
-    five_bit_and_gate   buff_use_product0_3(.a(cnt_not[4], cnt[3], cnt_not[2], cnt[1], cnt_not[0]),     .out(product0[3]));       // 01010
-    three_bit_and_gate  buff_use_product0_4(.a(cnt[4], cnt_not[3], cnt_not[2]),                         .out(product0[4]));       // 100--
+    five_bit_and_gate   buff_use_product0_0(.a({cnt_not[4], cnt[3], cnt_not[2], cnt_not[1], cnt[0]}),     .out(product0[0]));       // 01001
+    five_bit_and_gate   buff_use_product0_1(.a({cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}),     .out(product0[1]));       // 11000
+    four_bit_and_gate   buff_use_product0_2(.a({cnt[4], cnt_not[3], cnt[1], cnt[0]}),                     .out(product0[2]));       // 10-11
+    five_bit_and_gate   buff_use_product0_3(.a({cnt_not[4], cnt[3], cnt_not[2], cnt[1], cnt_not[0]}),     .out(product0[3]));       // 01010
+    three_bit_and_gate  buff_use_product0_4(.a({cnt[4], cnt_not[3], cnt_not[2]}),                         .out(product0[4]));       // 100--
     
     // buff_use[0] OR gating(Sum)
     three_bit_or_gate   buff_use_sum0_0(.a(product0[2:0]),                  .out(sum0[0]));
