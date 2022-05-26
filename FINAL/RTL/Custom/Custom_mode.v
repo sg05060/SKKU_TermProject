@@ -1,4 +1,8 @@
+// finished test version1 in vivado simulator - using decoder with behavioral code(2022.05.19)
+// finished test version2 in vivado simulator - using decoder change gatelevel, structural level(2022.05.26)
+
 module Custom_mode(
+
 
     input clk,                  // from fsm
     input rst,                  // from fsm
@@ -68,5 +72,6 @@ module Custom_mode(
     .c22            (c22)
     
 );
+
 
 endmodule
