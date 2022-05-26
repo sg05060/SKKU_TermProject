@@ -29,6 +29,14 @@ module Custom_Addr_Decoder(
     // addr[0] = 10010 | 01-00 | 01-11 | -0001 | 101-1 | 001-0 | 0-011
 
 
+    // NOT gating
+    not_gate not_gate_0(.a(cnt[0]), .out(cnt_not[0]));
+    not_gate not_gate_1(.a(cnt[1]), .out(cnt_not[1]));
+    not_gate not_gate_2(.a(cnt[2]), .out(cnt_not[2]));
+    not_gate not_gate_3(.a(cnt[3]), .out(cnt_not[3]));
+    not_gate not_gate_4(.a(cnt[4]), .out(cnt_not[4]));
+
+
     // addr[4] = 11000 | 011-1 | 100-0 | 101--
     // addr[4] AND gating(Product)
     five_bit_and_gate   addr_product4_0(.a({cnt[4], cnt[3], cnt_not[2], cnt_not[1], cnt_not[0]}), .out(product4[0]));       // 11000
