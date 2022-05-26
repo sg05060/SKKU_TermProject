@@ -52,7 +52,7 @@ module Custom_ACC_en_Decoder(
     // acc_en[2] AND gating(Product)
     four_bit_and_gate   acc_en_product2_0(.a({cnt_not[4], cnt_not[3], cnt[2], cnt[1]}),   .out(product2[0]));     // 0011-
     four_bit_and_gate   acc_en_product2_1(.a({cnt[4], cnt_not[3], cnt_not[1], cnt[0]}),   .out(product2[1]));     // 10-01
-    four_bit_and_gate   acc_en_product2_2(.a({cnt_not[4], cnt[3], cnt_not[0]}),           .out(product2[2]));     // 01--0
+    three_bit_and_gate  acc_en_product2_2(.a({cnt_not[4], cnt[3], cnt_not[0]}),           .out(product2[2]));     // 01--0
     four_bit_and_gate   acc_en_product2_3(.a({cnt[4], cnt_not[3], cnt_not[2], cnt[0]}),   .out(product2[3]));     // 100-1
     
     // acc_en[2] OR gating(Sum)

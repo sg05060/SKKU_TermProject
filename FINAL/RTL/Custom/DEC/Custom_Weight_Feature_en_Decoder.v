@@ -86,9 +86,9 @@ module Custom_Feature_Weight_en_Decoder(
     five_bit_and_gate   buff_en_product0_0(.a({cnt_not[4], cnt[3], cnt[2], cnt[1], cnt[0]}),            .out(product0[0]));      // 01111
     five_bit_and_gate   buff_en_product0_1(.a({cnt_not[4], cnt_not[3], cnt_not[2], cnt[1], cnt[0]}),    .out(product0[1]));      // 00011
     five_bit_and_gate   buff_en_product0_2(.a({cnt[4], cnt_not[3], cnt_not[2], cnt[1], cnt_not[0]}),    .out(product0[2]));      // 10010
-    five_bit_and_gate   buff_en_product0_3(.a({cnt_not[4], cnt[3], cnt_not[2], cnt_not[1]}),            .out(product0[3]));      // 0100-
-    five_bit_and_gate   buff_en_product0_4(.a({cnt[4], cnt_not[3], cnt_not[2], cnt_not[1]}),            .out(product0[4]));      // 1000-
-    five_bit_and_gate   buff_en_product0_5(.a({cnt[4], cnt_not[3], cnt[2], cnt[1]}),                    .out(product0[5]));      // 1011-
+    four_bit_and_gate   buff_en_product0_3(.a({cnt_not[4], cnt[3], cnt_not[2], cnt_not[1]}),            .out(product0[3]));      // 0100-
+    four_bit_and_gate   buff_en_product0_4(.a({cnt[4], cnt_not[3], cnt_not[2], cnt_not[1]}),            .out(product0[4]));      // 1000-
+    four_bit_and_gate   buff_en_product0_5(.a({cnt[4], cnt_not[3], cnt[2], cnt[1]}),                    .out(product0[5]));      // 1011-
 
     // buff_en[0] OR gating(sum)
     three_bit_or_gate   buff_en_sum0_0(.a(product0[2:0]),           .out(sum0[0]));
