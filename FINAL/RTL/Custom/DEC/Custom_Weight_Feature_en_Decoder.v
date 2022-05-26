@@ -76,8 +76,8 @@ module Custom_Feature_Weight_en_Decoder(
     three_bit_and_gate  buff_en_product1_6(.a({cnt_not[4], cnt[2], cnt[1]}),                                .out(product1[6]));      // 0-11-
     
     // buff_en[1] OR gating(sum)
-    four_bit_or_gate    buff_en_sum1_0(.a(product[3:0]),            .out(sum1[0]));
-    three_bit_or_gate   buff_en_sum1_1(.a(product[6:4]),            .out(sum1[1]));
+    four_bit_or_gate    buff_en_sum1_0(.a(product1[3:0]),            .out(sum1[0]));
+    three_bit_or_gate   buff_en_sum1_1(.a(product1[6:4]),            .out(sum1[1]));
     or_gate             buff_en_sum1_2(.a(sum1[0]), .b(sum1[1]),    .out(sum[1]));      // buff_en[1]
     
     
