@@ -66,7 +66,7 @@ module Custom_Addr_Decoder(
     
     // addr[2] OR gating(Sum)
     three_bit_or_gate   addr_sum2_0(.a(product2[2:0]),                  .out(sum2[0]));
-    or_gate             addr_sum2_1(.a(product2[3]), .b(product[4]),    .out(sum2[1]));
+    or_gate             addr_sum2_1(.a(product2[3]), .b(product2[4]),    .out(sum2[1]));
     or_gate             addr_sum2_2(.a(sum2[0]), .b(sum2[1]),           .out(sum[2]));      // addr[2]
     
     
