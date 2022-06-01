@@ -7,7 +7,6 @@ module Serial_Data_loader (
     input   [7:0]   q,
 
     output          is_done_o,
-    // output          we,
     output  [5:0]   addr,
 
     output  [7:0]   w_out,
