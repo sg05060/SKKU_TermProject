@@ -116,64 +116,46 @@ module Controller(
     end
 
     
+    // declare next state
     always @(*) begin
         next_state = S_RESET;
         case(current_state)
+            
+            // reset overall module
             S_RESET         :   if(start)
                                     next_state = S_MEM_INIT_0;
                                 else
                                     next_state = S_RESET;
-            S_MEM_INIT_0    :   
-                                    next_state = S_MEM_INIT_1;
-            S_MEM_INIT_1    :   
-                                    next_state = S_MEM_INIT_2;
-            S_MEM_INIT_2    :   
-                                    next_state = S_MEM_INIT_3;
-            S_MEM_INIT_3    :   
-                                    next_state = S_MEM_INIT_4;
-            S_MEM_INIT_4    :   
-                                    next_state = S_MEM_INIT_5;
-            S_MEM_INIT_5    :   
-                                    next_state = S_MEM_INIT_6;
-            S_MEM_INIT_6    :   
-                                    next_state = S_MEM_INIT_7;
-            S_MEM_INIT_7    :   
-                                    next_state = S_MEM_INIT_8;
-            S_MEM_INIT_8    :   
-                                    next_state = S_MEM_INIT_9;
-            S_MEM_INIT_9    :   
-                                    next_state = S_MEM_INIT_10;
-            S_MEM_INIT_10   :   
-                                    next_state = S_MEM_INIT_11;
-            S_MEM_INIT_11   :   
-                                    next_state = S_MEM_INIT_12;
-            S_MEM_INIT_12   :   
-                                    next_state = S_MEM_INIT_13;
-            S_MEM_INIT_13   :   
-                                    next_state = S_MEM_INIT_14;
-            S_MEM_INIT_14   :   
-                                    next_state = S_MEM_INIT_15;
-            S_MEM_INIT_15   :   
-                                    next_state = S_MEM_INIT_16;
-            S_MEM_INIT_16   :   
-                                    next_state = S_MEM_INIT_17;
-            S_MEM_INIT_17   :   
-                                    next_state = S_MEM_INIT_18;
-            S_MEM_INIT_18   :   
-                                    next_state = S_MEM_INIT_19;
-            S_MEM_INIT_19   :   
-                                    next_state = S_MEM_INIT_20;
-            S_MEM_INIT_20   :   
-                                    next_state = S_MEM_INIT_21;
-            S_MEM_INIT_21   :   
-                                    next_state = S_MEM_INIT_22;
-            S_MEM_INIT_22   :   
-                                    next_state = S_MEM_INIT_23;
-            S_MEM_INIT_23   :   
-                                    next_state = S_MEM_INIT_24;
-            S_MEM_INIT_24   :   
-                                    next_state = S_SERIAL_MODE_STRIDE_1;
+            
+            // memroy initialize
+            S_MEM_INIT_0    :   next_state = S_MEM_INIT_1;
+            S_MEM_INIT_1    :   next_state = S_MEM_INIT_2;
+            S_MEM_INIT_2    :   next_state = S_MEM_INIT_3;
+            S_MEM_INIT_3    :   next_state = S_MEM_INIT_4;
+            S_MEM_INIT_4    :   next_state = S_MEM_INIT_5;
+            S_MEM_INIT_5    :   next_state = S_MEM_INIT_6;
+            S_MEM_INIT_6    :   next_state = S_MEM_INIT_7;
+            S_MEM_INIT_7    :   next_state = S_MEM_INIT_8;
+            S_MEM_INIT_8    :   next_state = S_MEM_INIT_9;
+            S_MEM_INIT_9    :   next_state = S_MEM_INIT_10;
+            S_MEM_INIT_10   :   next_state = S_MEM_INIT_11;
+            S_MEM_INIT_11   :   next_state = S_MEM_INIT_12;
+            S_MEM_INIT_12   :   next_state = S_MEM_INIT_13;
+            S_MEM_INIT_13   :   next_state = S_MEM_INIT_14;
+            S_MEM_INIT_14   :   next_state = S_MEM_INIT_15;
+            S_MEM_INIT_15   :   next_state = S_MEM_INIT_16;
+            S_MEM_INIT_16   :   next_state = S_MEM_INIT_17;
+            S_MEM_INIT_17   :   next_state = S_MEM_INIT_18;
+            S_MEM_INIT_18   :   next_state = S_MEM_INIT_19;
+            S_MEM_INIT_19   :   next_state = S_MEM_INIT_20;
+            S_MEM_INIT_20   :   next_state = S_MEM_INIT_21;
+            S_MEM_INIT_21   :   next_state = S_MEM_INIT_22;
+            S_MEM_INIT_22   :   next_state = S_MEM_INIT_23;
+            S_MEM_INIT_23   :   next_state = S_MEM_INIT_24;
+            S_MEM_INIT_24   :   next_state = S_SERIAL_MODE_STRIDE_1;  // initilize done(init -> serial)
 
+
+            // serial stride start
             S_SERIAL_MODE_STRIDE_1  :   if(serial_mode_done)
                                             next_state = S_SERIAL_MODE_STRIDE_2;
                                         else
@@ -190,59 +172,74 @@ module Controller(
                                             next_state = S_SERIAL_MODE_WAIT;
                                         else
                                             next_state = S_SERIAL_MODE_STRIDE_4;
-            S_SERIAL_MODE_WAIT      :  
-                                            next_state = S_SERIAL_MODE_DONE;
-            S_SERIAL_MODE_DONE      :  
-                                            next_state = S_SYSTOLIC_MODE_WEIGHT_PRELOAD;
-
-
-
-            S_SYSTOLIC_MODE_WEIGHT_PRELOAD  : if(weight_Preloader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_1;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_WEIGHT_PRELOAD;
-            S_SYSTOLIC_MODE_STRIDE_1          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_2;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_1;
-            S_SYSTOLIC_MODE_STRIDE_2          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_3;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_2;
-            S_SYSTOLIC_MODE_STRIDE_3          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_4;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_3;
-            S_SYSTOLIC_MODE_STRIDE_4          : if(feature_Loader_done)
-                                                next_state = S_SYSTOLIC_MODE_WAIT_1;
-                                              else
-                                                next_state = S_SYSTOLIC_MODE_STRIDE_4;
-            S_SYSTOLIC_MODE_WAIT_1            : 
-                                                next_state = S_SYSTOLIC_MODE_WAIT_2;
-            S_SYSTOLIC_MODE_WAIT_2            : 
-                                                next_state = S_SYSTOLIC_MODE_WAIT_3;
-            S_SYSTOLIC_MODE_WAIT_3            : 
-                                                next_state = S_SYSTOLIC_MODE_DONE;
-            S_SYSTOLIC_MODE_DONE              : 
-                                                next_state = S_CUSTOM_MODE_EN;
             
-            S_CUSTOM_MODE_EN                  : if(custom_mode_done)
+            // serial mode wait for weight reset in PE
+            S_SERIAL_MODE_WAIT      :  next_state = S_SERIAL_MODE_DONE;
+            
+            // serial mode done(serial -> systolic)
+            S_SERIAL_MODE_DONE      :  next_state = S_SYSTOLIC_MODE_WEIGHT_PRELOAD;
+
+
+            // weight preload in systolic module
+            S_SYSTOLIC_MODE_WEIGHT_PRELOAD  : 
+                                            if(weight_Preloader_done)
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_1;
+                                            else
+                                                next_state = S_SYSTOLIC_MODE_WEIGHT_PRELOAD;
+            S_SYSTOLIC_MODE_STRIDE_1: 
+                                            if(feature_Loader_done)
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_2;
+                                            else
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_1;
+            S_SYSTOLIC_MODE_STRIDE_2          : 
+                                            if(feature_Loader_done)
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_3;
+                                            else
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_2;
+            S_SYSTOLIC_MODE_STRIDE_3          : 
+                                            if(feature_Loader_done)
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_4;
+                                            else
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_3;
+            S_SYSTOLIC_MODE_STRIDE_4          : 
+                                            if(feature_Loader_done)
+                                                next_state = S_SYSTOLIC_MODE_WAIT_1;
+                                            else
+                                                next_state = S_SYSTOLIC_MODE_STRIDE_4;
+            
+            // systolic wait state(systolic need 3cycle delay for finish all computation)
+            S_SYSTOLIC_MODE_WAIT_1            : next_state = S_SYSTOLIC_MODE_WAIT_2;
+            S_SYSTOLIC_MODE_WAIT_2            : next_state = S_SYSTOLIC_MODE_WAIT_3;
+            S_SYSTOLIC_MODE_WAIT_3            : next_state = S_SYSTOLIC_MODE_DONE;
+            S_SYSTOLIC_MODE_DONE              : next_state = S_CUSTOM_MODE_EN;  // systolic finsih(systolic -> custom)
+            
+            // custom mode start
+            S_CUSTOM_MODE_EN                  : 
+                                                if(custom_mode_done)
                                                     next_state = S_CUSTOM_MODE_DONE;
                                                 else
                                                     next_state = S_CUSTOM_MODE_EN;
-            S_CUSTOM_MODE_DONE                :
-                                                    next_state = S_DISPLAY_MODE_EN;
+            
+            S_CUSTOM_MODE_DONE                : next_state = S_DISPLAY_MODE_EN; // custom finish(custom -> display)
 
-            S_DISPLAY_MODE_EN               : if(display_done)
+            // display start
+            S_DISPLAY_MODE_EN               : 
+                                                if(display_done)
                                                     next_state = S_DISPLAY_MODE_DONE;
                                                 else
                                                     next_state = S_DISPLAY_MODE_EN;
+            
             S_DISPLAY_MODE_DONE             : next_state = S_RESET;
-                                                      
+
+
         endcase
     end
 
+
+    // fsm output(decided only by state) -> moore machine
     always @(*) begin
+    
+        // exception value(default for preventing latch)
         rst_computation_module          = 1'b1;
         rst_display_module              = 1'b1;
         addr_0                          = 6'b0;
@@ -257,6 +254,7 @@ module Controller(
         computation_mode_sel            = 2'b00;
         display_mode_reg_en             = 1'b0;
         custom_mode_en                  = 1'b0;
+        
         case(current_state)
             S_RESET         :   begin
                                     rst_computation_module          = 1'b1;
@@ -276,46 +274,48 @@ module Controller(
                                 end
 
             S_MEM_INIT_0    :   begin
-                                    addr_0  = 6'b00_0000;
-                                    data    = b11;
-
+                                    addr_0 = 6'b00_0000; data = b11;
                                 end
+                                
             S_MEM_INIT_1    :   begin
-                                    addr_0  = 6'b00_0001;
-                                    data    = b21;
-                            
+                                    addr_0  = 6'b00_0001; data = b21;
                                 end
+                                
             S_MEM_INIT_2    :   begin
                                     addr_0  = 6'b00_0010;
                                     data    = b31;
-                
                                 end
+                                
             S_MEM_INIT_3    :   begin
                                     addr_0  = 6'b00_0011;
                                     data    = b12;
-
                                 end
+                                
             S_MEM_INIT_4    :   begin
                                     addr_0  = 6'b00_0100;
                                     data    = b22;
-
                                 end
+                                
             S_MEM_INIT_5    :   begin
                                     addr_0  = 6'b00_0101;
                                     data    = b32;
                                 end
+                                
             S_MEM_INIT_6    :   begin
                                     addr_0  = 6'b00_0110;
                                     data    = b13;
                                 end
+                                
             S_MEM_INIT_7    :   begin
                                     addr_0  = 6'b00_0111;
                                     data    = b23;
                                 end
+                                
             S_MEM_INIT_8    :   begin
                                     addr_0  = 6'b00_1000;
                                     data    = b33;
                                 end
+                                
             S_MEM_INIT_9    :   begin
                                     addr_0  = 6'b00_1001;
                                     data    = a11;
