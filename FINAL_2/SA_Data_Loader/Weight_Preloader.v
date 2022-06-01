@@ -21,11 +21,13 @@ module Weight_Preloader(
     wire en_d;
     wire [3:0] sel;
     wire preload_en;
+    
+    // counter
     Scalable_up_counter counter(
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),
-        .i_num_cnt      (8'b0000_1001), 
+        .i_num_cnt      (8'b0000_1001), // stage9
         .out            (cnt), 
         .is_done_o      (is_done_o)
     );

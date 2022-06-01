@@ -28,12 +28,12 @@ module Feature_Loader (
     wire sa_reg_en_1_d;
     wire sa_reg_en_2_d;
     
-    
+    // counter
     Scalable_up_counter counter(
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),
-        .i_num_cnt      (8'b0000_1001), 
+        .i_num_cnt      (8'b0000_1001), // stage9(9 feature)
         .out            (cnt), 
         .is_done_o      (is_done_o)
     );

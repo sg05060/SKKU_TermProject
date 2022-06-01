@@ -2,7 +2,7 @@ module PE(a_in, b_in, y_in, en_reg_A, en_reg_B, en_reg_Acc, clk, rst, y_out, a_o
 
 
 	input [7:0] a_in, b_in, y_in;
-    input en_reg_A, en_reg_B,  en_reg_Acc, clk, rst;
+    input en_reg_A, en_reg_B, en_reg_Acc, clk, rst;
 	output [7:0] y_out, a_out, s_mode_out;
 
     wire[7:0] mul_out1, mul_out2;
