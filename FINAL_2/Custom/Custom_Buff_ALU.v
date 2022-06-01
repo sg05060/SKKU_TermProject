@@ -1,3 +1,5 @@
+// registering feature and weight value, multiply data
+
 module Custom_Buff_ALU(
     
     input   clk,

@@ -1,3 +1,4 @@
+// this module is active like two_bit_enalbe_counter
 module two_bit_upper(
     input           clk, 
     input           en, 

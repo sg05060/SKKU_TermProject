@@ -4,14 +4,14 @@ module Custom_TOP(
     input clk,
     input rst,
     
-    // Controll signal
+    // control signal from data_loader
     input   [7:0]   sel_demux,
     input   [3:0]   acc_en,
     input   [3:0]   weight_en,
     input   [3:0]   feature_en,
     input   [3:0]   buff_mux_sel,
 
-    // mem data
+    // mem data from data_loader
     input   [7:0]   data_in,
     
     // convolution out feature map
@@ -31,6 +31,9 @@ module Custom_TOP(
     wire    [7:0]   buff2_1, buff2_2, buff2_3, buff2_4;
     wire    [7:0]   buff3_1, buff3_2, buff3_3, buff3_4;
     wire    [7:0]   buff4_1, buff4_2, buff4_3, buff4_4;
+
+
+    // dataflow (buff_alu -> mux -> demux -> acc)
 
 
     // inst buff_alu
@@ -54,11 +57,11 @@ module Custom_TOP(
     eight_bit_one_to_four_demux_gatelevel_module eight_bit_demux_inst4(.a(mux_out_4), .s(sel_demux[1:0]), .out1(buff4_1), .out2(buff4_2), .out3(buff4_3), .out4(buff4_4));
     
     
-    // Inst Custom ACC
-    custom_acc custom_acc_inst1(.in_1(buff1_1), .in_2(buff2_1), .in_3(buff3_1), .in_4(buff4_1),  .clk(clk), .rst(rst), .en(acc_en[3]), .out(c11));
-    custom_acc custom_acc_inst2(.in_1(buff1_2), .in_2(buff2_2), .in_3(buff3_2), .in_4(buff4_2),  .clk(clk), .rst(rst), .en(acc_en[2]), .out(c12));
-    custom_acc custom_acc_inst3(.in_1(buff1_3), .in_2(buff2_3), .in_3(buff3_3), .in_4(buff4_3),  .clk(clk), .rst(rst), .en(acc_en[1]), .out(c21));
-    custom_acc custom_acc_inst4(.in_1(buff1_4), .in_2(buff2_4), .in_3(buff3_4), .in_4(buff4_4),  .clk(clk), .rst(rst), .en(acc_en[0]), .out(c22));
+    // inst Custom ACC
+    Custom_acc custom_acc_inst1(.in_1(buff1_1), .in_2(buff2_1), .in_3(buff3_1), .in_4(buff4_1),  .clk(clk), .rst(rst), .en(acc_en[3]), .out(c11));
+    Custom_acc custom_acc_inst2(.in_1(buff1_2), .in_2(buff2_2), .in_3(buff3_2), .in_4(buff4_2),  .clk(clk), .rst(rst), .en(acc_en[2]), .out(c12));
+    Custom_acc custom_acc_inst3(.in_1(buff1_3), .in_2(buff2_3), .in_3(buff3_3), .in_4(buff4_3),  .clk(clk), .rst(rst), .en(acc_en[1]), .out(c21));
+    Custom_acc custom_acc_inst4(.in_1(buff1_4), .in_2(buff2_4), .in_3(buff3_4), .in_4(buff4_4),  .clk(clk), .rst(rst), .en(acc_en[0]), .out(c22));
     
     
 endmodule

@@ -1,4 +1,5 @@
 module Feature_Loader (
+
     input clk,
     input rst,
     input en,
@@ -12,7 +13,9 @@ module Feature_Loader (
     output is_done_o,
     output sa_reg_en,
     output wire sa_en
+    
 );
+
     wire [7:0] cnt;
     wire [3:0] cnt_d;
     wire [1:0] two_bit_sel; 
@@ -24,7 +27,9 @@ module Feature_Loader (
     wire [7:0] i_reg_1,i_reg_2,i_reg_3;
     wire sa_reg_en_1_d;
     wire sa_reg_en_2_d;
-    custom_ring_couter counter(
+    
+    
+    Scalable_up_counter counter(
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),
@@ -106,16 +111,15 @@ module Feature_Loader (
         .rst(rst), 
         .out(feature_2)
     );
-   
-   eight_bit_en_register eight_bit_en_register_3(
+    eight_bit_en_register eight_bit_en_register_3(
         .in(i_reg_3), 
         .clk(clk), 
         .en(three_bit_en[0]), 
         .rst(rst), 
         .out(feature_3)
     );
-   
-   
+
+
 
 
     SA_register_en_Decoder SA_register_en_Decoder(

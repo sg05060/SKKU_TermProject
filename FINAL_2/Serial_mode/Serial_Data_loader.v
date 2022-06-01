@@ -46,7 +46,7 @@ module Serial_Data_loader (
         .out(sel_offset_1)
     );
 
-    custom_ring_couter counter(
+    Scalable_up_counter counter(
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),

@@ -21,7 +21,7 @@ module Weight_Preloader(
     wire en_d;
     wire [3:0] sel;
     wire preload_en;
-    custom_ring_couter counter(
+    Scalable_up_counter counter(
         .clk            (clk), 
         .rst            (rst), 
         .en             (en),
