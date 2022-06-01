@@ -207,6 +207,7 @@ module Controller(
                                             else
                                                 next_state = S_SYSTOLIC_MODE_STRIDE_4;
             
+            
             // systolic wait state(systolic need 3cycle delay for finish all computation)
             S_SYSTOLIC_MODE_WAIT_1            : next_state = S_SYSTOLIC_MODE_WAIT_2;
             S_SYSTOLIC_MODE_WAIT_2            : next_state = S_SYSTOLIC_MODE_WAIT_3;
@@ -214,6 +215,9 @@ module Controller(
             S_SYSTOLIC_MODE_DONE              : next_state = S_CUSTOM_MODE_EN;  // systolic finsih(systolic -> custom)
             
             // custom mode start
+            // In this module, we used data_loader concept. If you need to know each cycle control signal, 
+            // please refer custom_doc file in /TOP_DIRECTORY/FINAL_2/Custom/Custom_Doc/Custom_CNN_TOP_Control/sig.txt
+            // Explanation of each signal, please refer report 
             S_CUSTOM_MODE_EN                  : 
                                                 if(custom_mode_done)
                                                     next_state = S_CUSTOM_MODE_DONE;
@@ -221,6 +225,7 @@ module Controller(
                                                     next_state = S_CUSTOM_MODE_EN;
             
             S_CUSTOM_MODE_DONE                : next_state = S_DISPLAY_MODE_EN; // custom finish(custom -> display)
+
 
             // display start
             S_DISPLAY_MODE_EN               : 
@@ -273,12 +278,15 @@ module Controller(
                                     custom_mode_en                  = 1'b0;
                                 end
 
+            // mem initialize
             S_MEM_INIT_0    :   begin
-                                    addr_0 = 6'b00_0000; data = b11;
+                                    addr_0  = 6'b00_0000;
+                                    data    = b11;
                                 end
                                 
             S_MEM_INIT_1    :   begin
-                                    addr_0  = 6'b00_0001; data = b21;
+                                    addr_0  = 6'b00_0001;
+                                    data    = b21;
                                 end
                                 
             S_MEM_INIT_2    :   begin
@@ -382,6 +390,7 @@ module Controller(
                                     rst_computation_module = 1'b0;
                                 end
 
+            // serial
             S_SERIAL_MODE_STRIDE_1  :   begin
                                             rst_computation_module = 1'b0;
                                             mem_sel = 1'b1;
@@ -426,6 +435,7 @@ module Controller(
                                         end
                                     
 
+            // systolic
             S_SYSTOLIC_MODE_WEIGHT_PRELOAD  :   begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module = 1'b0;
@@ -507,6 +517,7 @@ module Controller(
                                                     custom_mode_en          = 1'b1;
                                                 end
 
+            // custom
             S_CUSTOM_MODE_EN                  : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module  = 1'b0;
@@ -521,6 +532,8 @@ module Controller(
                                                     rst_display_module = 1'b0;
                                                     display_mode_reg_en = 1'b1;
                                                 end
+            
+            // display
             S_DISPLAY_MODE_EN               : begin
                                                     mem_sel = 1'b1;
                                                     rst_computation_module  = 1'b1;
