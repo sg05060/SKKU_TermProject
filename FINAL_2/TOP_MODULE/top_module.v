@@ -1,3 +1,8 @@
+// finished test version1 in vivado simulator - using decoder with behavioral code(2022.05.19)
+// finished test version2 in vivado simulator - using decoder change gatelevel, structural level(2022.05.26)
+// finished test verison2 in fpga porting
+// finisehd test version3 in vivado simulator - modify some module, variable name for readability(2022.06.01)
+
 module top_module(
     input clk,
     input [1:0] sw,
@@ -82,8 +87,9 @@ module top_module(
         .Weight_Preloader_en(Weight_Preloader_en),
         .Feature_Loader_en(Feature_Loader_en),
         .custom_mode_en(custom_mode_en),
-        .systolic_mode(systolic_mode),  // systolic active enable signal(if 1'b0 weight preloader on, 
-                                        // if 1'b1 feature preloader on)
+        .systolic_mode(systolic_mode),  // systolic active enable signal
+                                        // if 1'b0 weight preloader on, feature preloader off 
+                                        // if 1'b1 feature preloader on, weight preloader off
         
         // select c11 or c12 or c21 or c22 to store result
         .c_reg_sel(c_reg_sel),          

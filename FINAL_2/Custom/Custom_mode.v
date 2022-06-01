@@ -1,7 +1,3 @@
-// finished test version1 in vivado simulator - using decoder with behavioral code(2022.05.19)
-// finished test version2 in vivado simulator - using decoder change gatelevel, structural level(2022.05.26)
-// version3 - modify some module, variable name for readability
-
 module Custom_mode(
 
     // basic signal
