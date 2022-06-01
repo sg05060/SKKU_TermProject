@@ -1,6 +1,6 @@
 module Display_module(
     input clock_100Mhz, // 100 Mhz clock source on Basys 3 FPGA
-    input reset, // reset
+    input reset,        // reset
 
     input reg_en,
     input [7:0] c11_sa,
@@ -13,20 +13,21 @@ module Display_module(
     input [7:0] c22_custom,
 
     output is_done_o,
-    output reg [3:0] Anode_Activate, // anode signals of the 7-segment LED display
-    output reg [6:0] LED_out// cathode patterns of the 7-segment LED display
+    output reg [3:0] Anode_Activate,    // anode signals of the 7-segment LED display
+    output reg [6:0] LED_out            // cathode patterns of the 7-segment LED display
     );
     reg [3:0] sel;
-    reg [26:0] one_second_counter; // counter for generating 1 second clock enable
-    wire one_second_enable;// one second enable for counting numbers
-    reg [15:0] displayed_number [0:7]; // counting number to be displayed
+    reg [26:0] one_second_counter;      // counter for generating 1 second clock enable
+    wire one_second_enable;             // one second enable for counting numbers
+    reg [15:0] displayed_number [0:7];  // counting number to be displayed
     reg [3:0] LED_BCD;
-    reg [19:0] refresh_counter; // 20-bit for creating 10.5ms refresh period or 380Hz refresh rate
-             // the first 2 MSB bits for creating 4 LED-activating signals with 2.6ms digit period
+    reg [19:0] refresh_counter;         // 20-bit for creating 10.5ms refresh period or 380Hz refresh rate
+                                        // the first 2 MSB bits for creating 4 LED-activating signals with 2.6ms digit period
     wire [1:0] LED_activating_counter; 
-                 // count     0    ->  1  ->  2  ->  3
-              // activates    LED1    LED2   LED3   LED4
-             // and repeat
+        // count        0   ->  1   ->  2  ->   3
+        // activates    LED1    LED2    LED3    LED4
+        // and repeat
+    
     always @(posedge clock_100Mhz or posedge reset)
     begin
         if(reset==1)
@@ -80,6 +81,7 @@ module Display_module(
             refresh_counter <= refresh_counter + 1;
     end 
     assign LED_activating_counter = refresh_counter[19:18];
+    
     // anode activating signals for 4 LEDs, digit period of 2.6ms
     // decoder to generate anode signals 
     always @(*)
@@ -111,6 +113,7 @@ module Display_module(
             end
         endcase
     end
+    
     // Cathode patterns of the 7-segment LED display 
     always @(*)
     begin
@@ -128,4 +131,5 @@ module Display_module(
         default: LED_out = 7'b0111111; // "0"
         endcase
     end
+    
 endmodule

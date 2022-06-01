@@ -1,39 +1,56 @@
 module Controller(
     input   clk,
     input   rst,
-    input   start,
+    input   start,  // start overall flow(initialize memory -> serial -> systolic -> custom -> display)
+    
+    // done signal
     input   serial_mode_done,
     input   weight_Preloader_done,
     input   feature_Loader_done,
     input   custom_mode_done,
     input   display_done,
 
+    // rst signal
     output reg rst_computation_module,
     output reg rst_display_module,
+    
+    // data & addr 
     output reg [7:0] data,
     output reg [5:0] addr_0,
 
+    // mem selct signal(controller || computation)
     output reg mem_sel, 
+    
+    // base address(refer serial&systolic data_loader report)
     output reg [7:0] serial_mode_feature_baseaddr,
     output reg [5:0] systolic_mode_feature_baseaddr,
+    
+    // enable select signal
     output reg serial_mode_en,
     output reg Weight_Preloader_en,
     output reg Feature_Loader_en,
     output reg custom_mode_en,
-    output reg systolic_mode, // weight perload or feature load
+    output reg systolic_mode,   // weight perload or feature load
     output reg [1:0] c_reg_sel, // select c11 or c12 or c21 or c22 to store result
     output reg [1:0] computation_mode_sel,
     output reg display_mode_reg_en
 
 );
-    parameter a11 = 8'b0000_0001, a12 = 8'b0000_0010, a13 = 8'b0000_0011, a14 = 8'b0000_0100,
-              a21 = 8'b0000_0001, a22 = 8'b0000_0010, a23 = 8'b0000_0011, a24 = 8'b0000_0100,
-              a31 = 8'b0000_0001, a32 = 8'b0000_0010, a33 = 8'b0000_0011, a34 = 8'b0000_0100,
-              a41 = 8'b0000_0001, a42 = 8'b0000_0010, a43 = 8'b0000_0011, a44 = 8'b0000_0100;
-    parameter b11 = 8'b0000_0001, b12 = 8'b0000_0010, b13 = 8'b0000_0011,
-              b21 = 8'b0000_0001, b22 = 8'b0000_0010, b23 = 8'b0000_0011,
-              b31 = 8'b0000_0001, b32 = 8'b0000_0010, b33 = 8'b0000_0011;
+    // input feature & weight value
+    // (if you need checking activation with other user own value, modify these)
+    
+    // initialize feature input
+    parameter a11 = 8'b0000_0001, a12 = 8'b0000_0010, a13 = 8'b0000_0011, a14 = 8'b0000_0100;
+    parameter a21 = 8'b0000_0001, a22 = 8'b0000_0010, a23 = 8'b0000_0011, a24 = 8'b0000_0100;
+    parameter a31 = 8'b0000_0001, a32 = 8'b0000_0010, a33 = 8'b0000_0011, a34 = 8'b0000_0100;
+    parameter a41 = 8'b0000_0001, a42 = 8'b0000_0010, a43 = 8'b0000_0011, a44 = 8'b0000_0100;
+    
+    // initialize weight input
+    parameter b11 = 8'b0000_0001, b12 = 8'b0000_0010, b13 = 8'b0000_0011;
+    parameter b21 = 8'b0000_0001, b22 = 8'b0000_0010, b23 = 8'b0000_0011;
+    parameter b31 = 8'b0000_0001, b32 = 8'b0000_0010, b33 = 8'b0000_0011;
 
+    // state parameter 
     parameter S_RESET                           = 6'b00_0000;
     parameter S_MEM_INIT_0                      = 6'b00_0001;
     parameter S_MEM_INIT_1                      = 6'b00_0010;
@@ -85,11 +102,11 @@ module Controller(
     parameter S_DISPLAY_MODE_DONE               = 6'b10_1100;
 
 
-
-
     reg [6:0] next_state;
     reg [6:0] current_state;
 
+    
+    // state update
     always @(posedge clk) begin
         if(rst == 0) begin
             current_state <= S_RESET;
@@ -98,6 +115,7 @@ module Controller(
         end
     end
 
+    
     always @(*) begin
         next_state = S_RESET;
         case(current_state)

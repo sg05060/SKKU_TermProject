@@ -38,7 +38,7 @@ module Feature_Loader (
         .is_done_o      (is_done_o)
     );
 
-    //make addr
+    // make addr
     SA_feature_address_decoder SA_feature_address_decoder(
         .cnt(cnt[3:0]),
         .addr(offset_addr)
@@ -79,76 +79,27 @@ module Feature_Loader (
         .out2(out2),
         .out3(out3)
     );
-    eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_1(
-            .a(out1), 
-            .b(8'b0), 
-            .s(three_bit_sel[2]), 
-            .out(i_reg_1)
-    );
-    eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_2(
-            .a(out2), 
-            .b(8'b0), 
-            .s(three_bit_sel[1]), 
-            .out(i_reg_2)
-    );
-    eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_3(
-            .a(out3), 
-            .b(8'b0), 
-            .s(three_bit_sel[0]), 
-            .out(i_reg_3)
-    );
-    eight_bit_en_register eight_bit_en_register_1(
-        .in(i_reg_1), 
-        .clk(clk), 
-        .en(three_bit_en[2]), 
-        .rst(rst), 
-        .out(feature_1)
-    );
-    eight_bit_en_register eight_bit_en_register_2(
-        .in(i_reg_2), 
-        .clk(clk), 
-        .en(three_bit_en[1]), 
-        .rst(rst), 
-        .out(feature_2)
-    );
-    eight_bit_en_register eight_bit_en_register_3(
-        .in(i_reg_3), 
-        .clk(clk), 
-        .en(three_bit_en[0]), 
-        .rst(rst), 
-        .out(feature_3)
-    );
+    
+    // muxinig out to register
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_1( .a(out1), .b(8'b0), .s(three_bit_sel[2]), .out(i_reg_1) );
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_2( .a(out2), .b(8'b0), .s(three_bit_sel[1]), .out(i_reg_2) );
+    eight_bit_two_to_one_mux_gatelevel_module eight_bit_two_to_one_mux_gatelevel_3( .a(out3), .b(8'b0), .s(three_bit_sel[0]), .out(i_reg_3) );
+    
+    // feature out register
+    eight_bit_en_register eight_bit_en_register_1( .in(i_reg_1),  .clk(clk),  .en(three_bit_en[2]),  .rst(rst),  .out(feature_1) );
+    eight_bit_en_register eight_bit_en_register_2( .in(i_reg_2),  .clk(clk),  .en(three_bit_en[1]),  .rst(rst),  .out(feature_2) );
+    eight_bit_en_register eight_bit_en_register_3( .in(i_reg_3),  .clk(clk),  .en(three_bit_en[0]),  .rst(rst),  .out(feature_3) );
 
-
-
-
+    // register enable decoder
     SA_register_en_Decoder SA_register_en_Decoder(
         .cnt(cnt_d),
         .en(w_sa_en)
     );
-    d_flip_flop_behavioral_module d_flip_flop_1 (
-        .d(w_sa_en), 
-        .clk(clk), 
-        .q(sa_en), 
-        .q_bar()
-    );
+    
+    // buffering one cycle delay for sync with memory data    
+    d_flip_flop_behavioral_module d_flip_flop_1( .d(w_sa_en),       .clk(clk), .q(sa_en),           .q_bar() );
+    d_flip_flop_behavioral_module d_flip_flop_2( .d(is_done_o),     .clk(clk), .q(sa_reg_en_1_d),   .q_bar() );
+    d_flip_flop_behavioral_module d_flip_flop_3( .d(sa_reg_en_1_d), .clk(clk), .q(sa_reg_en_2_d),   .q_bar() );
+    d_flip_flop_behavioral_module d_flip_flop_4( .d(sa_reg_en_2_d), .clk(clk), .q(sa_reg_en),       .q_bar() );
 
-    d_flip_flop_behavioral_module d_flip_flop_2 (
-        .d(is_done_o), 
-        .clk(clk), 
-        .q(sa_reg_en_1_d), 
-        .q_bar()
-    );
-    d_flip_flop_behavioral_module d_flip_flop_3 (
-        .d(sa_reg_en_1_d), 
-        .clk(clk), 
-        .q(sa_reg_en_2_d), 
-        .q_bar()
-    );
-    d_flip_flop_behavioral_module d_flip_flop_4(
-        .d(sa_reg_en_2_d), 
-        .clk(clk), 
-        .q(sa_reg_en), 
-        .q_bar()
-    );
 endmodule

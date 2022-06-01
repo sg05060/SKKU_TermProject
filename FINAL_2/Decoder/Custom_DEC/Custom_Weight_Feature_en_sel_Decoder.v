@@ -7,9 +7,9 @@ module Custom_Feature_Weight_en_SEL_Decoder(
     // Boolean expression
     // en_sel = -1000 | 01--1 | 10--0 | -01--
     
-    wire [4:0] cnt_not;
-    wire [3:0] product0;
-    wire sum0;
+    wire [4:0]  cnt_not;
+    wire [3:0]  product0;
+    wire        sum0;
     
     // NOT gating
     not_gate not_gate_0(.a(cnt[0]), .out(cnt_not[0]));
@@ -33,7 +33,6 @@ module Custom_Feature_Weight_en_SEL_Decoder(
     
     // assign out
     assign feature_weight_en_sel = sum0;
-    
     
     
     // Behavioral modeling(not use)

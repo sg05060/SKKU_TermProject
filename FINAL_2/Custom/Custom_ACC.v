@@ -1,5 +1,4 @@
-// this module accumulate right feature out value
-
+// accumulate right feature out value(control by register enable signal)
 module Custom_acc(
     input   [7:0]   in_1,
     input   [7:0]   in_2,

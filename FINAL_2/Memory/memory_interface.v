@@ -18,10 +18,10 @@ module memory_interface(
     );
 
     two_to_one_mux_gatelevel_module two_to_one_mux(
-	    .a(1'b1), 
+        .a(1'b1), 
         .b(1'b0),
-	    .s(sel),	
-	    .out(we_o)
+        .s(sel),	
+        .out(we_o)
     );
 
     assign data_o = data_i;

@@ -1,5 +1,4 @@
-// generating demux select for selecting alu out value to each feature out acc signal 
-
+// generating demux select signal for selecting datapass form ALU to ACC 
 module Demux_SEL(
 
     input           clk,

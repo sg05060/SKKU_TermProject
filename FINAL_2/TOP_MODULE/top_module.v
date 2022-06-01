@@ -40,50 +40,73 @@ module top_module(
     wire [7:0] c22_custom;
 
     Controller Controller(
-            .clk(clk),
-            .rst(sw[0]),
-            .start(sw[1]),
-            .serial_mode_done(serial_mode_done),
-            .weight_Preloader_done(weight_Preloader_done),
-            .feature_Loader_done(feature_Loader_done),
-            .custom_mode_done(custom_mode_done),
-            .display_done(display_done),
+        .clk(clk),
+        .rst(sw[0]),
+        .start(sw[1]),
+        
+        // done signal
+        .serial_mode_done(serial_mode_done),
+        .weight_Preloader_done(weight_Preloader_done),
+        .feature_Loader_done(feature_Loader_done),
+        .custom_mode_done(custom_mode_done),
+        .display_done(display_done),
 
-            .rst_computation_module(rst_computation_module),
-            .rst_display_module(rst_display_module),
-            .data(data),
-            .addr_0(addr_0),
+        .rst_computation_module(rst_computation_module),
+        .rst_display_module(rst_display_module),
+        .data(data),
+        .addr_0(addr_0),
 
-            .mem_sel(mem_sel), 
-            .serial_mode_feature_baseaddr(serial_mode_feature_baseaddr),
-            .systolic_mode_feature_baseaddr(systolic_mode_feature_baseaddr),
-            .serial_mode_en(serial_mode_en),
-            .Weight_Preloader_en(Weight_Preloader_en),
-            .Feature_Loader_en(Feature_Loader_en),
-            .custom_mode_en(custom_mode_en),
-            .systolic_mode(systolic_mode),
-            .c_reg_sel(c_reg_sel), 
-            .computation_mode_sel(computation_mode_sel),
-            .display_mode_reg_en(display_mode_reg_en)
-        );
+        .mem_sel(mem_sel), 
+        .serial_mode_feature_baseaddr(serial_mode_feature_baseaddr),
+        .systolic_mode_feature_baseaddr(systolic_mode_feature_baseaddr),
+        
+        // enable and datapass select signal 
+        .serial_mode_en(serial_mode_en),
+        .Weight_Preloader_en(Weight_Preloader_en),
+        .Feature_Loader_en(Feature_Loader_en),
+        .custom_mode_en(custom_mode_en),
+        .systolic_mode(systolic_mode),
+        .c_reg_sel(c_reg_sel), 
+        .computation_mode_sel(computation_mode_sel),
+        .display_mode_reg_en(display_mode_reg_en)
+    );
+    
     Computation_module Computation_module(
         .clk(clk),
         .rst(rst_computation_module),
         .serial_mode_feature_baseaddr(serial_mode_feature_baseaddr),
         .systolic_mode_feature_baseaddr(systolic_mode_feature_baseaddr),
+        
+        // module enable signal 
         .serial_mode_en(serial_mode_en),
         .Weight_Preloader_en(Weight_Preloader_en),
         .Feature_Loader_en(Feature_Loader_en),
         .custom_mode_en(custom_mode_en),
-        .systolic_mode(systolic_mode), // weight perload or feature load
-        .c_reg_sel(c_reg_sel), // select c11 or c12 or c21 or c22 to store result
+        .systolic_mode(systolic_mode),  // systolic active enable signal(if 1'b0 weight preloader on, 
+                                        // if 1'b1 feature preloader on)
+        
+        // select c11 or c12 or c21 or c22 to store result
+        .c_reg_sel(c_reg_sel),          
+        
+        // selecting computation mode
         .computation_mode_sel(computation_mode_sel),
+                                                        // 2'b00 : serial
+                                                        // 2'b01 : systolic
+                                                        // 2'b10 : custom
+        
+        // data from memory
         .q(q),
+        
+        // module done signal
         .serial_mode_done(serial_mode_done),
         .weight_Preloader_done(weight_Preloader_done),
         .feature_Loader_done(feature_Loader_done),
         .custom_mode_done(custom_mode_done),
+        
+        // address from computational module 
         .addr(addr_1),
+        
+        // output feature_map from systolic and custom module
         .c11_sa(c11_sa),
         .c12_sa(c12_sa),
         .c21_sa(c21_sa),
@@ -93,6 +116,8 @@ module top_module(
         .c21_custom(c21_custom),
         .c22_custom(c22_custom)
     );
+    
+    
     single_port_ram ram (
         .data(data_o),
         .addr(addr),
@@ -101,18 +126,20 @@ module top_module(
         .q(q_o)
     );
 
+
     memory_interface memory_interface(
         .data_i(data),
         .sel(mem_sel),
-        .addr_0(addr_0),
-        .addr_1(addr_1),
-        .q_i(q_o),
+        .addr_0(addr_0),    // address for initializing data in memory
+        .addr_1(addr_1),    // address of data using computational module
+        .q_i(q_o),          // initialize data from controller to memory
 
-        .addr_o(addr),
-        .we_o(we),
-        .data_o(data_o),
-        .q_o(q)
+        .addr_o(addr),      // output address selecting(initialize or computation req)
+        .we_o(we),          // write enable signal
+        .data_o(data_o),    // data from memory to computation module
+        .q_o(q)             // initialize data from controller to memory
     );
+
 
     Display_module display_module(
         .clock_100Mhz(clk),

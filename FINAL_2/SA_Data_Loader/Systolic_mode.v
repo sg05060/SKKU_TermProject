@@ -1,5 +1,5 @@
 module Systolic_mode(
-  
+
     input clk,
     input rst,
     input Weight_Preloader_en,
@@ -119,7 +119,7 @@ module Systolic_mode(
     );
 
     
-     systolic_array sa(
+    systolic_array sa(
         .clk(clk), 
         .rst(rst), 
         .en_reg_A(sa_en), 
