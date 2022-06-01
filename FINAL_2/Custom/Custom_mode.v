@@ -70,7 +70,7 @@ module Custom_mode(
         .sel_demux      (demux_sel),
         .acc_en         (acc_en),
         .weight_en      (weight_en),
-        .feature_en     (feature_en)
+        .feature_en     (feature_en),
         .buff_mux_sel   (buff_use),
     
         // mem data
