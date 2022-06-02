@@ -1,25 +1,32 @@
 // finished test version1 in vivado simulator - using decoder with behavioral code(2022.05.19)
 // finished test version2 in vivado simulator - using decoder change gatelevel, structural level(2022.05.26)
 // finished test verison2 in fpga porting
-// finisehd test version3 in vivado simulator - modify some module, variable name for readability(2022.06.01)
+// finisehd test version3 in vivado simulator - modify some module name, variable name for readability(2022.06.01)
 
 module top_module(
-    input clk,
-    input [1:0] sw,
-    output [3:0] an,
-    output [6:0] seg
+    input           clk,
+    input   [1:0]   sw,
+    output  [3:0]   an,
+    output  [6:0]   seg
 );  
+    // enable signal
     wire serial_mode_en;
     wire Weight_Preloader_en;
     wire Feature_Loader_en;
     wire custom_mode_en;
+    
+    // done signal
     wire serial_mode_done;
     wire weight_Preloader_done;
     wire feature_Loader_done;
     wire custom_mode_done;
     wire display_done;
+    
+    // reset signal
     wire rst_computation_module;
     wire rst_display_module;
+    
+    // memory control & data signal
     wire [7:0] serial_mode_feature_baseaddr;
     wire [5:0] systolic_mode_feature_baseaddr;
     wire [7:0] data;
@@ -31,10 +38,14 @@ module top_module(
     wire [7:0] q_o;
     wire [7:0] q;
     wire mem_sel;
+    
+    // mode selection signal
     wire systolic_mode;
     wire [1:0] c_reg_sel;
     wire [1:0] computation_mode_sel;
     wire display_mode_reg_en;
+    
+    // feature out signal
     wire [7:0] c11_sa;
     wire [7:0] c12_sa;
     wire [7:0] c21_sa;
@@ -43,6 +54,7 @@ module top_module(
     wire [7:0] c12_custom;
     wire [7:0] c21_custom;
     wire [7:0] c22_custom;
+
 
     Controller Controller(
         .clk(clk),
@@ -75,6 +87,7 @@ module top_module(
         .computation_mode_sel(computation_mode_sel),
         .display_mode_reg_en(display_mode_reg_en)
     );
+    
     
     Computation_module Computation_module(
         .clk(clk),
