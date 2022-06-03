@@ -212,10 +212,11 @@ module tb_Controller;
         
         
         // custom mode finishsed -> Display mode start //
+        // wait display module activation
         repeat(3) begin
             @(posedge clk);
         end
-        // give custom mode done signal
+        // give display mode done signal
         #3  display_done = 1'b1;
         @(posedge clk);
         #3  display_done = 1'b0;
