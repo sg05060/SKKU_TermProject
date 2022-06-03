@@ -26,6 +26,9 @@ module tb_Serial_mode;
         wait(is_done_o);
             @(posedge clk);
              #1 feature_baseaddr = 8'b0000_1110;
+        wait(is_done_o);
+            repeat(2) @(posedge clk);
+                            #1 rst = 1'b1;
     end
     top_serial_mode top(
         .clk(clk),
