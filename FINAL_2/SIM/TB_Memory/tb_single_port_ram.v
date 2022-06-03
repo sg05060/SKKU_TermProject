@@ -35,13 +35,13 @@ module tb_single_port_ram;
             data    = 8'd1;
         #10 // write num 2 in addr = 6'b00_0010
             addr    = 6'b00_0010;
-            data    = 8'd2
+            data    = 8'd2;
         #10 // write num 3 in addr = 6'b00_0011
             addr    = 6'b00_0011;
-            data    = 8'd3
+            data    = 8'd3;
         #10 // write num 4 in addr = 6'b00_0100
             addr    = 6'b00_0100;
-            data    = 8'd4
+            data    = 8'd4;
             
         // read
         

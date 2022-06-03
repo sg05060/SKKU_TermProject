@@ -126,32 +126,32 @@ module top_sa_loader(
 	.q(q)
     );
 
-     systolic_array sa(
-        .clk(clk), 
-        .rst(rst), 
-        .en_reg_A(sa_en), 
-        .en_reg_B(preload_ens), 
-        .en_reg_Acc(), 
-        .B11(preload_weight_1), 
-        .B12(preload_weight_2), 
-        .B13(preload_weight_3), 
-        .B21(preload_weight_4), 
-        .B22(preload_weight_5), 
-        .B23(preload_weight_6), 
-        .B31(preload_weight_7), 
-        .B32(preload_weight_8), 
-        .B33(preload_weight_9), 
-        .sel_en_demux_result(c_sel_d), 
-        .input_demux_c_reg(sa_reg_en), 
-        .sel_en_demux_c_reg(c_sel_d),
-        .row1_in(feature_1),
-        .row2_in(feature_2),
-        .row3_in(feature_3),
-        .c11(c11), 
-        .c12(c12), 
-        .c21(c21), 
-        .c22(c22)
-    );
+    systolic_array sa(
+    .clk(clk), 
+    .rst(rst), 
+    .en_reg_A(sa_en), 
+    .en_reg_B(preload_ens), 
+    .en_reg_Acc(), 
+    .B11(preload_weight_1), 
+    .B12(preload_weight_2), 
+    .B13(preload_weight_3), 
+    .B21(preload_weight_4), 
+    .B22(preload_weight_5), 
+    .B23(preload_weight_6), 
+    .B31(preload_weight_7), 
+    .B32(preload_weight_8), 
+    .B33(preload_weight_9), 
+    .sel_en_demux_result(c_sel_d), 
+    .input_demux_c_reg(sa_reg_en), 
+    .sel_en_demux_c_reg(c_sel_d),
+    .row1_in(feature_1),
+    .row2_in(feature_2),
+    .row3_in(feature_3),
+    .c11(c11), 
+    .c12(c12), 
+    .c21(c21), 
+    .c22(c22)
+);
 
 
 endmodule
