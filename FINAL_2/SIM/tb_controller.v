@@ -1,4 +1,4 @@
-module tb_Controller
+module tb_Controller;
     reg clk;
     reg rst;
     reg start;  // start overall flow(initialize memory -> serial -> systolic -> custom -> display)
@@ -79,6 +79,7 @@ module tb_Controller
     
     initial begin
         #0  rst = 1'b0; // reset
+            clk = 1'b0; // clk reset
         #3  rst = 1'b1; // reset off
             
         // wait for readability
@@ -87,6 +88,9 @@ module tb_Controller
         end
             
         #3  start = 1'b1;   // give start signal
+        @(posedge clk);
+        @(posedge clk);
+        #3  start = 1'b0;
         
         // wait initialize memory(>25)
         repeat(26) begin
