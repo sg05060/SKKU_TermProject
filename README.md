@@ -1,6 +1,6 @@
 # SKKU_TermProject  
 
-# Repository Owner  : sg05060(Park Sang Hyun)  
+# Repository Owner  : sg05060(박상현)  
 
 # Collaborator      
 - gju06051(최보열)  
