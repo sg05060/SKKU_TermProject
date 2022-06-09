@@ -19,8 +19,8 @@
 4. Vscode(Verilog code editor, https://code.visualstudio.com/)
 
 # Directory(FINAL_2)
-1. If you need simulation on Vivado, checking directory :SKKU_TERMPROJECT/SIM/
-2. If you want to check some block diagram, checking directory : SKKU_TERMPROJECT/DOC/
+1. If you need simulation on Vivado, checking directory :SKKU_TERMPROJECT/FINAL_2/SIM/
+2. If you want to check some block diagram, checking directory : SKKU_TERMPROJECT/FINAL_2/DOC/
 3. If you need to check some discussion, checking Github open/closed issue
 
 # Description
