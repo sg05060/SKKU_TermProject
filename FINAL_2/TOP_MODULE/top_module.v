@@ -1,7 +1,27 @@
-// finished test version1 in vivado simulator - using decoder with behavioral code(2022.05.19)
-// finished test version2 in vivado simulator - using decoder change gatelevel, structural level(2022.05.26)
-// finished test verison2 in fpga porting
-// finisehd test version3 in vivado simulator - modify some module name, variable name for readability(2022.06.01)
+//////////////////////////////////////////////////////////////////////////////////
+// Company:			SungKyunKwan University Electronic Electrical Engineering
+// Engineer:		sg05060(박상현), gju06051(최보열), skklnventor(장재성), nakyung0305(홍나경)
+//
+// Create Date:		2022/05/19
+// Design Name: 	Computations in deep neural networks
+// Module Name: 	top_module
+// Project Name:	Logic Design Laboratory(ICE2005) Term-Project
+// Target Devices:	FPGA Starter Kit Ⅲ Board
+// Tool Versions:	Vivado-Simulator(2021.2)
+// Description: 	This modulel is top hierachy of all module in Term-Project module, all other module in this project repo,
+//					under in this indent information 
+//              
+// Dependencies:	Vivado(2021.2)
+//
+// Revision:        Revision 1.00 - using decoder with behavioral code(2022.05.19)
+//                  Revision 1.01 - using decoder change gatelevel, structural level(2022.05.26)
+//                  Revision 1.02 - modify some module name, variable name for readability(2022.06.01)
+//
+// Additional Comments: This project is covered in SKKU-University Logic-Design-Laboratory(ICE2005)' pf. Yunho Oh
+//                      If you need any use of this project, please contact to this class pf and repo owner
+//                      pf Yunho Oh : https://yunho-oh.github.io/
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module top_module(
     input           clk,
