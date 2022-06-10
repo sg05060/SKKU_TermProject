@@ -22,6 +22,7 @@
 1. If you need simulation on Vivado, checking directory :SKKU_TERMPROJECT/FINAL_2/SIM/
 2. If you want to check some block diagram, checking directory : SKKU_TERMPROJECT/FINAL_2/DOC/
 3. If you need to check some discussion, checking Github open/closed issue
+4. If you need to check control signal from each data_loader of computation mode, check report & doc file, if you need detail, check    decoder module
 
 # Description
 - This module is for accelerated convolution operation in DNN model
